@@ -1,6 +1,5 @@
 import Divider from "../components/Divider";
 import Hero from "../components/Hero";
-import SubscribeMailout from "../components/SubscribeMailout";
 
 
 const HomePage = () => {
@@ -8,7 +7,7 @@ const HomePage = () => {
     <>
         <Hero/>
         <Divider />
-        <SubscribeMailout />
+
     </>
   )
 }
