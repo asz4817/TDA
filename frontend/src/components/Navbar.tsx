@@ -6,7 +6,7 @@ import profile from "../assets/profile.svg";
 export default function Navbar() {
   return (
     <nav className="w-full fixed top-0 left-0 bg-transparent text-white z-50">
-      <div className="relative mx-auto w-[75%] pt-24 flex items-center justify-between">
+      <div className="relative mx-auto w-[75%] pt-20 flex items-center justify-between">
         {/* Left: Logo */}
         <div className="flex items-center gap-15">
           <img src={TDALogo} alt="Texas Diabolo" className="w-25" />
