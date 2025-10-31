@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <section
       className="relative w-full h-screen bg-cover bg-center mb-10"
-        style={{ backgroundImage: `url(${HomeBg})`,backgroundColor: "transparent",}}
+        style={{ backgroundImage: `url(${HomeBg})`, backgroundColor: "transparent",}}
     >
       {/* Overlay for better text contrast */}
       <div className="absolute inset-0 bg-opacity-40" />
