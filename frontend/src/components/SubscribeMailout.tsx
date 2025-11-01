@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Q from "../assets/MailoutQ.svg";
+
 
 const SubscribeMailout = () => {
 
@@ -39,13 +41,15 @@ const SubscribeMailout = () => {
   
   return (
     <div className="w-full text-white py-12 flex flex-col">
-      <h2 className="text-sm tracking-widest text-center mb-4">
+      <img src={Q} alt="Email" className="w-[50%] ml-[12.5%] mt-10" />
+
+      <h2 className="text-sm tracking-widest text-center mb-4 mt-10">
         JOIN OUR MAILING LIST:
       </h2>
 
       <form className="w-[75%] mx-auto" onSubmit={addToMailout}>
         <input 
-          className="w-full mb-4 bg-transparent border-b border-white text-white focus:outline-none focus:border-gray-400 pb-1" 
+          className="w-full mb-4 pb-1 bg-transparent border-b border-white text-white focus:outline-none focus:border-gray-400" 
           type="email" 
           id="email" 
           name="email" 

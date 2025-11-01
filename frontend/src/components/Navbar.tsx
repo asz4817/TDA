@@ -10,7 +10,15 @@ export default function Navbar() {
       <div className="relative mx-auto w-[75%] pt-20 flex items-center justify-between">
         {/* Left: Logo */}
         <div className="flex items-center gap-15">
-          <img src={TDALogo} alt="Texas Diabolo" className="w-25" />
+            <NavLink 
+                        to="/"
+                        className="items-center" >
+                        <img
+                            className="w-25"
+                            src={TDALogo}
+                            alt="USADA Logo"
+                        />
+                    </NavLink>
           
           <NavLink
             to="/our-story"

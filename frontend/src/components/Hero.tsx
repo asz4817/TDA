@@ -1,6 +1,7 @@
 import HomeBg from "../assets/Home.png";
 import WeAreLogo from "../assets/WE ARE TEXAS DIABOLO.svg";
-// import BasedIn from "../assets/BasedIn.svg"
+import BasedIn from "../assets/BasedIn.svg"
+import Socials from "./Socials";
 
 const Hero = () => {
   return (
@@ -27,13 +28,16 @@ const Hero = () => {
             className="w-[40vw]"
           />
         </div>
-        {/* <div className="absolute bottom-[12%] right-[15%] ">
+        <div className="absolute bottom-[11%] right-[15%] ">
             <img
             src={BasedIn}
             alt="Based in Austin Texas"
             className="w-[10vw]"
           />
-        </div> */}
+        </div>
+         <div className="absolute right-[15%] ">
+            <Socials />
+        </div>
 
 
       </div>

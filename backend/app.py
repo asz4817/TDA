@@ -14,6 +14,35 @@ client = MongoClient(app.config['MONGO_URI'])
 db = client.get_database()
 mail = Mail(app)
 
+@app.route('/contact', methods=['POST', 'GET'])
+def contact():
+    '''backend for contact page'''
+    data = request.get_json()
+
+    name = data['name']
+    email = data['email']
+    message = data['message']
+
+
+    try:
+        db.contactMessages.insert_one({
+            'Name': name, 
+            'Email': email, 
+            'Message': message
+        })
+
+        msg = Message(f"Contact Us Page: Message from {name}",
+                       recipients=['texasdiabolo@gmail.com'])
+        msg.body = f"Name:  {name} \
+            \n Email:  {email} \
+            \n\nMessage:\n {message}"
+        mail.send(msg)
+
+    except Exception as e:
+        print(f"Failed: {str(e)}")
+        return jsonify({"message":  f"Failed: {str(e)}"}), 409
+
+    return jsonify({"Message": "Message received!"}), 200
 
 @app.route('/addToMailout', methods = ['POST', 'GET'])
 def add_to_mailout():

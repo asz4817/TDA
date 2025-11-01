@@ -1,6 +1,6 @@
 import Divider from "../components/Divider";
 import Hero from "../components/Hero";
-import SubscribeMailout from "../components/SubscribeMailout";
+import PerformanceCards from "../components/PerformanceCards";
 
 
 const HomePage = () => {
@@ -8,7 +8,9 @@ const HomePage = () => {
     <>
         <Hero/>
         <Divider />
-        <SubscribeMailout />
+
+        <PerformanceCards />
+
     </>
   )
 }
