@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+@font-face {
+    font-family: grotesk; /* set name */
+    src: url(assets/fonts/Fontspring-DEMO-rocgroteskcomp-extrabold.otf); /* url of the font */
+  }
+
+@font-face {
+    font-family: unbounded; /* set name */
+    src: url(assets/fonts/Unbounded-VariableFont_wght.ttf); /* url of the font */
+  }
+  

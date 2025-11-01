@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import TDALogo from "../assets/TDA_Logo.svg";
 import Line from "../assets/Line 1.svg";
 import profile from "../assets/profile.svg";
+import '../App.css'
 
 export default function Navbar() {
   return (
@@ -18,8 +19,11 @@ export default function Navbar() {
                 isActive ? "text-gray-300" : "text-white"
               }`
             }
+            style={{fontFamily: "unbounded",
+              fontSize: "11px"
+            }}
           >
-            Our Story
+            OUR STORY
           </NavLink>
 
           <NavLink
@@ -29,6 +33,9 @@ export default function Navbar() {
                 isActive ? "text-gray-300" : "text-white"
               }`
             }
+            style={{fontFamily: "unbounded",
+              fontSize: "11px"
+            }}
           >
             TXDC 2026
           </NavLink>
@@ -39,8 +46,11 @@ export default function Navbar() {
                 isActive ? "text-gray-300" : "text-white"
               }`
             }
+            style={{fontFamily: "unbounded",
+              fontSize: "11px"
+            }}
           >
-            Contact Us
+            CONTACT US
           </NavLink>
         </div>
 
@@ -50,8 +60,11 @@ export default function Navbar() {
         </div> */}
 
         {/* Right: Button + User icon */}
-        <div className="flex items-center gap-4">
-          <button className="px-5 py-2 border border-white rounded-full text-xs font-bold hover:bg-white hover:text-black transition">
+        <div className="flex items-center gap-4 ">
+          <button className="px-5 py-2 border border-white rounded-full hover:bg-white hover:text-black transition"
+                  style={{fontFamily: "unbounded",
+                    fontSize: "11px"
+                  }}>
             JOIN THE TEAM
           </button>
             <img src={Line} alt="Line" />

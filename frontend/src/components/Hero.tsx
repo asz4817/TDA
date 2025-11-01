@@ -6,7 +6,13 @@ const Hero = () => {
   return (
     <section
       className="relative w-full h-screen bg-cover bg-center mb-10"
-        style={{ backgroundImage: `url(${HomeBg})`,backgroundColor: "transparent",}}
+        style={{ backgroundImage: `url(${HomeBg})`,
+        backgroundColor: "transparent",
+        backgroundAttachment: "fixed",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
     >
       {/* Overlay for better text contrast */}
       <div className="absolute inset-0 bg-opacity-40" />
@@ -14,7 +20,7 @@ const Hero = () => {
       {/* Main content */}
       <div className="relative z-10 flex flex-col justify-end h-full px-[12%] pb-[4%] text-white">
         {/* Bottom Left */}
-        <div className="absolute  left-[15%]">
+        <div className="absolute left-[15%]">
           <img
             src={WeAreLogo}
             alt="We Are Texas Diabolo"
