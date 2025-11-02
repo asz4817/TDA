@@ -5,9 +5,8 @@ import { Outlet } from "react-router-dom"
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
-      {/* Fixed navbar */}
-      <Navbar />      
+    <div className="min-h-screen bg-black text-white">
+      <Navbar />
       <Outlet />
 
       <Footer/>
