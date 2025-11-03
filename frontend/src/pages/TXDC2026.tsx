@@ -1,8 +1,8 @@
 import Divider from "../components/Divider";
 import '../App.css';
-import RegistrationForm from "../components/RegistrationForm";
-import Test from "../components/test";
 import { NavLink } from "react-router-dom";
+import RegistrationInfo from "../components/RegistrationInfo";
+import EventSchedule from "../components/EventSchedule";
 
 const TXDC = () => {
   return (
@@ -50,8 +50,10 @@ const TXDC = () => {
     </section>
     
     <Divider />
-    <div className="mx-auto my-10 w-[50%]">   
-       
+    <div className="mx-auto w-[75vw]">   
+       <RegistrationInfo />
+       <br />
+       <EventSchedule />
     </div>
     </div>
   )

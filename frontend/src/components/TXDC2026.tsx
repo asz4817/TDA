@@ -1,6 +1,6 @@
 import Divider from "../components/Divider";
 import '../App.css';
-import RegistrationForm from "../components/RegistrationForm";
+import RegistrationInfo from "./RegistrationInfo";
 
 const TXDC = () => {
   return (
@@ -45,7 +45,7 @@ const TXDC = () => {
     
     <Divider />
     <div className="mx-auto my-10 w-[50%]">   
-       <RegistrationForm />
+        <RegistrationInfo />
     </div>
     </div>
   )

@@ -15,8 +15,8 @@ const FAQ = () => {
       {
         id: "p1",
         number: "01",
-        question: "Do I need prior diabolo experience to join the team?",
-        answer: "No! We are super beginner friendly and we love teaching beginners! Almost everyone who joins starts off as a beginner- having never touched a diabolo before. Some of our members even learned how to yo-yo 2 weeks before a performance!"
+        question: "How do I join the team, and do I need diabolo experience to perform?",
+        answer: "Join the discord! We are super beginner friendly and we love teaching beginners! Almost everyone who joins starts off as a beginner- having never touched a diabolo before. Some of our members even learned how to yo-yo 2 weeks before a performance! We would love to see you at our regular Tuesday meet ups from 5-7pm on Speedway, and keep an eye out on our discord for our performance sign up forms."
       },
       {
         id: "p2",
@@ -45,24 +45,58 @@ const FAQ = () => {
     <div className="min-h-screen bg-black text-white px-8 py-16">
       <div className="max-w-7xl mx-auto">
         {/* FAQ Title */}
-        <h1 className="text-8xl font-black mb-10">FAQ</h1>
+        <h1 
+          style={{
+            fontFamily: 'roc-grotesk-compressed, sans-serif',
+            fontWeight: 600,
+            fontStyle: 'normal',
+            fontSize: '80px'
+          }}
+        >
+          FAQ
+        </h1>
 
         {/* Prospective Team Members Section */}
-        <div className="mb-10">
-          <h2 className="text-2xl font-normal mb-8">For prospective team members:</h2>
+        <div className="mb-10 pt-6">
+          <h2 
+            style={{
+              fontFamily: 'unbounded, sans-serif',
+              fontSize: '18px'
+            }}
+          >
+            For prospective team members:
+          </h2>
           
           <div className="space-y-0">
             {faqData.prospective.map((item) => (
-              <div key={item.id} className="border-t border-white">
-                <div className="py-8">
+              <div key={item.id} className="border-b border-white">
+                <div className="py-6">
                   {/* Question Row */}
                   <div 
                     className="flex items-start justify-between cursor-pointer"
                     onClick={() => toggleItem(item.id)}
                   >
                     <div className="flex items-start gap-8 flex-1">
-                      <span className="text-6xl font-black">{item.number}</span>
-                      <h3 className="text-3xl font-normal pt-3 flex-1">{item.question}</h3>
+                      <span 
+                        style={{
+                          fontFamily: 'roc-grotesk-compressed, sans-serif',
+                          fontWeight: 700,
+                          fontSize: '50px'
+                        }}
+                      >
+                        {item.number}
+                      </span>
+                      <h3 
+                        style={{
+                          fontFamily: 'unbounded, sans-serif',
+                          fontSize: '16px',
+                          fontWeight: 400,
+                          alignSelf: "center",
+                        }}
+                        className="flex-1 justify-center"
+                      >
+                        {item.question}
+                      </h3>
                     </div>
                     
                     <button 
@@ -80,7 +114,14 @@ const FAQ = () => {
                     }`}
                   >
                     <div className="pl-32">
-                      <p className="text-lg leading-relaxed text-gray-300">
+                      <p 
+                        style={{
+                          fontFamily: 'unbounded, sans-serif',
+                          fontSize: '14px',
+                          lineHeight: '1.6'
+                        }}
+                        className="text-gray-300"
+                      >
                         {item.answer}
                       </p>
                     </div>
@@ -93,24 +134,51 @@ const FAQ = () => {
 
         {/* Event Organizers Section */}
         <div>
-          <h2 className="text-2xl font-normal mb-8">For event organizers and diabolo community members:</h2>
+          <h2 
+            style={{
+              fontFamily: 'unbounded, sans-serif',
+              fontSize: '20px'
+            }}
+            className="pt-10"
+          >
+            For event organizers and diabolo community members:
+          </h2>
           
           <div className="space-y-0">
             {faqData.organizers.map((item) => (
-              <div key={item.id} className="border-t border-white">
-                <div className="py-8">
+              <div key={item.id} className="border-b border-white">
+                <div className="py-6">
                   {/* Question Row */}
                   <div 
                     className="flex items-start justify-between cursor-pointer"
                     onClick={() => toggleItem(item.id)}
                   >
                     <div className="flex items-start gap-8 flex-1">
-                      <span className="text-6xl font-black">{item.number}</span>
-                      <h3 className="text-3xl font-normal pt-3 flex-1">{item.question}</h3>
+                      <span 
+                        style={{
+                          fontFamily: 'roc-grotesk-compressed, sans-serif',
+                          fontWeight: 700,
+                          fontSize: '50px'
+                        }}
+                      >
+                        {item.number}
+                      </span>
+                      <h3 
+                         style={{
+                          fontFamily: 'unbounded, sans-serif',
+                          fontSize: '16px',
+                          fontWeight: 400,
+                          alignSelf: "center",
+                        }}
+                        className="flex-1"
+                      >
+                        {item.question}
+                      </h3>
                     </div>
                     
                     <button 
                       className="text-5xl font-light ml-8 transition-transform duration-300"
+                      style={{ transform: openItems[item.id] ? 'rotate(0deg)' : 'rotate(0deg)' }}
                     >
                       {openItems[item.id] ? '—' : '+'}
                     </button>
@@ -123,7 +191,14 @@ const FAQ = () => {
                     }`}
                   >
                     <div className="pl-32">
-                      <p className="text-lg leading-relaxed text-gray-300">
+                      <p 
+                        style={{
+                          fontFamily: 'unbounded, sans-serif',
+                          fontSize: '14px',
+                          lineHeight: '1.6'
+                        }}
+                        className="text-gray-300"
+                      >
                         {item.answer}
                       </p>
                     </div>
@@ -134,8 +209,6 @@ const FAQ = () => {
           </div>
         </div>
 
-        {/* Bottom border */}
-        <div className="border-t border-white mt-0"></div>
       </div>
     </div>
   );
