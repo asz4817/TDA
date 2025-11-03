@@ -16,11 +16,20 @@ const ContactUs = () => {
     <div className="pt-45 pb-30">
         <div className="w-[70%] grid grid-cols-2 mx-auto">      
             <div className="space-y-4 z-50 mt-10">
-                <h1 className="text-5xl lg:text-6xl font-black tracking-tight">
+                <h1 className=""
+                    style={{
+                        fontFamily: `roc-grotesk-compressed, sans-serif`,
+                        fontWeight: 700,
+                        fontStyle: "normal",
+                        fontSize: "128px",
+                        marginBottom: "-5%",
+                    }}>
                 CONTACT US
                 </h1>
-                
-                <p className="text-gray-300 max-w-lg leading-relaxed">
+                <p style={{
+                        fontFamily: "unbounded",
+                        fontSize: "14px",
+                    }}>
                 For any inquiries, or if you're an event organizer looking for an awesome performance for your event, we'd love to hear from you! Reach out and let's connect.
                 </p>
                 <div className="justify-self-start"><Socials/></div>

@@ -16,7 +16,7 @@ const FAQ = () => {
         id: "p1",
         number: "01",
         question: "How do I join the team, and do I need diabolo experience to perform?",
-        answer: "Join the discord! We are super beginner friendly and we love teaching beginners! Almost everyone who joins starts off as a beginner- having never touched a diabolo before. Some of our members even learned how to yo-yo 2 weeks before a performance! We would love to see you at our regular Tuesday meet ups from 5-7pm on Speedway, and keep an eye out on our discord for our performance sign up forms."
+        answer: "Join our discord! We are super beginner friendly and we love teaching beginners! Almost everyone who joins starts off as a beginner- having never touched a diabolo before. Some of our members even learned how to yo-yo 2 weeks before a performance! We would love to see you at our regular Tuesday meet ups from 5-7pm on Speedway, and keep an eye out on our discord for our performance sign up forms."
       },
       {
         id: "p2",
@@ -30,13 +30,13 @@ const FAQ = () => {
         id: "o1",
         number: "01",
         question: "What kind of performances can TDA provide for our event?",
-        answer: "No! We are super beginner friendly and we love teaching beginners! Almost everyone who joins starts off as a beginner- having never touched a diabolo before. Some of our members even learned how to yo-yo 2 weeks before a performance!"
+        answer: "We often perform sets ranging from 10-15 minutes depending on what an event is looking for. We often get asked to perform for cultural events and organizations, and we adjust our performances to accomodate for space constraints such as the ceiling height, and indoor/outdoor nature of the stage area. "
       },
       {
         id: "o2",
         number: "02",
-        question: "How can non-UT students get involved with TDA?",
-        answer: "Join our discord! All of our communications happen there and we will send out google forms for every performance that we will have this semester, so keep an eye out! We would love to see you at our regular Tuesday meet ups from 5-7pm on Speedway."
+        question: "How can community members get involved with TDA?",
+        answer: "Come to our workshops and competitions! Keep an eye out on our Instagram for our open diabolo workshops where we teach players of all skill levels new tricks. We also host a competition in the Spring semester that is open to diabolo players of all levels of experience."
       }
     ]
   };

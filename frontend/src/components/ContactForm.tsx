@@ -52,11 +52,15 @@ const ContactForm = () => {
 
   return (
     <div className="lg:ml-auto w-[90%] justify-self-end max-w-md">
-        <section className="backdrop-blur-xs  border border-gray-700 rounded-3xl p-8 shadow-2xl">
+        <section className="backdrop-blur-xs  border border-gray-400 rounded-3xl p-8 shadow-2xl">
             <form id="contact-form" onSubmit={submitContactForm}>
                 <div className="space-y-6">
                     <input 
                         className="w-full bg-transparent border-b border-gray-500 py-3 px-1 text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors text-sm tracking-wider" 
+                        style={{
+                          fontFamily: "unbounded",
+                          fontSize: "11px",
+                      }}
                         type="text" 
                         id="name"
                         name="name" 
@@ -68,6 +72,10 @@ const ContactForm = () => {
         
                     <input 
                       className="w-full bg-transparent border-b border-gray-500 py-3 px-1 text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors text-sm tracking-wider" 
+                      style={{
+                        fontFamily: "unbounded",
+                        fontSize: "11px",
+                    }}  
                         type="email" 
                         id="email" 
                         name="email" 
@@ -78,6 +86,10 @@ const ContactForm = () => {
                     />
                     <textarea 
                         className="w-full bg-transparent border-b border-gray-500 py-3 px-1 text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors text-sm tracking-wider resize-none" 
+                        style={{
+                          fontFamily: "unbounded",
+                          fontSize: "11px",
+                      }}
                         id="message" 
                         name="message" 
                         placeholder="MESSAGE"
@@ -89,8 +101,12 @@ const ContactForm = () => {
                 </div>
                 <button  
                   className="w-full mt-8 bg-transparent border border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-medium tracking-wider text-sm" 
-                  type="submit">
-                    Submit
+                  type="submit"
+                  style={{
+                    fontFamily: "unbounded",
+                    fontSize: "11px",
+                }}>
+                    SUBMIT
                 </button>
             </form>
             <p className="mt-3 text-green-500 text-center mt-4">{responseMessage}</p>

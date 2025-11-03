@@ -37,7 +37,7 @@ const Registration = () => {
             </div>
             <div className="pt-4"
             style={{
-              fontFamily: 'unbounded, sans-serif'
+              fontFamily: 'unbounded, sans-serif',
             }}>
               <p className="text-sm">• Registration Due: 11:59 PM CST on December 31, 2025</p>
               <p className="text-sm">• Music Due: 11:59 PM CST on February 14th, 2026</p>
@@ -59,7 +59,7 @@ const Registration = () => {
             </div>
             <div className="pt-4"
             style={{
-              fontFamily: 'unbounded, sans-serif'
+              fontFamily: 'unbounded, sans-serif',
             }}>
               <p className="text-sm">All Individual Divisions: $35 per competitor</p>
               <p className="text-sm">Team Open: $50 per team</p>
@@ -90,21 +90,21 @@ const Registration = () => {
               fontSize: '12px',
               lineHeight: "1.3px"
             }}>
-              <p className="leading-tight">
+              <p className="text-sm">
                 • Individual Open Stage Division: Open to participants of all ages and skill levels.
               </p>
               
-              <p className="leading-tight">
+              <p className="text-sm">
                 • Individual Regional Open Division: Open to participants of all ages and skill levels.{' '}
                 <span className="text-gray-400">Competitors must have a valid Texas mailing address.</span>
               </p>
               
-              <p className="leading-tight">
+              <p className="text-sm">
                 • Individual Regional Junior Division: Optional division for competitors under the age of 18.{' '}
                 <span className="text-gray-400">Competitors must be under the age of 18 on March 14th, 2026</span>
               </p>
               
-              <p className="leading-tight">
+              <p className="text-sm">
                 • Team Open Stage Division: Open to participants of all ages and skill levels.
               </p>
 
