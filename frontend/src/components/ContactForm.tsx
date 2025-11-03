@@ -52,7 +52,7 @@ const ContactForm = () => {
 
   return (
     <div className="lg:ml-auto w-[90%] justify-self-end max-w-md">
-        <section className="backdrop-blur-xs  border border-gray-700 rounded-3xl p-8 shadow-2xl">
+        <section className="backdrop-blur-xs  border border-gray-700 rounded-3xl p-12 shadow-2xl">
             <form id="contact-form" onSubmit={submitContactForm}>
                 <div className="space-y-6">
                     <input 
@@ -81,7 +81,7 @@ const ContactForm = () => {
                         id="message" 
                         name="message" 
                         placeholder="MESSAGE"
-                        rows={5} 
+                        rows={6} 
                         required 
                         value = {message}
                         onChange={(e) => setMessage(e.target.value)}
