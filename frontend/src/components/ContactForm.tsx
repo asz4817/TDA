@@ -93,7 +93,7 @@ const ContactForm = () => {
                         id="message" 
                         name="message" 
                         placeholder="MESSAGE"
-                        rows={5} 
+                        rows={6} 
                         required 
                         value = {message}
                         onChange={(e) => setMessage(e.target.value)}

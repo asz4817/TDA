@@ -9,11 +9,11 @@ const ContactUs = () => {
   return (
     <div>
     <section
-      className="relative w-full h-screen bg-cover bg-center mb-10"
+      className="relative w-full h-screen bg-cover bg-center mt-20"
         style={{ backgroundImage: `url(${ContactBg})`,backgroundColor: "transparent",}}
     >
           <div className="absolute inset-0 bg-black opacity-50"></div>
-    <div className="pt-45 pb-30">
+    <div className="pt-35">
         <div className="w-[70%] grid grid-cols-2 mx-auto">      
             <div className="space-y-4 z-50 mt-10">
                 <h1 className=""
@@ -32,10 +32,10 @@ const ContactUs = () => {
                     }}>
                 For any inquiries, or if you're an event organizer looking for an awesome performance for your event, we'd love to hear from you! Reach out and let's connect.
                 </p>
-                <div className="justify-self-start"><Socials/></div>
+                <div className="justify-self-start mt-6"><Socials/></div>
             </div>
 
-            <div>
+            <div className="">
                 <ContactForm />
             </div>
         </div>
