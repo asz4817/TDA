@@ -13,11 +13,9 @@ const TXDC = () => {
                 <div className="space-y-2">
                     <h1 className=""
                     style={{
-                        fontFamily: `roc-grotesk-compressed, sans-serif`,
-                        fontWeight: 700,
-                        fontStyle: "normal",
+                        fontFamily: "roc-grotesk-condensed",
                         fontSize: "168px",
-                        marginBottom: "-11%",
+                        marginBottom: "-12%",
                     }}>
                     TXDC 2026
                     </h1>

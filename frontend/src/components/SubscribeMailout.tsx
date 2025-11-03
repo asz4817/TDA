@@ -40,7 +40,8 @@ const SubscribeMailout = () => {
   }
   
   return (
-    <div className="w-full text-white py-12 flex flex-col">
+    <div className="w-full text-white py-12 flex flex-col"
+      >
       <img src={Q} alt="Email" className="w-[50%] ml-[12.5%] mt-10" />
 
       <h2 className="text-sm tracking-widest text-center mb-4 mt-10">

@@ -1,20 +1,6 @@
 @import "tailwindcss";
 
 @font-face {
-    font-family: grotesk; /* set name */
-    src: url(assets/fonts/Fontspring-DEMO-rocgroteskcomp-extrabold.otf); /* url of the font */
-  }
-
-@font-face {
     font-family: unbounded; /* set name */
     src: url(assets/fonts/Unbounded-VariableFont_wght.ttf); /* url of the font */
   }
-  
-.scrollbar-hide {
-  -ms-overflow-style: none; /* Internet Explorer and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, and Opera */
-}

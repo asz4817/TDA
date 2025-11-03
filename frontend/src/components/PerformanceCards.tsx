@@ -3,6 +3,7 @@ import Perf1 from "../assets/Perf1.png";
 import Perf2 from "../assets/Perf2.png";
 import Perf3 from "../assets/Perf3.png";
 import Arrow from "../assets/arrow-right-circle.svg";
+import '../App.css';
 
 
 const PerformanceCards = () => {
@@ -34,11 +35,23 @@ const PerformanceCards = () => {
 
   return (
     <div className="min-h-screen text-white py-20 px-8">
-      <div className="w-[90%] mx-auto grid grid-cols-7">
+      <div className="w-[81%] mx-auto grid grid-cols-7">
             {/* Header */}
             <div className="col-span-2 my-auto mx-auto">
-                <h2 className="text-3xl font-black">OUR</h2>
-                <h2 className="text-3xl font-black">PERFORMANCES</h2>
+                <h2 style={{
+                  fontFamily: `roc-grotesk-compressed, sans-serif`,
+                  fontWeight: 700,
+                  fontStyle: "normal",
+                  fontSize: "64px",
+                  marginBottom: "-13%",
+                }}>OUR</h2>
+                <h2 style={{
+                  fontFamily: `roc-grotesk-compressed, sans-serif`,
+                  fontWeight: 700,
+                  fontStyle: "normal",
+                  fontSize: "64px",
+                  marginBottom: "4%",
+                }}>PERFORMANCES</h2>
                 <a href="https://youtube.com/@texasdiabolo" target="_blank" rel="noopener noreferrer">
             <img src={Arrow} alt="YouTube" className="w-15 h-15 hover:opacity-75" />
           </a>
@@ -47,22 +60,26 @@ const PerformanceCards = () => {
 
 
         {/* Cards Container */}
-        <div className="flex gap-6 items-center col-span-5">
+        <div className="flex gap-6 items-center col-span-5"
+        style={{
+          marginLeft: "5%",
+          marginRight: "2%"
+        }}>
           {performances.map((performance) => (
             <div
               key={performance.id}
               onMouseEnter={() => setActiveCard(performance.id)}
-              className={`relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 ease-out ${
+              className={`relative rounded-xl overflow-hidden cursor-pointer transition-all duration-500 ease-out ${
                 activeCard === performance.id
-                  ? "w-[500px] h-[600px]"
-                  : "w-[280px] h-[600px]"
+                  ? "w-[700px] h-[600px]"
+                  : "w-[180px] h-[600px]"
               }`}
             >
               {/* Background Image */}
               <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{
-                  backgroundImage: `url(${performance.image})`,
+                  backgroundImage: `linear-gradient(178deg,rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.8) 90%, rgba(0, 0, 0, 1) 100%), url(${performance.image})`,
                 }}
               >
                 {/* Dark Overlay */}
@@ -76,8 +93,22 @@ const PerformanceCards = () => {
                     activeCard === performance.id ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <h3 className="text-3xl font-bold mb-2">{performance.title}</h3>
-                  <p className="text-xl mb-6">{performance.year}</p>
+                  <h3 className=""
+                      style={{
+                        opacity: activeCard === performance.id ? 1 : 0,
+                        transition: "opacity 300ms ease-in-out",
+                        transitionDelay: "200ms",
+                        fontFamily: "unbounded",
+                        fontSize: "24px",
+                      }}>{performance.title}</h3>
+                  <p className=""
+                      style={{
+                        marginTop: "-1%",
+                        fontFamily: "unbounded",
+                        fontSize: "20px",
+                        marginBottom: "4%",
+                      }}
+                  >{performance.year}</p>
                   
                   {/* Watch Now Button */}
                   <a
@@ -87,7 +118,11 @@ const PerformanceCards = () => {
                     className="inline-flex items-center gap-2 px-6 py-3 border border-white rounded-full hover:bg-white hover:text-black transition-colors"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <span className="text-sm font-medium">WATCH NOW</span>
+                    <span className=""
+                    style={{
+                      fontFamily: "unbounded",
+                      fontSize: "12px"
+                    }}>WATCH NOW</span>
                     <svg
                       className="w-4 h-4"
                       fill="currentColor"
@@ -104,7 +139,7 @@ const PerformanceCards = () => {
                     activeCard === performance.id ? "opacity-0" : "opacity-100"
                   }`}
                 >
-                  <div className="text-sm font-medium">{performance.title}</div>
+                  {/* <div className="text-sm font-medium">{performance.title}</div> */}
                 </div>
               </div>
             </div>
