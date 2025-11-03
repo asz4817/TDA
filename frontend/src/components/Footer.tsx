@@ -15,8 +15,6 @@ const Footer = () => {
         </div>
         <div className="absolute right-[12.5%]"> <Socials /></div>
 
-        <SubscribeMailout />
-
     </div>
   )
 }
