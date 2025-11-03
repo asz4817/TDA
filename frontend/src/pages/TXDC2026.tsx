@@ -2,6 +2,7 @@ import Divider from "../components/Divider";
 import '../App.css';
 import RegistrationForm from "../components/RegistrationForm";
 import Test from "../components/test";
+import { NavLink } from "react-router-dom";
 
 const TXDC = () => {
   return (
@@ -28,12 +29,14 @@ const TXDC = () => {
                         marginBottom: "6%",
                     }}>MARCH 14-15TH</p>
                     <div className="flex gap-4 items-center">
-                        <button className="px-5 py-2 border border-white rounded-full hover:bg-white hover:text-black transition"
+                        <NavLink
+                        to="/txdc2026/register"
+                        className="px-5 py-2 border border-white rounded-full hover:bg-white hover:text-black transition"
                                 style={{fontFamily: "unbounded",
                                     fontSize: "11px"
                         }}>
                         REGISTER NOW 
-                        </button>
+                        </NavLink>
                         <h1 style={{
                             fontFamily: "unbounded",
                             fontSize: "11px",
@@ -48,8 +51,6 @@ const TXDC = () => {
     
     <Divider />
     <div className="mx-auto my-10 w-[50%]">   
-        <Test />
-       <RegistrationForm />
        
     </div>
     </div>
