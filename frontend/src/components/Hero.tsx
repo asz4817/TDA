@@ -2,6 +2,7 @@ import HomeBg from "../assets/Home.png";
 import WeAreLogo from "../assets/WE ARE TEXAS DIABOLO.svg";
 import BasedIn from "../assets/BasedIn.svg"
 import Socials from "./Socials";
+import AboutUs from "./AboutUs";
 import { Parallax } from 'react-scroll-parallax';
 import React, { useRef, useEffect, useState } from 'react';
 import '../App.css';
@@ -28,65 +29,262 @@ const Hero = () => {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, [scrollTop]);
-  
-  return (
-    <section>
 
-      <section
-        className="relative w-full h-screen bg-cover bg-center mb-10 overflow-y-scroll scrollbar-hide"
+  if (scrollTop > 1600) { 
+    return (
+      <section className="relative w-full mb-10"
           style={{ backgroundImage: `url(${HomeBg})`,
           backgroundColor: "transparent",
           backgroundAttachment: "fixed",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          overflow: scrolling ? "scroll" : "hidden",
-        }}
-      >
-        {/* Overlay for better text contrast */}
-        <div className="absolute inset-0 bg-opacity-40 bg-scroll" />
-
-        {/* Main content */}
-        <div className="relative z-10 flex flex-col justify-end h-full px-[12%] pb-[4%] text-white scrollbar-hide">
-          {/* Bottom Left */}
-          <div className="absolute left-[15%] bottom-[-45%] " id="weAre">
-            <img
-              src={WeAreLogo}
-              alt="We Are Texas Diabolo"
-              className="w-[40vw]"
-            />
-            <div className="h-[50vh]"></div>
+        }}>
+  
+        <section
+          className="relative w-full h-screen bg-cover mb-10 scrollbar-hide"
+        >
+          {/* Main content */}
+          <div className="relative z-10 flex flex-col justify-end h-full px-[12%] pb-[4%]">
+            {/* Bottom Left */}
+            <div className="absolute right-[14%] fixed"
+              style={{
+                // transform: scrolling ? "translateX(0)" : "translateX(500%)",
+                // transition: "transform 0.5s ease-out",
+                opacity: scrolling ? 1 : 0,
+                transition: "opacity 0.5s ease-out",
+              }}
+            >
+                <img
+                src={BasedIn}
+                alt="Based in Austin Texas"
+                className="w-[10vw]"
+              />
+            </div>
+            <div className="absolute bottom-[11%] right-[14%] fixed"
+              style={{
+                // transform: scrolling ? "translateX(0)" : "translateX(500%)",
+                // transition: "transform 0.5s ease-out",
+                opacity: scrolling ? 1 : 0,
+                transition: "opacity 0.5s ease-out",
+              }}
+            >
+                <Socials />
+            </div>
           </div>
-          <div className="absolute bottom-[11%] right-[15%] fixed"
-            style={{
-              // transform: scrolling ? "translateX(0)" : "translateX(500%)",
-              // transition: "transform 0.5s ease-out",
-              opacity: scrolling ? 1 : 0,
-              transition: "opacity 0.5s ease-out",
-            }}
-          >
-              <img
-              src={BasedIn}
-              alt="Based in Austin Texas"
-              className="w-[10vw]"
-            />
-          </div>
-          <div className="absolute right-[15%] fixed"
-            style={{
-              // transform: scrolling ? "translateX(0)" : "translateX(500%)",
-              // transition: "transform 0.5s ease-out",
-              opacity: scrolling ? 1 : 0,
-              transition: "opacity 0.5s ease-out",
-            }}
-          >
-              <Socials />
-          </div>
-
-
+        </section>
+      {/* <Parallax speed={-1} style={{
+        top: scrollTop >= 680 ? "14%": "105%",
+        marginLeft: "60%",
+        position: scrollTop >= 680 || scrollTop <= 20 ? "fixed" : "static",
+      }}>
+        <div style={{
+          opacity: scrollTop >= 1000 || scrollTop < 20 ? 0 : 1,
+          transition: "opacity 0.5s ease-out",
+        }}>
+          <AboutUs />
         </div>
+      </Parallax> */}
+      <div
+        style={{
+          marginLeft: "10%",
+          // transform: scrolling ? "translateX(0)" : "translateX(500%)",
+          // transition: "transform 0.5s ease-out",
+          marginTop: "76%",
+          position: "absolute"
+        }}>
+        <img
+          src={WeAreLogo}
+          alt="We Are Texas Diabolo"
+          className="w-[40vw]"
+        />
+      </div>
+      <div style={{
+        position: "static",
+        marginTop: "68%",
+        marginLeft: "60%",
+        // opacity: scrollTop >= 500 ? 0 : 1,
+  
+      }}>
+        <AboutUs />
+      </div>
+      <div style={{
+        backgroundColor: "transparent",
+        height: "10vh",
+      }}></div>
       </section>
-    </section>
-  );
+    );
+  }
+  else if (scrollTop >= 700 && scrollTop <= 1600) {
+    return (
+      <section className="relative w-full mb-10"
+          style={{ backgroundImage: `url(${HomeBg})`,
+          backgroundColor: "transparent",
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}>
+        <section
+          className="relative w-full h-screen bg-cover mb-10 scrollbar-hide"
+        >
+          {/* Main content */}
+          <div className="relative z-10 flex flex-col justify-end h-full px-[12%] pb-[4%]">
+            {/* Bottom Left */}
+            <div className="absolute right-[14%] fixed"
+              style={{
+                // transform: scrolling ? "translateX(0)" : "translateX(500%)",
+                // transition: "transform 0.5s ease-out",
+                opacity: scrolling ? 1 : 0,
+                transition: "opacity 0.5s ease-out",
+              }}
+            >
+                <img
+                src={BasedIn}
+                alt="Based in Austin Texas"
+                className="w-[10vw]"
+              />
+            </div>
+            <div className="absolute bottom-[11%] right-[14%] fixed"
+              style={{
+                // transform: scrolling ? "translateX(0)" : "translateX(500%)",
+                // transition: "transform 0.5s ease-out",
+                opacity: scrolling ? 1 : 0,
+                transition: "opacity 0.5s ease-out",
+              }}
+            >
+                <Socials />
+            </div>
+          </div>
+        </section>
+      {/* <Parallax speed={-1} style={{
+        top: scrollTop >= 680 ? "14%": "105%",
+        marginLeft: "60%",
+        position: scrollTop >= 680 || scrollTop <= 20 ? "fixed" : "static",
+      }}>
+        <div style={{
+          opacity: scrollTop >= 1000 || scrollTop < 20 ? 0 : 1,
+          transition: "opacity 0.5s ease-out",
+        }}>
+          <AboutUs />
+        </div>
+      </Parallax> */}
+        <div
+          style={{
+            // transform: scrolling ? "translateX(0)" : "translateX(500%)",
+            // transition: "transform 0.5s ease-out",
+            marginLeft: "10%",
+            position: "fixed",
+            marginTop: "-39%",
+          }}>
+          <img
+            src={WeAreLogo}
+            alt="We Are Texas Diabolo"
+            className="w-[40vw]"
+          />
+        </div>
+      <div style={{
+        position: "fixed",
+        marginTop: "-50%",
+        marginLeft: "60%",
+        // opacity: scrollTop >= 500 ? 0 : 1,
+  
+      }}>
+        <AboutUs />
+      </div>
+      <div style={{
+        backgroundColor: "transparent",
+        height: "250vh",
+      }}></div>
+      </section>
+    );
+  }
+  else {
+    return (
+      <section className="relative w-full mb-10"
+          style={{ backgroundImage: `url(${HomeBg})`,
+          backgroundColor: "transparent",
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}>
+        <section
+          className="relative w-full h-screen bg-cover mb-10 scrollbar-hide"
+        >
+          {/* Main content */}
+          <div className="relative z-10 flex flex-col justify-end h-full px-[12%] pb-[4%]">
+            {/* Bottom Left */}
+            <div className="absolute right-[14%] fixed"
+              style={{
+                // transform: scrolling ? "translateX(0)" : "translateX(500%)",
+                // transition: "transform 0.5s ease-out",
+                opacity: scrolling ? 1 : 0,
+                transition: "opacity 0.5s ease-out",
+              }}
+            >
+                <img
+                src={BasedIn}
+                alt="Based in Austin Texas"
+                className="w-[10vw]"
+              />
+            </div>
+            <div className="absolute bottom-[11%] right-[14%] fixed"
+              style={{
+                // transform: scrolling ? "translateX(0)" : "translateX(500%)",
+                // transition: "transform 0.5s ease-out",
+                opacity: scrolling ? 1 : 0,
+                transition: "opacity 0.5s ease-out",
+              }}
+            >
+                <Socials />
+            </div>
+          </div>
+        </section>
+      {/* <Parallax speed={-1} style={{
+        top: scrollTop >= 680 ? "14%": "105%",
+        marginLeft: "60%",
+        position: scrollTop >= 680 || scrollTop <= 20 ? "fixed" : "static",
+      }}>
+        <div style={{
+          opacity: scrollTop >= 1000 || scrollTop < 20 ? 0 : 1,
+          transition: "opacity 0.5s ease-out",
+        }}>
+          <AboutUs />
+        </div>
+      </Parallax> */}
+      <Parallax speed={-60}>
+        <div
+          style={{
+            marginLeft: "10%",
+            // transform: scrolling ? "translateX(0)" : "translateX(500%)",
+            // transition: "transform 0.5s ease-out",
+            marginTop: "-1%",
+            position: "absolute"
+          }}>
+          <img
+            src={WeAreLogo}
+            alt="We Are Texas Diabolo"
+            className="w-[40vw]"
+          />
+        </div>
+      </Parallax>
+      <div style={{
+        position: "static",
+        marginTop: "0%",
+        marginLeft: "60%",
+        // opacity: scrollTop >= 500 ? 0 : 1,
+  
+      }}>
+        <AboutUs />
+      </div>
+      <div style={{
+        backgroundColor: "transparent",
+        height: "250vh",
+      }}></div>
+      </section>
+    );
+  }
 };
 
 export default Hero;
