@@ -1,4 +1,4 @@
-import TDALogo from "../assets/TDA_Logo.svg";
+import TDALogo from "../assets/Tda_Logo.svg";
 import Socials from "./Socials";
 import SubscribeMailout from "./SubscribeMailout";
 
