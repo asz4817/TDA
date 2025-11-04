@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import TDALogo from "../assets/TDA_Logo.svg";
+import TDALogo from "../assets/Tda_Logo.svg";
 import Line from "../assets/Line 1.svg";
 import profile from "../assets/profile.svg";
 import '../App.css'
