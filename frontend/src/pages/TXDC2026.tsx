@@ -30,7 +30,7 @@ const TXDC = () => {
                     }}>MARCH 14-15TH</p>
                     <div className="flex gap-4 items-center">
                         <NavLink
-                        to="/txdc2026/register"
+                        to="/txdc2026/"
                         className="px-5 py-2 border border-white rounded-full hover:bg-white hover:text-black transition"
                                 style={{fontFamily: "unbounded",
                                     fontSize: "11px"

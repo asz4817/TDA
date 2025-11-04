@@ -57,7 +57,7 @@ export default function Navbar() {
             OUR STORY
           </NavLink> */}
 
-          {/* <NavLink
+          <NavLink
             to="/txdc2026"
             className={({ isActive }) =>
               `transition hover:text-gray-300 ${
@@ -69,7 +69,7 @@ export default function Navbar() {
             }}
           >
             TXDC 2026
-          </NavLink> */}
+          </NavLink>
 
 
           <NavLink
