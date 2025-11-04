@@ -10,4 +10,8 @@ MarkupSafe==3.0.3
 pymongo==4.15.3
 python-dotenv==1.2.1
 Werkzeug==3.1.3
+<<<<<<< HEAD
 gunicorn
+=======
+gunicorn
+>>>>>>> d524fd87a1fb37aa57ae3b02594033606fd76675
