@@ -3,7 +3,7 @@ import TDALogo from "../assets/TDA_Logo.svg";
 import Line from "../assets/Line 1.svg";
 import profile from "../assets/profile.svg";
 import '../App.css'
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [scrolling, setScrolling] = useState(true);
@@ -57,7 +57,7 @@ export default function Navbar() {
             OUR STORY
           </NavLink> */}
 
-          <NavLink
+          {/* <NavLink
             to="/txdc2026"
             className={({ isActive }) =>
               `transition hover:text-gray-300 ${
@@ -69,7 +69,7 @@ export default function Navbar() {
             }}
           >
             TXDC 2026
-          </NavLink>
+          </NavLink> */}
 
 
           <NavLink

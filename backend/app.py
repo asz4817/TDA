@@ -29,7 +29,9 @@ os.makedirs(MUSIC_FOLDER, exist_ok=True)
 app.config["CHAPERONE_FOLDER"] = CHAPERONE_FOLDER
 app.config["MUSIC_FOLDER"] = MUSIC_FOLDER
 
-
+@app.route('/')
+def home():
+    return send_from_directory(app.static_folder, "index.html")
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():

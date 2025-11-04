@@ -1,5 +1,5 @@
-import RegistrationForm from "../components/RegistrationForm"
 import ContactBg from "../assets/ContactUsimg.png";
+import EmailIcon from "../assets/mail.svg";
 
 const Registration = () => {
   return (
@@ -19,18 +19,51 @@ const Registration = () => {
                   fontStyle: 'normal',
                   fontSize: '80px',
                 }}>
-                CONTACT US
+                REGISTRATION
                 </h1>
                 
                 <p className="text-gray-300 max-w-lg leading-relaxed"
                 >
-                For any inquiries, or if you're an event organizer looking for an awesome performance for your event, we'd love to hear from you! Reach out and let's connect.
+                  <div 
+            style={{
+              fontFamily: 'unbounded, sans-serif',
+              fontSize: '12px',
+              lineHeight: "1.3px"
+            }}>
+              <p className="leading-tight">
+                Divisions and Registration Fees:
+              </p>
+              
+              <p className="leading-tight">
+                Regional Junior Individual: $35
+              </p>
+              
+              <p className="leading-tight">
+                Regional Open Individual: $35
+              </p>
+              
+              <p className="leading-tight">
+               Open Stage Individual: $35
+              </p>
+
+               <p className="leading-tight">
+               Open Stage Teams: $50
+              </p>
+
+              <p className="leading-tight pt-4">
+                For any inquiries or assistance please contact us through our email.
+              </p>
+            </div>
+                  
                 </p>
-                <div className="justify-self-start">Email</div>
+
+                  <a href="mailto:texasdiabolo@gmail.com" target="_blank" rel="noopener noreferrer">
+            <img src={EmailIcon} alt="Email" className="w-5 h-5 hover:opacity-75" />
+          </a>
             </div>
 
             <div>
-               <RegistrationForm />
+               Registration form coming soon!
             </div>
         </div>
         </div>

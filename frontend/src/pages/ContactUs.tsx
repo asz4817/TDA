@@ -2,7 +2,7 @@ import ContactForm from "../components/ContactForm"
 import ContactBg from "../assets/ContactUsimg.png";
 import Socials from "../components/Socials";
 import Divider from "../components/Divider";
-import FAQ from "../components/FAQ";
+import FAQ from "../components/FAQ.jsx";
 
 
 const ContactUs = () => {
