@@ -31,8 +31,7 @@ app.config["MUSIC_FOLDER"] = MUSIC_FOLDER
 
 @app.route('/')
 def home():
-    # return send_from_directory(app.static_folder, "index.html")
-    return "HELLOW WORLD"
+    return send_from_directory(app.static_folder, "index.html")
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
