@@ -51,15 +51,15 @@ const ContactForm = () => {
     }
 
   return (
-    <div className="lg:ml-auto w-[90%] justify-self-end max-w-md">
-        <section className="backdrop-blur-xs  border border-gray-400 rounded-3xl p-8 shadow-2xl">
+    <div className="w-full justify-self-end max-w-md ">
+        <section className="backdrop-blur-xs border border-gray-400 rounded-3xl px-4 py-2 md:p-8 shadow-2xl">
             <form id="contact-form" onSubmit={submitContactForm}>
-                <div className="space-y-6">
+                <div className="soace-y-2 md:space-y-6">
                     <input 
                         className="w-full bg-transparent border-b border-gray-500 py-3 px-1 text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors text-sm tracking-wider" 
                         style={{
                           fontFamily: "unbounded",
-                          fontSize: "11px",
+                          fontSize: "clamp(6px, 2vw, 11px)",
                       }}
                         type="text" 
                         id="name"
@@ -74,7 +74,7 @@ const ContactForm = () => {
                       className="w-full bg-transparent border-b border-gray-500 py-3 px-1 text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors text-sm tracking-wider" 
                       style={{
                         fontFamily: "unbounded",
-                        fontSize: "11px",
+                        fontSize: "clamp(6px, 2vw, 11px)",
                     }}  
                         type="email" 
                         id="email" 
@@ -88,23 +88,23 @@ const ContactForm = () => {
                         className="w-full bg-transparent border-b border-gray-500 py-3 px-1 text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors text-sm tracking-wider resize-none" 
                         style={{
                           fontFamily: "unbounded",
-                          fontSize: "11px",
+                          fontSize: "clamp(8px, 2vw, 11px)",
                       }}
                         id="message" 
                         name="message" 
                         placeholder="MESSAGE"
-                        rows={6} 
+                        rows={5} 
                         required 
                         value = {message}
                         onChange={(e) => setMessage(e.target.value)}
                     />
                 </div>
                 <button  
-                  className="w-full mt-8 bg-transparent border border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-medium tracking-wider text-sm" 
+                  className="w-full mt-4 md:mt-8 bg-transparent border border-white text-white py-3 hover:bg-white hover:text-black transition-all duration-300 font-medium tracking-wider text-sm" 
                   type="submit"
                   style={{
                     fontFamily: "unbounded",
-                    fontSize: "clamp(8px, 2vw, 20px)",
+                    fontSize: "clamp(8px, 2vw, 12px)",
                     cursor: "pointer",
                 }}>
                     SUBMIT

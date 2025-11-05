@@ -41,7 +41,7 @@ export default function Navbar() {
                         to="/"
                         className="items-center" >
                         <img
-                            className="w-[10vw]"
+                            className="w-[8vw]"
                             src={TDALogo}
                             alt="TDA Logo"
                         />
@@ -65,11 +65,11 @@ export default function Navbar() {
             to="/txdc2026"
             className={({ isActive }) =>
               `transition hover:text-gray-300 ${
-                isActive ? "text-gray-300" : "text-white"
+                isActive ? "font-semibold" : "text-white"
               }`
             }
             style={{fontFamily: "unbounded",
-              fontSize: "clamp(4px, 1vw, 40px)",             
+              fontSize: "clamp(4px, 1vw, 12px)",             
             }}
           >
             TXDC 2026
@@ -80,11 +80,11 @@ export default function Navbar() {
             to="/contact"
             className={({ isActive }) =>
               `transition hover:text-gray-300 ${
-                isActive ? "text-gray-300" : "text-white"
+                isActive ? "font-semibold" : "text-white"
               }`
             }
             style={{fontFamily: "unbounded",
-              fontSize: "clamp(4px, 1vw, 40px)",
+              fontSize: "clamp(4px, 1vw, 12px)",
             }}
           >
             CONTACT US

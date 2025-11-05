@@ -42,7 +42,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="text-white px-8 py-16 border">
+    <div className="text-white py-8 px-4 md:px-8 md:py-16">
       <div className="max-w-7xl mx-auto">
         {/* FAQ Title */}
         <h1 
@@ -51,18 +51,18 @@ const FAQ = () => {
             fontWeight: 600,
             fontStyle: 'normal',
             // fontSize: '80px'
-            fontSize: "clamp(60px, 10vw, 80px)"
+            fontSize: "clamp(30px, 10vw, 80px)"
           }}
         >
           FAQ
         </h1>
 
         {/* Prospective Team Members Section */}
-        <div className="mb-10 pt-6">
+        <div className="mb-4 md:mb-10 md:pt-6">
           <h2 
             style={{
               fontFamily: 'unbounded, sans-serif',
-              fontSize: '18px'
+              fontSize: 'clamp(8px, 3vw, 18px)'
             }}
           >
             For prospective team members:
@@ -71,7 +71,7 @@ const FAQ = () => {
           <div className="space-y-0">
             {faqData.prospective.map((item) => (
               <div key={item.id} className="border-b border-white">
-                <div className="py-6">
+                <div className="py-4">
                   {/* Question Row */}
                   <div 
                     className="flex items-start justify-between cursor-pointer"
@@ -82,7 +82,8 @@ const FAQ = () => {
                         style={{
                           fontFamily: 'roc-grotesk-compressed, sans-serif',
                           fontWeight: 700,
-                          fontSize: '50px'
+                          // fontSize: "50px"
+                          fontSize: "clamp(30px, 5vw, 50px)"
                         }}
                       >
                         {item.number}
@@ -90,7 +91,7 @@ const FAQ = () => {
                       <h3 
                         style={{
                           fontFamily: 'unbounded, sans-serif',
-                          fontSize: '16px',
+                          fontSize: 'clamp(8px, 2vw, 14px)',
                           fontWeight: 400,
                           alignSelf: "center",
                         }}
@@ -101,25 +102,24 @@ const FAQ = () => {
                     </div>
                     
                     <button 
-                      className="text-5xl font-light ml-8 transition-transform duration-300"
+                      className="text-3xl md:text-5xl font-light ml-8 transition-transform duration-300"
                       style={{ transform: openItems[item.id] ? 'rotate(0deg)' : 'rotate(0deg)' }}
                     >
-                      {openItems[item.id] ? '—' : '+'}
+                      {openItems[item.id] ? '−' : '+'}
                     </button>
                   </div>
 
                   {/* Answer Section */}
                   <div 
                     className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      openItems[item.id] ? 'max-h-96 opacity-100 mt-6' : 'max-h-0 opacity-0'
+                      openItems[item.id] ? 'max-h-96 opacity-100 ' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <div className="pl-32">
+                    <div className="pl-13 md:pl-16">
                       <p 
                         style={{
                           fontFamily: 'unbounded, sans-serif',
-                          fontSize: '14px',
-                          lineHeight: '1.6'
+                          fontSize: 'clamp(8px, 2vw, 14px)',
                         }}
                         className="text-gray-300"
                       >
@@ -138,7 +138,7 @@ const FAQ = () => {
           <h2 
             style={{
               fontFamily: 'unbounded, sans-serif',
-              fontSize: '20px'
+              fontSize: 'clamp(8px, 3vw, 18px)'
             }}
             className="pt-10"
           >
@@ -148,7 +148,7 @@ const FAQ = () => {
           <div className="space-y-0">
             {faqData.organizers.map((item) => (
               <div key={item.id} className="border-b border-white">
-                <div className="py-6">
+                <div className="py-4">
                   {/* Question Row */}
                   <div 
                     className="flex items-start justify-between cursor-pointer"
@@ -159,7 +159,7 @@ const FAQ = () => {
                         style={{
                           fontFamily: 'roc-grotesk-compressed, sans-serif',
                           fontWeight: 700,
-                          fontSize: '50px'
+                          fontSize: "clamp(30px, 5vw, 50px)"
                         }}
                       >
                         {item.number}
@@ -167,7 +167,7 @@ const FAQ = () => {
                       <h3 
                          style={{
                           fontFamily: 'unbounded, sans-serif',
-                          fontSize: '16px',
+                          fontSize: 'clamp(8px, 2vw, 14px)',
                           fontWeight: 400,
                           alignSelf: "center",
                         }}
@@ -178,10 +178,10 @@ const FAQ = () => {
                     </div>
                     
                     <button 
-                      className="text-5xl font-light ml-8 transition-transform duration-300"
+                      className="text-3xl md:text-5xl font-light ml-8 transition-transform duration-300"
                       style={{ transform: openItems[item.id] ? 'rotate(0deg)' : 'rotate(0deg)' }}
                     >
-                      {openItems[item.id] ? '—' : '+'}
+                      {openItems[item.id] ? '−' : '+'}
                     </button>
                   </div>
 
@@ -191,12 +191,11 @@ const FAQ = () => {
                       openItems[item.id] ? 'max-h-96 opacity-100 mt-6' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <div className="pl-32">
+                    <div className="pl-16">
                       <p 
                         style={{
                           fontFamily: 'unbounded, sans-serif',
-                          fontSize: '14px',
-                          lineHeight: '1.6'
+                          fontSize: 'clamp(8px, 2vw, 14px)',
                         }}
                         className="text-gray-300"
                       >

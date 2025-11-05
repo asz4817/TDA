@@ -203,7 +203,7 @@ const Hero = () => {
   }
   else {
     return (
-      <section className="relative w-full mb-10"
+      <section className="relative w-screen mb-10"
           style={{ backgroundImage: `url(${HomeBg})`,
           backgroundColor: "transparent",
           backgroundAttachment: "fixed",

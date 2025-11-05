@@ -34,9 +34,9 @@ const PerformanceCards = () => {
   ];
 
   return (
-    <div className="text-white pt-12 px-4 md:px-8">
+    <div className="text-white pt-12 px-4 md:px-8 ">
       {/* Mobile Header (shows only on mobile) */}
-      <div className="block md:hidden text-center mb-8">
+      <div className="block md:hidden text-center">
         <h2 style={{
           fontFamily: `roc-grotesk-compressed, sans-serif`,
           fontWeight: 700,
@@ -58,22 +58,21 @@ const PerformanceCards = () => {
       </div>
 
       {/* Desktop Layout */}
-      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-7">
+      <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-7">
         {/* Desktop Header (hidden on mobile) */}
         <div className="hidden md:block col-span-2 my-auto mx-auto">
           <h2 style={{
             fontFamily: `roc-grotesk-compressed, sans-serif`,
             fontWeight: 700,
             fontStyle: "normal",
-            fontSize: "clamp(40px, 6vw, 64px)",
+            fontSize: "clamp(20px, 5vw, 64px)",
             marginBottom: "-13%",
           }}>OUR</h2>
           <h2 style={{
             fontFamily: `roc-grotesk-compressed, sans-serif`,
             fontWeight: 700,
             fontStyle: "normal",
-            fontSize: "clamp(40px, 6vw, 64px)",
-            marginBottom: "4%",
+            fontSize: "clamp(20px, 5vw, 64px)",
           }}>PERFORMANCES</h2>
           <a href="https://youtube.com/@texasdiabolo" target="_blank" rel="noopener noreferrer">
             <img src={Arrow} alt="YouTube" className="w-15 h-15 hover:opacity-75" />

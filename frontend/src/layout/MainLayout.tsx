@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom"
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen max-w-screen bg-black text-white">
+    <div className="max-w-screen bg-black text-white">
       <Navbar />
       <Outlet />
 
