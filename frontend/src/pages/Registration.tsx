@@ -12,33 +12,29 @@ const Registration = () => {
           <div className="absolute inset-0 bg-black opacity-50"></div>
     <div className="">
         <div className="w-[70%] grid grid-cols-2 mx-auto">      
-            <div className="space-y-4 z-50 mt-10 pt-35 pb-30">
+            <div className="space-y-4 z-50 mt-2vh pt-35 pb-30">
+                <h1 className="leading-1" 
+                style={{
+                  fontFamily: 'roc-grotesk-compressed, sans-serif',
+                  fontWeight: 700,
+                  fontStyle: 'normal',
+                  fontSize: '108px',
+                }}>
+                  TXDC 2026
+                  </h1>
                 <h1 
                 style={{
                   fontFamily: 'roc-grotesk-compressed, sans-serif',
-                  fontWeight: 600,
+                  fontWeight: 700,
                   fontStyle: 'normal',
-                  fontSize: '80px',
+                  fontSize: '108px',
                 }}>
                   REGISTRATION
-                  </h1>
-                <p className="leading-1" style={{
-                  fontFamily: "unbounded"
-                }}>Divisions and Registration Fees:</p>
-                <p className="leading-1" style={{
-                  fontFamily: "unbounded"
-                }}>Regional Junior Individual: $35</p>
-                <p className="leading-1" style={{
-                  fontFamily: "unbounded"
-                }}>Regional Open Individual: $35</p>
-                <p className="leading-1" style={{
-                  fontFamily: "unbounded"
-                }}>Open Stage Individual: $35</p>
-                <p className="leading-1" style={{
+                </h1>  
+                <p className="" style={{
                   fontFamily: "unbounded",
-                  marginBottom: "10%",
-                }}>Open Stage Teams: $50</p>
-                <p className="leading-none" style={{
+                }}>When: March 14-15th, 2026</p>
+                <p className="" style={{
                   fontFamily: "unbounded"
                 }}>For any inquiries or assistance please contact us through our email.</p>
 

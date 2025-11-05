@@ -391,7 +391,7 @@ const RegistrationSystem = () => {
     if (currentView === 'home') {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="w-full max-w-md backdrop-blur-xs border border-gray-700 rounded-3xl p-12 shadow-2xl">
+                <div className="w-full max-w-md backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl">
                     <h1 className="text-3xl font-light text-white mb-12 tracking-wide text-center">REGISTER NOW</h1>
                     <div className="space-y-6">
                         <button
@@ -423,7 +423,7 @@ const RegistrationSystem = () => {
         if (isSubmitted && step === 4) {
             return (
                 <div className="flex items-center justify-center min-h-screen">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
+                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(4, 4)}
                         <div className="text-left flex-1 flex flex-col justify-center">
                             <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
@@ -431,7 +431,7 @@ const RegistrationSystem = () => {
                                 Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
                             </p>
                             <p className="text-white text-base leading-relaxed font-light">
-                                Please do not forget to send us your music for your routine by February 14th, 2026 to texasdiabolo@gmail.com. We can't wait to see you in March!
+                                Please do not forget to submit your music for your routine to our website by February 14th, 2026!
                             </p>
                         </div>
                         <div className="flex justify-center mt-12">
@@ -448,7 +448,7 @@ const RegistrationSystem = () => {
 
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
+                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                     {renderStepIndicator(step, 4)}
                     
                     {step === 1 && (
@@ -651,7 +651,7 @@ const RegistrationSystem = () => {
         if (isSubmitted && teamStep === 4) {
             return (
                 <div className="flex items-center justify-center min-h-screen">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
+                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(4, 4)}
                         <div className="text-left flex-1 flex flex-col justify-center">
                             <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
@@ -678,7 +678,7 @@ const RegistrationSystem = () => {
         if (teamStep === 1) {
             return (
                 <div className="flex items-center justify-center min-h-screen">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
+                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                         {renderStepIndicator(1, 4)}
                         
                         <div className="flex-1 flex flex-col justify-between">
@@ -864,7 +864,7 @@ if (teamStep === 2) {
     if (minorCount > 0) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
+                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                     {renderStepIndicator(2, 4)}
                     <div className="flex-1 flex flex-col justify-between">
                         <div>
@@ -948,7 +948,7 @@ if (teamStep === 2) {
     // If there are NO minors, show simplified waiver page (no file upload)
     return (
         <div className="flex items-center justify-center min-h-screen">
-            <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
+            <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                 {renderStepIndicator(2, 4)}
                 <div className="flex-1 flex flex-col justify-between">
                     <div>
@@ -1001,7 +1001,7 @@ if (teamStep === 2) {
         if (teamStep === 3) {
             return (
                 <div className="flex items-center justify-center min-h-screen">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
+                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                         {renderStepIndicator(3, 4)}
                         <div className="flex-1 flex flex-col">
                             <h2 className="text-3xl font-light text-white mb-12 tracking-wide">EMERGENCY CONTACT<br/>INFORMATION</h2>
@@ -1056,7 +1056,7 @@ if (teamStep === 2) {
         if (isSubmitted && step === 2) {
             return (
                 <div className="flex items-center justify-center min-h-screen">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
+                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(2, 2)}
                         <div className="text-left flex-1 flex flex-col justify-center">
                             <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
@@ -1080,13 +1080,13 @@ if (teamStep === 2) {
         }
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
+                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                     {renderStepIndicator(step, 2)}
                <div className="flex-1 flex flex-col justify-between">
                             <div>
                                 <h2 className="text-3xl font-light text-white mb-8 tracking-wide">MUSIC FILE<br/>SUBMISSION</h2>
                                 <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">
-                                    The maximum performance time is 4 minutes for individual divisions and 5 minutes for teams while the minimum performance time is 2 minutes. Music chosen must be suitable for an audience of all ages. 
+                                    The maximum performance time is 4 minutes for individual divisions and 5 minutes for teams. The minimum performance time is 2 minutes. Music chosen must be suitable for an audience of all ages. 
                                 </p>
                                 <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-8 text-center cursor-pointer hover:border-gray-500 transition-colors">
                                     <input 
