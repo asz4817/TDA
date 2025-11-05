@@ -16,31 +16,45 @@ const RegistrationSystem = () => {
     const [emergencyContactPhone, setEmergencyContactPhone] = useState('');
     const [numberOfGuests, setNumberOfGuests] = useState('');
     const [agreedToTerms, setAgreedToTerms] = useState(false);
-    const [chaperoneFile, setChaperoneFile] = useState(null);
+    const [chaperoneFile, setChaperoneFile] = useState<File | null>(null);
+    const [musicFile, setMusicFile] = useState<File | null>(null);
     const [responseMessage, setResponseMessage] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [teamSize, setTeamSize] = useState(1);
 
     // Team registration states
-    const [teamMembers, setTeamMembers] = useState([]);
-    const [currentTeamMemberIndex, setCurrentTeamMemberIndex] = useState(0);
-    const [teamStep, setTeamStep] = useState(1); // 1: member info, 2: waivers, 3: emergency contact
-    const [chaperoneFiles, setChaperoneFiles] = useState([]);
-    const [teamAgreedToTerms, setTeamAgreedToTerms] = useState(false);
+        type TeamMember = {
+            firstName: string;
+            lastName: string;
+            email: string;
+            phoneNumber: string;
+            dateOfBirth: string;
+            tshirtSize: string;
+            emergencyContactName?: string;
+            emergencyContactPhone?: string;
+            numberOfGuests?: string;
+        };
     
-    // Team-wide emergency contact (collected once at the end)
-    const [teamEmergencyContactName, setTeamEmergencyContactName] = useState('');
-    const [teamEmergencyContactPhone, setTeamEmergencyContactPhone] = useState('');
-    const [teamNumberOfGuests, setTeamNumberOfGuests] = useState('');
-
-    // Current team member being edited
-    const [currentMember, setCurrentMember] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        dateOfBirth: '',
-        tshirtSize: ''
-    });
+        const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+        const [currentTeamMemberIndex, setCurrentTeamMemberIndex] = useState(0);
+        const [teamStep, setTeamStep] = useState(1); // 1: member info, 2: waivers, 3: emergency contact
+        const [chaperoneFiles, setChaperoneFiles] = useState<File[]>([]);
+        const [teamAgreedToTerms, setTeamAgreedToTerms] = useState(false);
+        
+        // Team-wide emergency contact (collected once at the end)
+        const [teamEmergencyContactName, setTeamEmergencyContactName] = useState('');
+        const [teamEmergencyContactPhone, setTeamEmergencyContactPhone] = useState('');
+        const [teamNumberOfGuests, setTeamNumberOfGuests] = useState('');
+    
+        // Current team member being edited
+        const [currentMember, setCurrentMember] = useState<TeamMember>({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phoneNumber: '',
+            dateOfBirth: '',
+            tshirtSize: ''
+        });
 
     const goBackMember = () => {
         if (currentTeamMemberIndex > 0) {
@@ -83,6 +97,7 @@ const RegistrationSystem = () => {
             phoneNumber: '', dateOfBirth: '', tshirtSize: ''
             }]);
             setCurrentTeamMemberIndex(0);
+            setTeamSize(1);
         }
         }, []);
 
@@ -105,6 +120,56 @@ const RegistrationSystem = () => {
             setResponseMessage('');
         }
     };
+
+    const submitMusicFile = async () => {
+        if (!musicFile) {
+            setResponseMessage('Please upload a music file');
+            return;
+        }
+
+        let musicFileData = null;
+        let musicFileName = null;
+
+        if (musicFile) {
+            try {
+                const reader = new FileReader();
+                musicFileData = await new Promise((resolve, reject) => {
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(musicFile);
+                });
+                musicFileName = musicFile.name;
+            } catch (err) {
+                setResponseMessage('Error reading file. Please try again.');
+                return;
+            }
+        }
+                const registrationData = {
+            type: 'music',
+            musicfile: musicFileData,
+            musicfilename: musicFileName
+        };
+
+        try {
+            const res = await fetch('http://127.0.0.1:5000/register_indiv', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(registrationData),
+            });
+
+            const text = await res.text();
+            let result = JSON.parse(text);
+
+            if (res.ok) {
+                setIsSubmitted(true);
+                setStep(2);
+            } else {
+                setResponseMessage(result.error || 'Error submitting form');
+            }
+        } catch (err) {
+            setResponseMessage(`Error: ${err.message}`);
+        }
+    }
 
     const submitIndividualForm = async () => {
         if (!agreedToTerms) {
@@ -212,6 +277,7 @@ const RegistrationSystem = () => {
             updatedMembers.push(currentMember);
         }
         setTeamMembers(updatedMembers);
+        setTeamSize(updatedMembers.length + 1);
 
         // Reset for new member
         setCurrentMember({
@@ -348,18 +414,19 @@ const RegistrationSystem = () => {
                     <div className="space-y-6">
                         <button
                             onClick={() => setCurrentView('individual')}
-                            className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm"
+                            className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
                         >
                             INDIVIDUAL REGISTRATION
                         </button>
                         <button
                             onClick={() => setCurrentView('team')}
-                            className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm"
+                            className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
                         >
                             TEAM REGISTRATION
                         </button>
                         <button
-                            className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm"
+                            onClick={() => setCurrentView('music')}
+                            className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
                         >
                             MUSIC SUBMISSION
                         </button>
@@ -468,7 +535,7 @@ const RegistrationSystem = () => {
                                 </div>
                             </div>
                             <button 
-                                className="w-16 h-16 mt-12 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center" 
+                                className="w-16 h-16 mt-12 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
                                 onClick={handleIndividualNext}>
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -506,7 +573,7 @@ const RegistrationSystem = () => {
                                 />
                             </div>
                             <button 
-                                className="w-16 h-16 mt-12 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center" 
+                                className="w-16 h-16 mt-12 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
                                 onClick={handleIndividualNext}>
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -536,7 +603,7 @@ const RegistrationSystem = () => {
                             </div>
                             <div>
                                 <button 
-                                    className="w-full bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm" 
+                                    className="w-full bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                     onClick={submitIndividualForm}>
                                     SUBMIT & PAY
                                 </button>
@@ -582,7 +649,7 @@ const RegistrationSystem = () => {
                             </div>
                             <div>
                                 <button 
-                                    className="w-full bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm" 
+                                    className="w-full bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                     onClick={submitIndividualForm}>
                                     SUBMIT & PAY
                                 </button>
@@ -597,7 +664,6 @@ const RegistrationSystem = () => {
 
     // TEAM REGISTRATION
     if (currentView === 'team') {
-        const teamSize = teamMembers.length + 1;
         const memberNumber = currentTeamMemberIndex + 1;
 
         if (isSubmitted && teamStep === 4) {
@@ -704,7 +770,7 @@ const RegistrationSystem = () => {
                             <div>
                                 <div className="text-center mb-8">
                                     <button 
-                                        className="text-blue-400 text-sm hover:underline"
+                                        className="text-blue-400 text-sm hover:underline cursor-pointer"
                                         onClick={addNewTeamMember}>
                                         + Add new team member
                                     </button>
@@ -712,13 +778,14 @@ const RegistrationSystem = () => {
                                 <div className="flex items-center justify-between mt-6">
                             {/* Back button */}
                             <button
-                                className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50"
+                                className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
                                 onClick={() => {
-                                const updated = [...teamMembers];
-                                updated[currentTeamMemberIndex] = currentMember;
-                                setTeamMembers(updated);
+                                // const updated = [...teamMembers];
+                                // updated[currentTeamMemberIndex] = currentMember;
+                                // setTeamMembers(updated);
                                 if (currentTeamMemberIndex > 0) {
                                     setCurrentTeamMemberIndex(currentTeamMemberIndex - 1);
+                                    setCurrentMember(teamMembers[currentTeamMemberIndex - 1]);
                                     setResponseMessage('');
                                 }
                                 }}
@@ -732,31 +799,52 @@ const RegistrationSystem = () => {
                             {/* Middle (Next / Proceed) */}
                             <div className="flex-1 mx-8">
                                 {(() => {
-                                const hasNext = currentTeamMemberIndex < teamMembers.length - 1;
+                                const hasNext = currentTeamMemberIndex < teamSize - 1;
                                 if (hasNext) {
                                     return (
                                     <button
-                                        className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm"
+                                        className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
                                         onClick={() => {
                                         const updated = [...teamMembers];
                                         updated[currentTeamMemberIndex] = currentMember;
                                         setTeamMembers(updated);
                                         setCurrentTeamMemberIndex(currentTeamMemberIndex + 1);
+                                        if (currentTeamMemberIndex + 1 < teamMembers.length) {
+                                            setCurrentMember(teamMembers[currentTeamMemberIndex + 1]);
+                                        } else {
+                                            setCurrentMember({
+                                            firstName: '',
+                                            lastName: '',
+                                            email: '',
+                                            phoneNumber: '',
+                                            dateOfBirth: '',
+                                            tshirtSize: ''
+                                            });
+                                        }
                                         setResponseMessage('');
                                         }}
-                                    >
-                                        NEXT MEMBER →
+                                    >NEXT MEMBER →
                                     </button>
                                     );
                                 }
-                                return (
+                                if (teamSize > 1) {
+                                    return (
                                     <button
-                                    className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm"
+                                    className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
                                     onClick={proceedWithTeam}
                                     >
                                     PROCEED WITH {teamSize} TEAM MEMBERS
                                     </button>
                                 );
+                                }
+                                // return (
+                                //     <button
+                                //     className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm"
+                                //     onClick={proceedWithTeam}
+                                //     >
+                                //     PROCEED WITH {teamSize - 1} TEAM MEMBERS
+                                //     </button>
+                                // );
                                 })()}
                             </div>
 
@@ -842,15 +930,32 @@ const RegistrationSystem = () => {
                             </div>
                             <div className="flex items-center justify-between">
                                 <button 
-                                    className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center" 
-                                    onClick={() => setTeamStep(1)}>
+                                    className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
+                                    onClick={() => {
+                                        // setCurrentMember(teamMembers[currentTeamMemberIndex])
+                                        // setTeamMembers(teamMembers.slice(0, currentTeamMemberIndex))
+                                        setTeamStep(1)
+                                        }}>
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                     </svg>
                                 </button>
                                 <button  
-                                    className="flex-1 mx-8 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm" 
-                                    onClick={() => setTeamStep(3)}>
+                                    className="flex-1 mx-8 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
+                                    onClick={() => {
+                                        if (!teamAgreedToTerms)
+                                        {
+                                            setResponseMessage('You must agree to the terms and waivers to proceed.');
+                                        }
+                                        else if (chaperoneFiles.length < minorCount)
+                                        {
+                                            setResponseMessage(`Please upload all required chaperone forms for your ${minorCount} minor team member(s).`);
+                                        }
+                                        else {
+                                            setTeamStep(3);
+                                            setResponseMessage('');
+                                        }
+                                        }}>
                                     CONTINUE
                                 </button>
                                 <div className="w-16"></div>
@@ -896,14 +1001,14 @@ const RegistrationSystem = () => {
                             </div>
                             <div className="flex items-center justify-between">
                                 <button 
-                                    className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center" 
+                                    className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer"
                                     onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                     </svg>
                                 </button>
                                 <button  
-                                    className="flex-1 mx-8 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm" 
+                                    className="flex-1 mx-8 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                     onClick={submitTeamForm}>
                                     SUBMIT & PAY
                                 </button>
@@ -915,6 +1020,70 @@ const RegistrationSystem = () => {
                 </div>
             );
         }
+    }
+    else if (currentView === 'music') {
+        if (isSubmitted && step === 2) {
+            return (
+                <div className="flex items-center justify-center min-h-screen">
+                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
+                        {renderStepIndicator(2, 2)}
+                        <div className="text-left flex-1 flex flex-col justify-center">
+                            <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
+                            <p className="text-white text-base leading-relaxed mb-6 font-light">
+                                Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
+                            </p>
+                            <p className="text-white text-base leading-relaxed font-light">
+                                Please do not forget to send us your music for your routine by February 14th, 2026 to texasdiabolo@gmail.com. We can't wait to see you in March!
+                            </p>
+                        </div>
+                        <div className="flex justify-center mt-12">
+                            <div className="w-32 h-32 rounded-full border-4 border-white flex items-center justify-center">
+                                <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-700 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
+                    {renderStepIndicator(step, 2)}
+               <div className="flex-1 flex flex-col justify-between">
+                            <div>
+                                <h2 className="text-3xl font-light text-white mb-8 tracking-wide">MUSIC FILE<br/>SUBMISSION</h2>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">
+                                    The maximum performance time is 4 minutes for individual divisions and 5 minutes for teams while the minimum performance time is 2 minutes. Music chosen must be suitable for an audience of all ages. 
+                                </p>
+                                <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-8 text-center cursor-pointer hover:border-gray-500 transition-colors">
+                                    <input 
+                                        type="file"
+                                        id="music-upload"
+                                        className="hidden"
+                                        accept="audio/*"
+                                        onChange={(e) => setMusicFile(e.target.files[0])}
+                                    />
+                                    <label htmlFor="music-upload" className="cursor-pointer">
+                                        <p className="text-white text-base font-light">Upload file here</p>
+                                        {musicFile && <p className="text-blue-400 text-sm mt-2">{musicFile.name}</p>}
+                                    </label>
+                                </div>
+ 
+                            </div>
+                            <div>
+                                <button 
+                                    className="w-full bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
+                                    onClick={submitMusicFile}>
+                                    SUBMIT
+                                </button>
+                                {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
+                            </div>
+                        </div>
+                        </div>
+            </div>
+            );
     }
 
     return null;

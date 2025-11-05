@@ -1,5 +1,7 @@
 import RegistrationForm from "../components/RegistrationForm"
 import ContactBg from "../assets/ContactUsimg.png";
+import RegistrationSystem from "../components/test";
+import EmailIcon from "../assets/mail.svg";
 
 const Registration = () => {
   return (
@@ -19,18 +21,44 @@ const Registration = () => {
                   fontStyle: 'normal',
                   fontSize: '80px',
                 }}>
-                CONTACT US
-                </h1>
+                  REGISTRATION
+                  </h1>
+                <p className="leading-1" style={{
+                  fontFamily: "unbounded"
+                }}>Divisions and Registration Fees:</p>
+                <p className="leading-1" style={{
+                  fontFamily: "unbounded"
+                }}>Regional Junior Individual: $35</p>
+                <p className="leading-1" style={{
+                  fontFamily: "unbounded"
+                }}>Regional Open Individual: $35</p>
+                <p className="leading-1" style={{
+                  fontFamily: "unbounded"
+                }}>Open Stage Individual: $35</p>
+                <p className="leading-1" style={{
+                  fontFamily: "unbounded",
+                  marginBottom: "10%",
+                }}>Open Stage Teams: $50</p>
+                <p className="leading-none" style={{
+                  fontFamily: "unbounded"
+                }}>For any inquiries or assistance please contact us through our email.</p>
+
                 
-                <p className="text-gray-300 max-w-lg leading-relaxed"
-                >
-                For any inquiries, or if you're an event organizer looking for an awesome performance for your event, we'd love to hear from you! Reach out and let's connect.
-                </p>
-                <div className="justify-self-start">Email</div>
+                <a href="mailto:texasdiabolo@gmail.com" target="_blank" rel="noopener noreferrer">
+            <img src={EmailIcon} alt="Email" className="w-5 h-5 hover:opacity-75" />
+          </a>
             </div>
 
-            <div>
-               <RegistrationForm />
+            <div 
+            // style={{
+            //   display: "flex",
+            //   alignItems: "center",
+            //   justifyContent: "center",
+            //   height: "60vh",
+            //   width: "100%",
+            // }}
+            >
+               <RegistrationSystem />
             </div>
         </div>
         </div>
