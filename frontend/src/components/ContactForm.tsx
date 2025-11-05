@@ -105,6 +105,7 @@ const ContactForm = () => {
                   style={{
                     fontFamily: "unbounded",
                     fontSize: "11px",
+                    cursor: "pointer",
                 }}>
                     SUBMIT
                 </button>
