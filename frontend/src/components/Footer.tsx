@@ -12,7 +12,7 @@ const Footer = () => {
       marginBottom: "4%"
     }}>
         <div className="absolute left-[12%] flex gap-3">
-          <img src={TDALogo} alt="Texas Diabolo" className="w-20" />
+          <img src={TDALogo} alt="Texas Diabolo" className="w-[20vw] md:w-[7vw]" />
 
         </div>
         <div className="absolute right-[12.5%]"> <Socials /></div>
