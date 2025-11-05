@@ -40,21 +40,28 @@ const SubscribeMailout = () => {
   }
   
   return (
-    <div className="w-full text-white pb-4 md:py-12 flex flex-col"
-      >
-      <img src={Q} alt="Email" className="w-[50%] ml-[12.5%] mt-10" />
-
-      <h2 className="text-sm tracking-widest text-center mb-4 mt-10">
+    <div className="w-full text-white pb-4 md:py-12 flex flex-col">
+      <img src={Q} alt="Want to be notified about diabolo events in Austin?" className="w-[60%] md:w-[50%] ml-[12.5vw] my-[7vh]" />
+      <h2 
+        className="text-sm tracking-widest text-center mb-[1vh]"
+        style={{
+          fontFamily: "unbounded",
+          fontSize: "clamp(8px, 2vw, 12px)"
+        }}>
         JOIN OUR MAILING LIST:
       </h2>
 
       <form className="w-[75%] mx-auto" onSubmit={addToMailout}>
         <input 
-          className="w-full mb-2 md:mb-4 pb-1 text-xs md:text-lg bg-transparent border-b border-white text-white focus:outline-none focus:border-gray-400" 
+          className="w-full mb-4 p-2 bg-transparent border-b border-white text-white text-sm focus:outline-none focus:border-gray-400" 
+          style={{
+            fontFamily: "unbounded",
+            fontSize: "clamp(8px, 2vw, 12px)"
+          }}
           type="email" 
           id="email" 
           name="email" 
-          placeholder="Email"
+          placeholder="EMAIL"
           required 
           value = {email}
           onChange={(e) => setEmail(e.target.value)}
@@ -62,12 +69,11 @@ const SubscribeMailout = () => {
         {/* Submit button */}
         <button
           type="submit"
-          className="w-full bg-white text-black py-1 tracking-widest hover:bg-gray-200 transition"
+          className="w-full border text-white py-2 text-sm tracking-widest hover:bg-white hover:text-black transition"
           style={{
-                    fontFamily: "unbounded",
-                    fontSize: "clamp(8px, 2vw, 14px)",
-                    cursor: "pointer",
-                }}>
+            fontFamily: "unbounded",
+            fontSize: "clamp(8px, 2vw, 12px)"
+          }}>
           JOIN NOW
         </button>
   

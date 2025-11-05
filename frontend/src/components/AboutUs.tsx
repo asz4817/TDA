@@ -10,12 +10,12 @@ const AboutUs = () => {
                 fontFamily: `roc-grotesk-compressed, sans-serif`,
                 fontWeight: 700,
                 fontStyle: "normal",
-                fontSize: "96px",
+                fontSize: "clamp(48px, 8vw, 96px)",
                 textAlign: "center",
             }}>ABOUT US</h1>
             <p style={{
                 fontFamily: "unbounded",
-                fontSize: "14px",
+                fontSize: "clamp(8px, 2vw, 14px)",
                 textAlign: "center",
                 marginBottom: "4%",
             }}>
@@ -23,7 +23,7 @@ const AboutUs = () => {
             </p>
             <p style={{
                 fontFamily: "unbounded",
-                fontSize: "14px",
+                fontSize: "clamp(8px, 2vw, 14px)",
                 textAlign: "center",
             }}>
                 We are a nationally ranked diabolo team that celebrates Asian American culture through captivating performances.
