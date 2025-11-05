@@ -34,45 +34,63 @@ const PerformanceCards = () => {
   ];
 
   return (
-    <div className="min-h-screen text-white py-20 px-8">
-      <div className="w-[81%] mx-auto grid grid-cols-7">
-            {/* Header */}
-            <div className="col-span-2 my-auto mx-auto">
-                <h2 style={{
-                  fontFamily: `roc-grotesk-compressed, sans-serif`,
-                  fontWeight: 700,
-                  fontStyle: "normal",
-                  fontSize: "64px",
-                  marginBottom: "-13%",
-                }}>OUR</h2>
-                <h2 style={{
-                  fontFamily: `roc-grotesk-compressed, sans-serif`,
-                  fontWeight: 700,
-                  fontStyle: "normal",
-                  fontSize: "64px",
-                  marginBottom: "4%",
-                }}>PERFORMANCES</h2>
-                <a href="https://youtube.com/@texasdiabolo" target="_blank" rel="noopener noreferrer">
+    <div className="text-white pt-12 px-4 md:px-8">
+      {/* Mobile Header (shows only on mobile) */}
+      <div className="block md:hidden text-center mb-8">
+        <h2 style={{
+          fontFamily: `roc-grotesk-compressed, sans-serif`,
+          fontWeight: 700,
+          fontStyle: "normal",
+          fontSize: "48px",
+          lineHeight: "1",
+        }}>OUR</h2>
+        <h2 style={{
+          fontFamily: `roc-grotesk-compressed, sans-serif`,
+          fontWeight: 700,
+          fontStyle: "normal",
+          fontSize: "48px",
+          marginBottom: "16px",
+          lineHeight: "1",
+        }}>PERFORMANCES</h2>
+        <a href="https://youtube.com/@texasdiabolo" target="_blank" rel="noopener noreferrer" className="inline-block">
+          <img src={Arrow} alt="YouTube" className="w-12 h-12 hover:opacity-75 mx-auto" />
+        </a>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-7">
+        {/* Desktop Header (hidden on mobile) */}
+        <div className="hidden md:block col-span-2 my-auto mx-auto">
+          <h2 style={{
+            fontFamily: `roc-grotesk-compressed, sans-serif`,
+            fontWeight: 700,
+            fontStyle: "normal",
+            fontSize: "clamp(40px, 6vw, 64px)",
+            marginBottom: "-13%",
+          }}>OUR</h2>
+          <h2 style={{
+            fontFamily: `roc-grotesk-compressed, sans-serif`,
+            fontWeight: 700,
+            fontStyle: "normal",
+            fontSize: "clamp(40px, 6vw, 64px)",
+            marginBottom: "4%",
+          }}>PERFORMANCES</h2>
+          <a href="https://youtube.com/@texasdiabolo" target="_blank" rel="noopener noreferrer">
             <img src={Arrow} alt="YouTube" className="w-15 h-15 hover:opacity-75" />
           </a>
-            </div>
-
-
+        </div>
 
         {/* Cards Container */}
-        <div className="flex gap-6 items-center col-span-5"
-        style={{
-          marginLeft: "5%",
-          marginRight: "2%"
-        }}>
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center col-span-1 md:col-span-5 ">
           {performances.map((performance) => (
             <div
               key={performance.id}
               onMouseEnter={() => setActiveCard(performance.id)}
-              className={`relative rounded-xl overflow-hidden cursor-pointer transition-all duration-500 ease-out ${
-                activeCard === performance.id
-                  ? "w-[700px] h-[600px]"
-                  : "w-[180px] h-[600px]"
+              onClick={() => setActiveCard(performance.id)}
+              className={`relative rounded-xl overflow-hidden cursor-pointer transition-all duration-500 ease-out
+                ${activeCard === performance.id
+                  ? "w-full md:w-[700px] h-[400px] md:h-[600px]"
+                  : "w-full md:w-[180px] h-[120px] md:h-[600px]"
               }`}
             >
               {/* Background Image */}
@@ -87,42 +105,50 @@ const PerformanceCards = () => {
               </div>
 
               {/* Content */}
-              <div className="relative h-full flex flex-col justify-end p-8">
+              <div className="relative h-full flex flex-col justify-end p-4 md:p-8">
                 <div
                   className={`transition-opacity duration-300 ${
                     activeCard === performance.id ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <h3 className=""
-                      style={{
-                        opacity: activeCard === performance.id ? 1 : 0,
-                        transition: "opacity 300ms ease-in-out",
-                        transitionDelay: "200ms",
-                        fontFamily: "unbounded",
-                        fontSize: "24px",
-                      }}>{performance.title}</h3>
-                  <p className=""
-                      style={{
-                        marginTop: "-1%",
-                        fontFamily: "unbounded",
-                        fontSize: "20px",
-                        marginBottom: "4%",
-                      }}
-                  >{performance.year}</p>
+                  <h3 
+                    style={{
+                      opacity: activeCard === performance.id ? 1 : 0,
+                      transition: "opacity 300ms ease-in-out",
+                      transitionDelay: "200ms",
+                      fontFamily: "unbounded",
+                      fontSize: window.innerWidth < 768 ? "18px" : "24px",
+                    }}
+                  >
+                    {performance.title}
+                  </h3>
+                  <p 
+                    style={{
+                      marginTop: "-1%",
+                      fontFamily: "unbounded",
+                      fontSize: window.innerWidth < 768 ? "16px" : "20px",
+                      marginBottom: "4%",
+                    }}
+                  >
+                    {performance.year}
+                  </p>
                   
                   {/* Watch Now Button */}
                   <a
                     href={performance.youtubeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 border border-white rounded-full hover:bg-white hover:text-black transition-colors"
+                    className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 border border-white rounded-full hover:bg-white hover:text-black transition-colors"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <span className=""
-                    style={{
-                      fontFamily: "unbounded",
-                      fontSize: "12px"
-                    }}>WATCH NOW</span>
+                    <span 
+                      style={{
+                        fontFamily: "unbounded",
+                        fontSize: "12px"
+                      }}
+                    >
+                      WATCH NOW
+                    </span>
                     <svg
                       className="w-4 h-4"
                       fill="currentColor"

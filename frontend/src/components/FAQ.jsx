@@ -42,7 +42,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white px-8 py-16">
+    <div className="text-white px-8 py-16 border">
       <div className="max-w-7xl mx-auto">
         {/* FAQ Title */}
         <h1 
@@ -50,7 +50,8 @@ const FAQ = () => {
             fontFamily: 'roc-grotesk-compressed, sans-serif',
             fontWeight: 600,
             fontStyle: 'normal',
-            fontSize: '80px'
+            // fontSize: '80px'
+            fontSize: "clamp(60px, 10vw, 80px)"
           }}
         >
           FAQ

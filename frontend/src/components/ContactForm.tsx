@@ -104,7 +104,7 @@ const ContactForm = () => {
                   type="submit"
                   style={{
                     fontFamily: "unbounded",
-                    fontSize: "11px",
+                    fontSize: "clamp(8px, 2vw, 20px)",
                     cursor: "pointer",
                 }}>
                     SUBMIT

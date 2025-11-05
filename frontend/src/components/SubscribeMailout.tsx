@@ -40,7 +40,7 @@ const SubscribeMailout = () => {
   }
   
   return (
-    <div className="w-full text-white py-12 flex flex-col"
+    <div className="w-full text-white pb-4 md:py-12 flex flex-col"
       >
       <img src={Q} alt="Email" className="w-[50%] ml-[12.5%] mt-10" />
 
@@ -50,7 +50,7 @@ const SubscribeMailout = () => {
 
       <form className="w-[75%] mx-auto" onSubmit={addToMailout}>
         <input 
-          className="w-full mb-4 pb-1 bg-transparent border-b border-white text-white focus:outline-none focus:border-gray-400" 
+          className="w-full mb-2 md:mb-4 pb-1 text-xs md:text-lg bg-transparent border-b border-white text-white focus:outline-none focus:border-gray-400" 
           type="email" 
           id="email" 
           name="email" 
@@ -62,9 +62,15 @@ const SubscribeMailout = () => {
         {/* Submit button */}
         <button
           type="submit"
-          className="w-full bg-white text-black py-1 text-sm tracking-widest hover:bg-gray-200 transition">
+          className="w-full bg-white text-black py-1 tracking-widest hover:bg-gray-200 transition"
+          style={{
+                    fontFamily: "unbounded",
+                    fontSize: "clamp(8px, 2vw, 14px)",
+                    cursor: "pointer",
+                }}>
           JOIN NOW
         </button>
+  
          <p className="mt-2 text-sm text-center text-green-500">{responseMessage}</p>
      </form>
     </div>

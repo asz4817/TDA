@@ -25,21 +25,25 @@ export default function Navbar() {
       window.addEventListener("scroll", onScroll);
       return () => window.removeEventListener("scroll", onScroll);
     }, [scrollTop]);
-  return (
+  
+  
+  
+  
+    return (
     <nav className="w-full fixed top-0 left-0 bg-transparent text-white z-50"
     style={{opacity: scrolling ? 1 : 0,
               transition: "opacity 0.5s ease-out",
     }}>
-      <div className="relative mx-auto w-[75%] mt-20 flex justify-between gap-[10%]">
+      <div className="relative mx-auto w-[75%] md:mt-20 mt-10 flex justify-between">
         {/* Left: Logo */}
         <div className="flex items-center gap-[10%] w-[75%]">
             <NavLink 
                         to="/"
                         className="items-center" >
                         <img
-                            className="w-[125%]"
+                            className="w-[10vw]"
                             src={TDALogo}
-                            alt="USADA Logo"
+                            alt="TDA Logo"
                         />
                     </NavLink>
 {/*           
@@ -65,7 +69,7 @@ export default function Navbar() {
               }`
             }
             style={{fontFamily: "unbounded",
-              fontSize: "11px",             
+              fontSize: "clamp(4px, 1vw, 40px)",             
             }}
           >
             TXDC 2026
@@ -80,7 +84,7 @@ export default function Navbar() {
               }`
             }
             style={{fontFamily: "unbounded",
-              fontSize: "11px",
+              fontSize: "clamp(4px, 1vw, 40px)",
             }}
           >
             CONTACT US
@@ -96,15 +100,15 @@ export default function Navbar() {
               className="border border-white rounded-full hover:bg-white hover:text-black transition whitespace-nowrap"
               style={{
                 fontFamily: "unbounded",
-                fontSize: "clamp(9px, 1vw, 11px)",
-                padding: "clamp(6px, 0.8vw, 10px) clamp(20px, 2.5vw, 34px)",
+                fontSize: "clamp(4px, 1vw, 11px)",
+                padding: "clamp(4px, 0.8vw, 10px) clamp(8px, 2.5vw, 34px)",
                 minWidth: "max-content",
               }}
             >
               JOIN THE TEAM
             </a>
 
-            <img src={Line} alt="Line" width={".75%"} />
+            <img src={Line} alt="Line" className="h-[50%] md:h-[3vw]" />
             <img src={profile} alt="profile" width={"11%"}/>
 
           {/* <User size={20} className="cursor-pointer hover:text-gray-300" /> */}
