@@ -283,7 +283,7 @@ def register_team():
         }), 500
 
 
-@app.route("/upload-audio", methods=["POST"])
+@app.route("/upload_audio", methods=["POST"])
 def upload_audio():
     if "file" not in request.files:
         return jsonify({"error": "No file part"}), 400

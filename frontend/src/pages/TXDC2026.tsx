@@ -3,13 +3,22 @@ import '../App.css';
 import { NavLink } from "react-router-dom";
 import RegistrationInfo from "../components/RegistrationInfo";
 import EventSchedule from "../components/EventSchedule";
+import HomeBg from "../assets/Untitled_Artwork.png";
 
 const TXDC = () => {
   return (
     <div>
     <section
-      className="relative w-full h-screen bg-cover bg-center mb-10">
-        <div className="absolute inset-0 bg-black opacity-50"></div>
+      className="relative w-full h-screen bg-cover bg-center mb-10"
+      style={{
+        backgroundImage: `linear-gradient(180deg,rgba(0, 0, 0, 1) 0%, rgba(152, 152, 152, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(188, 190, 204, 0.55) 69%, rgba(0, 0, 0, 1) 100%), url(${HomeBg})`,
+                  backgroundColor: "transparent",
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+      }}>
+        {/* <div className="absolute inset-0 bg-black opacity-50"></div> */}
         <div className="pt-45 pb-30">
             <div className="grid grid-cols-2 mx-auto absolute right-[11%] bottom-[12%]">      
                 <div className="space-y-2">
@@ -30,7 +39,7 @@ const TXDC = () => {
                     }}>MARCH 14-15TH</p>
                     <div className="flex gap-4 items-center">
                         <NavLink
-                        to="/txdc2026/"
+                        to="/txdc2026/register"
                         className="px-5 py-2 border border-white rounded-full hover:bg-white hover:text-black transition"
                                 style={{fontFamily: "unbounded",
                                     fontSize: "11px"
