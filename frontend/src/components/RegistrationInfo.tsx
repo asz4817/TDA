@@ -101,7 +101,7 @@ const Registration = () => {
               
               <p className="text-sm">
                 • Individual Regional Junior Division: Optional division for competitors under the age of 18.{' '}
-                <span className="text-gray-400">Competitors must be under the age of 18 on March 14th, 2026</span>
+                <span className="text-gray-400">Competitors must be under the age of 18 on March 14th, 2026 and have a valid Texas mailing address.</span>
               </p>
               
               <p className="text-sm">
