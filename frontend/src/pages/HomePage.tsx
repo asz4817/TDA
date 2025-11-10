@@ -7,9 +7,6 @@ const HomePage = () => {
   return (
     <>
         <Hero/>
-        <Divider />
-
-        <PerformanceCards />
 
     </>
   )

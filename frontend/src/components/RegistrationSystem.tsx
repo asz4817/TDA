@@ -56,15 +56,15 @@ const RegistrationSystem = () => {
             tshirtSize: ''
         });
 
-    const goBackMember = () => {
-        if (currentTeamMemberIndex > 0) {
-            const prevIndex = currentTeamMemberIndex - 1;
-            setCurrentTeamMemberIndex(prevIndex);
-            setCurrentMember(teamMembers[prevIndex]);
-        }
-    };
+    // const goBackMember = () => {
+    //     if (currentTeamMemberIndex > 0) {
+    //         const prevIndex = currentTeamMemberIndex - 1;
+    //         setCurrentTeamMemberIndex(prevIndex);
+    //         setCurrentMember(teamMembers[prevIndex]);
+    //     }
+    // };
 
-    const isMinor = (dob) => {
+    const isMinor = (dob: string) => {
         if (!dob) return false;
         const march2026 = new Date('2026-03-01');
         const birthDate = new Date(dob);
@@ -147,9 +147,14 @@ const RegistrationSystem = () => {
         } else {
             setResponseMessage(result.error || 'Error submitting music file');
         }
-    } catch (err) {
-        setResponseMessage(`Error: ${err.message}`);
-    }
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            setResponseMessage(`Error: ${err.message}`);
+        } else {
+            setResponseMessage('An unknown error occurred.');
+        }
+        }
+
 }
 
     const submitIndividualForm = async () => {
@@ -213,32 +218,37 @@ const RegistrationSystem = () => {
             } else {
                 setResponseMessage(result.error || 'Error submitting form');
             }
-        } catch (err) {
-            setResponseMessage(`Error: ${err.message}`);
-        }
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setResponseMessage(`Error: ${err.message}`);
+            } else {
+                setResponseMessage('An unknown error occurred.');
+            }
+            }
+
     };
 
-    // Team registration handlers
-    const handleTeamNext = () => {
-        if (teamStep === 1) {
-            if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || 
-                !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
-                setResponseMessage('Please fill in all fields');
-                return;
-            }
-        }
-        if (teamStep === 2) {
-            if (!currentMember.emergencyContactName || !currentMember.emergencyContactPhone || 
-                !currentMember.numberOfGuests) {
-                setResponseMessage('Please fill in all fields');
-                return;
-            }
-        }
-        if (teamStep < 2) {
-            setTeamStep(teamStep + 1);
-            setResponseMessage('');
-        }
-    };
+    // // Team registration handlers
+    // const _handleTeamNext = () => {
+    //     if (teamStep === 1) {
+    //         if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || 
+    //             !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
+    //             setResponseMessage('Please fill in all fields');
+    //             return;
+    //         }
+    //     }
+    //     if (teamStep === 2) {
+    //         if (!currentMember.emergencyContactName || !currentMember.emergencyContactPhone || 
+    //             !currentMember.numberOfGuests) {
+    //             setResponseMessage('Please fill in all fields');
+    //             return;
+    //         }
+    //     }
+    //     if (teamStep < 2) {
+    //         setTeamStep(teamStep + 1);
+    //         setResponseMessage('');
+    //     }
+    // };
 
     
 
@@ -291,13 +301,7 @@ const RegistrationSystem = () => {
         setTeamMembers(updatedMembers);
 
         // Check if any minors
-        const minorCount = updatedMembers.filter(m => isMinor(m.dateOfBirth)).length;
         setTeamStep(2); // Go to waiver/chaperone page
-        // if (minorCount > 0) {
-        //     setTeamStep(2); // Go to waiver/chaperone page
-        // } else {
-        //     setTeamStep(3); // Skip to emergency contact page
-        // }
     };
 
     const submitTeamForm = async () => {
@@ -362,17 +366,21 @@ const RegistrationSystem = () => {
             } else {
                 setResponseMessage(result.error || 'Error submitting form');
             }
-        } catch (err) {
-            setResponseMessage(`Error: ${err.message}`);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setResponseMessage(`Error: ${err.message}`);
+            } else {
+                setResponseMessage('An unknown error occurred.');
+            }
         }
     };
 
-    const handleFileUpload = (e) => {
-        const files = Array.from(e.target.files);
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(e.target.files ?? []) as File[];
         setChaperoneFiles([...chaperoneFiles, ...files]);
     };
 
-    const renderStepIndicator = (currentStep, totalSteps) => {
+    const renderStepIndicator = (currentStep: number, totalSteps: number) => {
         return (
             <div className="flex justify-center gap-2 mb-8">
                 {Array.from({ length: totalSteps }, (_, i) => (
@@ -608,7 +616,7 @@ const RegistrationSystem = () => {
                                         id="chaperone-upload"
                                         className="hidden"
                                         accept=".pdf,.doc,.docx"
-                                        onChange={(e) => setChaperoneFile(e.target.files[0])}
+                                        onChange={(e) => setChaperoneFile(e.target.files?.[0] ?? null)}
                                     />
                                     <label htmlFor="chaperone-upload" className="cursor-pointer">
                                         <p className="text-white text-base font-light">Upload file here</p>
@@ -1094,7 +1102,7 @@ if (teamStep === 2) {
                                         id="music-upload"
                                         className="hidden"
                                         accept="audio/*"
-                                        onChange={(e) => setMusicFile(e.target.files[0])}
+                                        onChange={(e) => setMusicFile(e.target.files?.[0] ?? null)}
                                     />
                                     <label htmlFor="music-upload" className="cursor-pointer">
                                         <p className="text-white text-base font-light">Upload file here</p>

@@ -72,7 +72,8 @@ const SubscribeMailout = () => {
           className="w-full border text-white py-2 text-sm tracking-widest hover:bg-white hover:text-black transition"
           style={{
             fontFamily: "unbounded",
-            fontSize: "clamp(8px, 2vw, 12px)"
+            fontSize: "clamp(8px, 2vw, 12px)",
+            cursor: "pointer"
           }}>
           JOIN NOW
         </button>
