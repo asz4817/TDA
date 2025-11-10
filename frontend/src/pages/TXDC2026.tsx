@@ -3,7 +3,7 @@ import '../App.css';
 import { NavLink } from "react-router-dom";
 import RegistrationInfo from "../components/RegistrationInfo";
 import EventSchedule from "../components/EventSchedule";
-import HomeBg from "../assets/Untitled_Artwork.png";
+import HomeBg from "../assets/testtxdcbanner3.png";
 
 const TXDC = () => {
   return (
@@ -11,7 +11,7 @@ const TXDC = () => {
     <section
       className="relative w-full h-screen bg-cover bg-center mb-10"
       style={{
-        backgroundImage: `linear-gradient(180deg,rgba(0, 0, 0, 0.13) 0%, rgba(0, 0, 0, 0.5) 80%, rgba(0, 0, 0, 1) 100%), url(${HomeBg})`,
+        backgroundImage: `linear-gradient(180deg,rgba(0, 0, 0, 0.13) 50%, rgba(0, 0, 0, 0.5) 100%), url(${HomeBg})`,
                   backgroundColor: "transparent",
           backgroundAttachment: "fixed",
           backgroundPosition: "center",
