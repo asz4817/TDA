@@ -15,7 +15,7 @@ const Footer = () => {
           <img src={TDALogo} alt="Texas Diabolo" className="w-[20vw] md:w-[7vw]" />
 
         </div>
-        <div className="absolute right-[12.5%]"> <Socials /></div>
+        <div className="absolute right-[12.5%] justify-self-end"> <Socials /></div>
 
     </div>
     </>

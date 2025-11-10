@@ -11,7 +11,7 @@ const TXDC = () => {
     <section
       className="relative w-full h-screen bg-cover bg-center mb-10"
       style={{
-        backgroundImage: `linear-gradient(180deg,rgba(0, 0, 0, 1) 0%, rgba(152, 152, 152, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(188, 190, 204, 0.55) 69%, rgba(0, 0, 0, 1) 100%), url(${HomeBg})`,
+        backgroundImage: `linear-gradient(180deg,rgba(0, 0, 0, 0.13) 0%, rgba(0, 0, 0, 0.5) 80%, rgba(0, 0, 0, 1) 100%), url(${HomeBg})`,
                   backgroundColor: "transparent",
           backgroundAttachment: "fixed",
           backgroundPosition: "center",
