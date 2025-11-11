@@ -3,7 +3,8 @@ import '../App.css';
 import { NavLink } from "react-router-dom";
 import RegistrationInfo from "../components/RegistrationInfo";
 import EventSchedule from "../components/EventSchedule";
-import HomeBg from "../assets/testtxdcbanner3.png";
+import HomeBg from "../assets/Untitled_Artwork.png";
+import arrow from "../assets/arrow-up-right.svg"
 
 const TXDC = () => {
   return (
@@ -19,16 +20,16 @@ const TXDC = () => {
           backgroundSize: "cover",
       }}>
         {/* <div className="absolute inset-0 bg-black opacity-50"></div> */}
-        <div className="pt-45 pb-30">
-            <div className="grid grid-cols-2 mx-auto absolute right-[11%] bottom-[12%]">      
-                <div className="space-y-2">
-                    <h1 className=""
+        <div className="pt-45 md: pb-30">
+            <div className="grid mx-auto pr-10 absolute left-[11%] bottom-[12%]">      
+                <div>
+                    <h1 
                     style={{
                         fontFamily: `roc-grotesk-compressed, sans-serif`,
                         fontWeight: 700,
                         fontStyle: "normal",
-                        fontSize: "168px",
-                        marginBottom: "-11%",
+                        fontSize: "clamp(100px, 20vw, 168px)",
+                        marginBottom: "-12%",
                     }}>
                     TXDC 2026
                     </h1>
@@ -40,11 +41,11 @@ const TXDC = () => {
                     <div className="flex gap-4 items-center">
                         <NavLink
                         to="/txdc2026/register"
-                        className="px-5 py-2 border border-white rounded-full hover:bg-white hover:text-black transition"
+                        className="px-5 py-2 border flex items-center gap-1 border-white rounded-full hover:bg-white hover:text-black transition"
                                 style={{fontFamily: "unbounded",
                                     fontSize: "11px"
                         }}>
-                        REGISTER NOW 
+                        REGISTER NOW <img src={arrow} className="w-5 h-5"></img>
                         </NavLink>
                         <h1 style={{
                             fontFamily: "unbounded",
@@ -61,7 +62,6 @@ const TXDC = () => {
     <Divider />
     <div className="mx-auto w-[75vw]">   
        <RegistrationInfo />
-       <br />
        <EventSchedule />
     </div>
     </div>

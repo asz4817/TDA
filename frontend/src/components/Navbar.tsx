@@ -60,7 +60,7 @@ export default function Navbar() {
           >
             OUR STORY
           </NavLink> */}
-
+{/* 
           <NavLink
             to="/txdc2026"
             className={({ isActive }) =>
@@ -73,7 +73,7 @@ export default function Navbar() {
             }}
           >
             TXDC 2026
-          </NavLink>
+          </NavLink> */}
 
 
           <NavLink
@@ -93,7 +93,7 @@ export default function Navbar() {
 
 
         {/* Right: Button + User icon */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <a
               href="https://linktr.ee/texasdiabolo"
               target="_blank"

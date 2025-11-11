@@ -6,16 +6,16 @@ const EventSchedule = () => {
       <div className="w-full">
     
 
-        <div className="grid grid-cols-9 gap-12">
+        <div className="md:grid grid-cols-9 gap-12">
           {/* Left Column - Schedule */}
-          <div className="col-span-5">
+          <div className="md:col-span-5">
             {/* Title */}
                 <h1
                 style={{
                     fontFamily: 'roc-grotesk-compressed, sans-serif',
                     fontWeight: 600,
                     fontStyle: 'normal',
-                    fontSize: '80px',
+                    fontSize: 'clamp(60px, 10vw, 80px)',
                     lineHeight: '1',
                     marginBottom: '12px'
                 }}>
@@ -27,7 +27,7 @@ const EventSchedule = () => {
                 style={{
                     fontFamily: 'unbounded, sans-serif',
                     lineHeight: '1.2',
-                    fontSize: '16px',
+                    fontSize: 'clamp(12px, 2vw, 16px)',
                     marginBottom: '12px'
                 }}>
                 This year's competition will be held at the Texas Union's Shirley Ballroom on the University of Texas at Austin campus.
@@ -36,14 +36,13 @@ const EventSchedule = () => {
             <div className="pt-8 mb-5">
               <div className="flex flex-cols-2 gap-12">
                 <div>
-                  <h2
+                  <h2 className="whitespace-nowrap"
                     style={{
                       fontFamily: 'roc-grotesk-compressed, sans-serif',
                       fontWeight: 700,
                       fontStyle: 'normal',
                       fontSize: '50px',
                       lineHeight: '0.9',
-                      marginBottom: '8px'
                     }}>
                     DAY 0
                   </h2>
@@ -51,7 +50,7 @@ const EventSchedule = () => {
                     style={{
                       fontFamily: 'roc-grotesk, sans-serif',
                       fontWeight: 200,
-                      fontSize: '15px',
+                      fontSize: '16px',
                       textAlign: "center"
                     }}>
                     FRI
@@ -75,14 +74,13 @@ const EventSchedule = () => {
             <div className="border-t border-white pt-5 mb-5">
               <div className="flex flex-cols-2 gap-12">
                 <div>
-                  <h2
+                  <h2 className="whitespace-nowrap"
                     style={{
                       fontFamily: 'roc-grotesk-compressed, sans-serif',
                       fontWeight: 700,
                       fontStyle: 'normal',
                       fontSize: '50px',
                       lineHeight: '0.9',
-                      marginBottom: '8px'
                     }}>
                     DAY 1
                   </h2>
@@ -90,7 +88,7 @@ const EventSchedule = () => {
                     style={{
                       fontFamily: 'roc-grotesk, sans-serif',
                       fontWeight: 200,
-                      fontSize: '15px',
+                      fontSize: '16px',
                       textAlign: "center"
                     }}>
                     SAT
@@ -115,14 +113,13 @@ const EventSchedule = () => {
             <div className="border-t border-white pt-5 mb-5">
               <div className="flex flex-cols-2 gap-12">
                 <div>
-                  <h2
+                  <h2 className="whitespace-nowrap"
                     style={{
                       fontFamily: 'roc-grotesk-compressed, sans-serif',
                       fontWeight: 700,
                       fontStyle: 'normal',
                       fontSize: '50px',
                       lineHeight: '0.9',
-                      marginBottom: '8px'
                     }}>
                     DAY 2
                   </h2>
@@ -130,7 +127,7 @@ const EventSchedule = () => {
                     style={{
                       fontFamily: 'roc-grotesk, sans-serif',
                       fontWeight: 200,
-                      fontSize: '15px',
+                      fontSize: '16px',
                       textAlign: "center"
                     }}>
                     SUN
@@ -155,7 +152,7 @@ const EventSchedule = () => {
           </div>
 
           {/* Right Column - Image */}
-          <div className=" my-auto col-span-4">
+          <div className="my-auto col-span-4 pt-10 md:pt-0">
             <div className="w-full">
               <img 
                 src={union}

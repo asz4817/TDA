@@ -1,6 +1,6 @@
 const Registration = () => {
   return (
-    <div className="min-h-screen bg-black text-white py-20">
+    <div className="min-h-screen bg-black text-white pt-10 md:pt-20">
       <div className="max-w-8xl mx-auto">
         {/* Registration Title */}
         <h1
@@ -8,14 +8,15 @@ const Registration = () => {
           fontFamily: 'roc-grotesk-compressed, sans-serif',
           fontWeight: 600,
           fontStyle: 'normal',
-          fontSize: '80px',
+          fontSize: 'clamp(60px, 10vw, 80px)',
         }}>REGISTRATION</h1>
         
         {/* Introduction Text */}
         <p className=""
         style={{
           fontFamily: 'unbounded, sans-serif',
-          lineHeight: '1.3'
+          lineHeight: '1.3',
+          fontSize: 'clamp(12px, 2vw, 16px)'
         }}>
           For more information on competition rules, scoring criteria, and additional information, please read our{' '}
           <a href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">
@@ -25,14 +26,14 @@ const Registration = () => {
 
         {/* Deadlines Section */}
         <div className="mb-6 pt-6">
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-2">
             <div>
               <h2 className="text-8xl"
               style={{
                 fontFamily: 'roc-grotesk-compressed, sans-serif',
                 fontWeight: 700,
                 fontStyle: 'normal',
-                fontSize: '65px'
+                fontSize: 'clamp(50px, 8vw, 65px)'
               }}>DEADLINES</h2>
             </div>
             <div className="pt-4"
@@ -47,14 +48,14 @@ const Registration = () => {
 
         {/* Fees Section */}
         <div className="border-t border-white mb-6 pt-6">
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-2">
             <div>
               <h2 className="text-8xl"
               style={{
                 fontFamily: 'roc-grotesk-compressed, sans-serif',
                 fontWeight: 700,
                 fontStyle: 'normal',
-                fontSize: '65px'
+                fontSize: '65px',
               }}>FEES</h2>
             </div>
             <div className="pt-4"
@@ -70,7 +71,7 @@ const Registration = () => {
 
         {/* Divisions & Eligibility Section */}
         <div className="border-t border-white pt-6">
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-2">
             <div>
               <div className="flex items-start gap-4 mb-4">
                 <h2 className="text-7xl mt-2"

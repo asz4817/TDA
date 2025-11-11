@@ -380,6 +380,10 @@ const RegistrationSystem = () => {
         setChaperoneFiles([...chaperoneFiles, ...files]);
     };
 
+    const handleRemoveFile = (index: number) => {
+  setChaperoneFiles((prev) => prev.filter((_, i) => i !== index));
+};
+
     const renderStepIndicator = (currentStep: number, totalSteps: number) => {
         return (
             <div className="flex justify-center gap-2 mb-8">
@@ -398,7 +402,7 @@ const RegistrationSystem = () => {
     // HOME PAGE
     if (currentView === 'home') {
         return (
-            <div className="flex items-center justify-center min-h-screen">
+            <div className="flex items-center justify-center">
                 <div className="w-full max-w-md backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl">
                     <h1 className="text-3xl font-light text-white mb-12 tracking-wide text-center">REGISTER NOW</h1>
                     <div className="space-y-6">
@@ -430,7 +434,7 @@ const RegistrationSystem = () => {
     if (currentView === 'individual') {
         if (isSubmitted && step === 4) {
             return (
-                <div className="flex items-center justify-center min-h-screen">
+                <div className="flex items-center justify-center">
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(4, 4)}
                         <div className="text-left flex-1 flex flex-col justify-center">
@@ -455,7 +459,7 @@ const RegistrationSystem = () => {
         }
 
         return (
-            <div className="flex items-center justify-center min-h-screen">
+            <div className="flex items-center justify-center">
                 <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                     {renderStepIndicator(step, 4)}
                     
@@ -524,6 +528,26 @@ const RegistrationSystem = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="flex md:w-[50%] mx-auto">
+                                 <button
+                                className="w-16 h-16 mt-6 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+                                onClick={() => {
+                                // const updated = [...teamMembers];
+                                // updated[currentTeamMemberIndex] = currentMember;
+                                // setTeamMembers(updated);
+                                if (currentTeamMemberIndex > 0) {
+                                    setCurrentTeamMemberIndex(currentTeamMemberIndex - 1);
+                                    setCurrentMember(teamMembers[currentTeamMemberIndex - 1]);
+                                    setResponseMessage('');
+                                } else {
+                                    setCurrentView('home');
+                                }
+                                }}
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
                             <button 
                                 className="w-16 h-16 mt-6 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
                                 onClick={handleIndividualNext}>
@@ -531,6 +555,8 @@ const RegistrationSystem = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                 </svg>
                             </button>
+                            </div>
+
                             {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
                         </div>
                     )}
@@ -562,13 +588,35 @@ const RegistrationSystem = () => {
                                     onChange={(e) => setNumberOfGuests(e.target.value)}
                                 />
                             </div>
+                            
+                            <div className="flex w-[50%] mx-auto">
+                                 <button
+                                className="w-16 h-16 mt-6 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+                                onClick={() => {
+                                // const updated = [...teamMembers];
+                                // updated[currentTeamMemberIndex] = currentMember;
+                                // setTeamMembers(updated);
+                                if (currentTeamMemberIndex > 0) {
+                                    setCurrentTeamMemberIndex(currentTeamMemberIndex - 1);
+                                    setCurrentMember(teamMembers[currentTeamMemberIndex - 1]);
+                                    setResponseMessage('');
+                                } else {
+                                    setStep(step-1);
+                                }
+                                }}
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
                             <button 
-                                className="w-16 h-16 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
+                                className="w-16 h-16 mt-6 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
                                 onClick={handleIndividualNext}>
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                 </svg>
                             </button>
+                            </div>
                             {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
                         </div>
                     )}
@@ -658,7 +706,7 @@ const RegistrationSystem = () => {
 
         if (isSubmitted && teamStep === 4) {
             return (
-                <div className="flex items-center justify-center min-h-screen">
+                <div className="flex items-center justify-center">
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(4, 4)}
                         <div className="text-left flex-1 flex flex-col justify-center">
@@ -685,7 +733,7 @@ const RegistrationSystem = () => {
         // Step 1: Collect team member personal info
         if (teamStep === 1) {
             return (
-                <div className="flex items-center justify-center min-h-screen">
+                <div className="flex items-center justify-center">
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                         {renderStepIndicator(1, 4)}
                         
@@ -765,35 +813,33 @@ const RegistrationSystem = () => {
                                         + Add new team member
                                     </button>
                                 </div>
-                                <div className="flex items-center justify-between mt-6">
-                            {/* Back button */}
-                            <button
-                                className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
-                                onClick={() => {
-                                // const updated = [...teamMembers];
-                                // updated[currentTeamMemberIndex] = currentMember;
-                                // setTeamMembers(updated);
-                                if (currentTeamMemberIndex > 0) {
-                                    setCurrentTeamMemberIndex(currentTeamMemberIndex - 1);
-                                    setCurrentMember(teamMembers[currentTeamMemberIndex - 1]);
-                                    setResponseMessage('');
-                                }
-                                }}
-                                disabled={currentTeamMemberIndex === 0}
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </button>
+                            <div className="flex items-center mt-6">
+                                {/* Back button */}
+                                <button
+                                    className="w-10 h-7 md:w-16 md:h-15 bg-transparent border md:border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+                                    onClick={() => {
+                                    if (currentTeamMemberIndex > 0) {
+                                        setCurrentTeamMemberIndex(currentTeamMemberIndex - 1);
+                                        setCurrentMember(teamMembers[currentTeamMemberIndex - 1]);
+                                        setResponseMessage('');
+                                    } else {
+                                        setCurrentView('home');
+                                    }
+                                    }}
+                                >
+                                    <svg className="w-3 h-3 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
 
                             {/* Middle (Next / Proceed) */}
-                            <div className="flex-1 mx-8">
+                            <div className="md:mx-8 flex">
                                 {(() => {
                                 const hasNext = currentTeamMemberIndex < teamSize - 1;
                                 if (hasNext) {
                                     return (
                                     <button
-                                        className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
+                                        className="w-full mx-5 px-4 bg-transparent whitespace-nowrap justify-end border md:border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-xs md:text-sm cursor-pointer"
                                         onClick={() => {
                                         const updated = [...teamMembers];
                                         updated[currentTeamMemberIndex] = currentMember;
@@ -820,7 +866,7 @@ const RegistrationSystem = () => {
                                 if (teamSize > 1) {
                                     return (
                                     <button
-                                    className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
+                                    className="w-full md:my-2 px-2 ml-10 py-2 bg-transparent border md:border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-xs md:text-sm cursor-pointer"
                                     onClick={proceedWithTeam}
                                     >
                                     PROCEED WITH {teamSize} TEAM MEMBERS
@@ -871,7 +917,7 @@ if (teamStep === 2) {
     // If there are minors, show the full waiver page with file upload
     if (minorCount > 0) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
+            <div className="flex items-center justify-center">
                 <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                     {renderStepIndicator(2, 4)}
                     <div className="flex-1 flex flex-col justify-between">
@@ -896,11 +942,30 @@ if (teamStep === 2) {
                                     <p className="text-gray-400 text-xs mt-2">
                                         {minorCount} form(s) required | {chaperoneFiles.length} uploaded
                                     </p>
-                                    {chaperoneFiles.length > 0 && (
+                                    {/* {chaperoneFiles.length > 0 && (
                                         <div className="mt-4 space-y-1">
                                             {chaperoneFiles.map((file, idx) => (
                                                 <p key={idx} className="text-blue-400 text-xs">{file.name}</p>
                                             ))}
+                                        </div>
+                                    )} */}
+                                    {chaperoneFiles.length > 0 && (
+                                        <div className="mt-4 space-y-2 text-left">
+                                        {chaperoneFiles.map((file, idx) => (
+                                            <div
+                                            key={idx}
+                                            className="flex items-center justify-between text-blue-400 text-xs bg-gray-800 px-3 py-1 rounded-md"
+                                            >
+                                            <span className="truncate">{file.name}</span>
+                                            <button
+                                                type="button"
+                                                className="text-red-400 hover:text-red-300 ml-3"
+                                                onClick={() => handleRemoveFile(idx)}
+                                            >
+                                                ✕
+                                            </button>
+                                            </div>
+                                        ))}
                                         </div>
                                     )}
                                 </label>
@@ -955,7 +1020,7 @@ if (teamStep === 2) {
     
     // If there are NO minors, show simplified waiver page (no file upload)
     return (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center">
             <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                 {renderStepIndicator(2, 4)}
                 <div className="flex-1 flex flex-col justify-between">
@@ -1008,7 +1073,7 @@ if (teamStep === 2) {
         // Step 3: Emergency contact (once for whole team)
         if (teamStep === 3) {
             return (
-                <div className="flex items-center justify-center min-h-screen">
+                <div className="flex items-center justify-center">
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                         {renderStepIndicator(3, 4)}
                         <div className="flex-1 flex flex-col">
@@ -1037,7 +1102,7 @@ if (teamStep === 2) {
                                     onChange={(e) => setTeamNumberOfGuests(e.target.value)}
                                 />
                             </div>
-                            <div className="flex items-center justify-between">
+                            <div className="items-center justify-between">
                                 <button 
                                     className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer"
                                     // onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
@@ -1063,16 +1128,15 @@ if (teamStep === 2) {
     else if (currentView === 'music') {
         if (isSubmitted && step === 2) {
             return (
-                <div className="flex items-center justify-center min-h-screen">
+                <div className="flex items-center justify-center">
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(2, 2)}
                         <div className="text-left flex-1 flex flex-col justify-center">
                             <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
                             <p className="text-white text-base leading-relaxed mb-6 font-light">
-                                Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
-                            </p>
+                                Thank you for submitting your music for the 2026 Texas Diabolo Competition! We will review your music submission and send you a confirmation email once it has been approved.</p>
                             <p className="text-white text-base leading-relaxed font-light">
-                                Please do not forget to send us your music for your routine by February 14th, 2026 to texasdiabolo@gmail.com. We can't wait to see you in March!
+                                We can't wait to see you in March!
                             </p>
                         </div>
                         <div className="flex justify-center mt-12">
@@ -1087,7 +1151,7 @@ if (teamStep === 2) {
             );
         }
         return (
-            <div className="flex items-center justify-center min-h-screen">
+            <div className="flex items-center justify-center">
                 <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                     {renderStepIndicator(step, 2)}
                <div className="flex-1 flex flex-col justify-between">
@@ -1106,8 +1170,21 @@ if (teamStep === 2) {
                                     />
                                     <label htmlFor="music-upload" className="cursor-pointer">
                                         <p className="text-white text-base font-light">Upload file here</p>
-                                        {musicFile && <p className="text-blue-400 text-sm mt-2">{musicFile.name}</p>}
-                                    </label>
+                                        {musicFile && (
+                                            <div className="mt-4 space-y-2 text-left">
+                                            <div className="flex items-center justify-between text-blue-400 text-xs bg-gray-800 px-3 py-1 rounded-md">
+                                                <span className="truncate">{musicFile.name}</span>
+                                                <button
+                                                type="button"
+                                                className="text-red-400 hover:text-red-300 ml-3"
+                                                onClick={() => setMusicFile(null)}
+                                                >
+                                                ✕
+                                                </button>
+                                            </div>
+                                            </div>
+  )}                                    </label>
+                                     
                                 </div>
  
                             </div>

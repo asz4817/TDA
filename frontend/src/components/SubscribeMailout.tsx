@@ -41,7 +41,7 @@ const SubscribeMailout = () => {
   
   return (
     <div className="w-full text-white pb-4 md:py-12 flex flex-col">
-      <img src={Q} alt="Want to be notified about diabolo events in Austin?" className="w-[60%] md:w-[50%] ml-[12.5vw] my-[7vh]" />
+      <img src={Q} alt="Want to be notified about diabolo events in Austin?" className="w-[60%] md:w-[50%] ml-[12.5vw] my-[3vh] md:my-[7vh]" />
       <h2 
         className="text-sm tracking-widest text-center mb-[1vh]"
         style={{

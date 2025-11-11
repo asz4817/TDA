@@ -15,7 +15,7 @@ const ContactUs = () => {
           <div className="absolute inset-0 bg-black opacity-50"></div>
     <div className="">
         <div className="w-[75%] grid md:grid-cols-2 mx-auto">      
-            <div className="space-y-2 md:space-y-4 z-50 mt-20 md:mt-5 ">
+            <div className="space-y-2 md:space-y-4 z-50 mt-20 md:mt-5 pb-3 pr-2">
                 <h1 className=""
                     style={{
                         fontFamily: `roc-grotesk-compressed, sans-serif`,
@@ -39,7 +39,7 @@ const ContactUs = () => {
                 <div className="justify-self-start"><Socials/></div>
             </div>
 
-            <div className="mx-auto my-2 md:mt-0">
+            <div className="mx-auto my-2 md:mt-0 mb-5">
                 <ContactForm />
             </div>
         </div>
