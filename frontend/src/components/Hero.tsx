@@ -131,7 +131,7 @@ const Hero = () => {
         </section>
         <div 
           style={{
-            height: "250vh", 
+            height: "200vh", 
             backgroundColor: "transparent",
           }}>
         </div>

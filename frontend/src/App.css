@@ -4,3 +4,21 @@
     font-family: unbounded; /* set name */
     src: url(assets/fonts/Unbounded-VariableFont_wght.ttf); /* url of the font */
   }
+
+@keyframes slide{
+  0%{
+    transform: translate3d(0, 0, 0);
+  }
+  100%{
+    transform: translate3d(-1692px, 0, 0);
+  }
+}
+
+@keyframes scroll {
+  100% {
+    background-position: 410px 0;
+  }
+  0% {
+    background-position: 1800px 0;
+  }
+}
