@@ -3,7 +3,7 @@ import '../App.css';
 import { NavLink } from "react-router-dom";
 import RegistrationInfo from "../components/RegistrationInfo";
 import EventSchedule from "../components/EventSchedule";
-import HomeBg from "../assets/Untitled_Artwork.png";
+import HomeBg from "../assets/testtxdcbanner3.png";
 import arrow from "../assets/arrow-up-right.svg"
 
 const TXDC = () => {

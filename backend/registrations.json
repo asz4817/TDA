@@ -28,5 +28,20 @@
     "chaperonefiles": [
       "/Users/amandazhang/Documents/websites/TDA/backend/chaperone_forms/1_team_chaperone_1_Amanda_Zhang_Resume.pdf"
     ]
+  },
+  {
+    "id": 2,
+    "timestamp": "2025-11-11T15:32:47.171848",
+    "firstname": "12",
+    "lastname": "1",
+    "email": "1",
+    "phonenumber": "1",
+    "dateofbirth": "2004-12-15",
+    "tshirtsize": "M",
+    "emergencycontactname": "1",
+    "emergencycontactphone": "1",
+    "numberofguests": "1",
+    "isminor": false,
+    "chaperonefile": null
   }
 ]

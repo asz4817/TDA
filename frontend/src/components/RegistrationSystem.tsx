@@ -132,7 +132,7 @@ const RegistrationSystem = () => {
     formData.append('file', musicFile);  // This matches request.files["file"] in your backend
 
     try {
-        const res = await fetch('http://127.0.0.1:5000/upload_audio', {  // Note: underscore, not hyphen
+        const res = await fetch('/upload_audio', {  // Note: underscore, not hyphen
             method: 'POST',
             body: formData,  // Send as FormData, not JSON
         });
@@ -202,7 +202,7 @@ const RegistrationSystem = () => {
         };
 
         try {
-            const res = await fetch('http://127.0.0.1:5000/register_indiv', {
+            const res = await fetch('/register_indiv', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(registrationData),
@@ -214,7 +214,7 @@ const RegistrationSystem = () => {
             if (res.ok) {
                 setIsSubmitted(true);
                 setStep(4);
-                window.open('https://buy.stripe.com/test_dRm3cnbtZ9I55ob7oRaZi00', '_blank');
+                window.open('https://buy.stripe.com/dRm3cnbtZ9I55ob7oRaZi00', '_blank');
             } else {
                 setResponseMessage(result.error || 'Error submitting form');
             }
@@ -350,7 +350,7 @@ const RegistrationSystem = () => {
         };
 
         try {
-            const res = await fetch('http://127.0.0.1:5000/register_team', {
+            const res = await fetch('/register_team', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(registrationData),
@@ -362,7 +362,7 @@ const RegistrationSystem = () => {
             if (res.ok) {
                 setIsSubmitted(true);
                 setTeamStep(4);
-                window.open('https://buy.stripe.com/test_dRm3cnbtZ9I55ob7oRaZi00', '_blank');
+                window.open('https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01', '_blank');
             } else {
                 setResponseMessage(result.error || 'Error submitting form');
             }

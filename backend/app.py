@@ -29,9 +29,26 @@ os.makedirs(MUSIC_FOLDER, exist_ok=True)
 app.config["CHAPERONE_FOLDER"] = CHAPERONE_FOLDER
 app.config["MUSIC_FOLDER"] = MUSIC_FOLDER
 
-@app.route('/')
-def home():
-    return send_from_directory(app.static_folder, "index.html")
+# @app.route('/')
+# def home():
+#     return send_from_directory(app.static_folder, "index.html")
+
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def serve_react(path):
+#     # Serve the built frontend files
+#     if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+#         return send_from_directory(app.static_folder, path)
+#     else:
+#         # If the file doesn't exist (like /txdc2026), serve React's index.html
+#         return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+@app.errorhandler(404)
+def catch_all(path):
+    return app.send_static_file('index.html')
+
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
