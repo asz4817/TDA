@@ -24,7 +24,11 @@ const Hero = () => {
       setScrollMax(document.body.scrollHeight - window.innerHeight);
     }
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    window.addEventListener("load", onResize);
+    onResize();
+    return () => {window.removeEventListener("resize", onResize)
+      window.removeEventListener("load", onResize)
+    };
   }, []);
 
   useEffect(() => {
@@ -38,7 +42,7 @@ const Hero = () => {
         setAboutTop(-200)
       } else if (currentPosition > 0) {
         setDiaboloTop(40);
-        setAboutTop(10)
+        setAboutTop(0)
       } else {
         setDiaboloTop(70);
         setAboutTop(140);
@@ -113,8 +117,9 @@ const Hero = () => {
         <div 
               style={{
                 position: "fixed",
-                inset: 0,
                 top: aboutTop + "%",
+                bottom: "0",
+                right: "0",
                 left: "47%",
                 transition: "top 1s ease-in-out",
                 width: "36%",
