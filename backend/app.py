@@ -15,7 +15,7 @@ app.config.from_object(Config)
 cors = CORS(app, origins='*')
 
 client = MongoClient(app.config['MONGO_URI'])
-db = client.get_database()
+db = client.get_database('TDA')
 mail = Mail(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -70,8 +70,8 @@ def contact():
         msg = Message(f"Contact Us Page: Message from {name}",
                        recipients=['texasdiabolo@gmail.com'])
         msg.body = f"Name:  {name} \
-            \n Email:  {email} \
-            \n\nMessage:\n {message}"
+            \nEmail:  {email} \
+            \n\nMessage:\n{message}"
         mail.send(msg)
 
     except Exception as e:
