@@ -197,6 +197,7 @@ const Hero = () => {
                 style={{
                   width: "fit-content",
                   maxWidth: "20vw",
+                  minWidth: "100px",
                 }}
               />
             </div>
