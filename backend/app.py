@@ -148,55 +148,39 @@ def save_registrations(registrations):
 
 @app.route('/register_indiv', methods=['POST'])
 def register_individual():
-    """Handle individual registration with optional file upload"""
+    """Handle individual registration with optional file upload (stored in MongoDB)"""
     try:
-        # Get JSON data from request
         data = request.get_json()
-        
+
         # Validate required fields
         required_fields = [
             'firstname', 'lastname', 'email', 'phonenumber',
             'dateofbirth', 'tshirtsize', 'emergencycontactname',
             'emergencycontactphone', 'numberofguests'
         ]
-        
-        # Check if all required fields are present
         missing_fields = [field for field in required_fields if field not in data]
         if missing_fields:
             return jsonify({
                 'error': f'Missing required fields: {", ".join(missing_fields)}'
             }), 400
-        
-        # Load existing registrations
-        registrations = load_registrations()
-        registration_id = len(registrations) + 1
-        
-        # Handle chaperone file if present (for minors)
+
+        # Handle optional chaperone file for minors
         chaperone_file_path = None
         if data.get('isminor') and data.get('chaperonefile'):
             try:
-                # Decode base64 file data
                 file_data = data['chaperonefile']
                 file_name = data.get('chaperonefilename', 'chaperone_form.pdf')
-                
-                # Create secure filename with registration ID
-                filename = secure_filename(f"{registration_id}_{data['firstname']}_{data['lastname']}_{file_name}")
+                filename = secure_filename(f"{data['firstname']}_{data['lastname']}_{file_name}")
                 file_path = os.path.join(app.config['CHAPERONE_FOLDER'], filename)
-                
-                # Save the file
                 with open(file_path, 'wb') as f:
                     f.write(base64.b64decode(file_data.split(',')[1] if ',' in file_data else file_data))
-                
                 chaperone_file_path = file_path
             except Exception as e:
-                return jsonify({
-                    'error': f'Failed to save chaperone form: {str(e)}'
-                }), 400
-        
-        # Create new registration entry
+                return jsonify({'error': f'Failed to save chaperone form: {str(e)}'}), 400
+
+        # Build the registration document
         new_registration = {
-            'id': registration_id,
-            'timestamp': datetime.now().isoformat(),
+            'timestamp': datetime.utcnow(),
             'firstname': data['firstname'],
             'lastname': data['lastname'],
             'email': data['email'],
@@ -209,117 +193,287 @@ def register_individual():
             'isminor': data.get('isminor', False),
             'chaperonefile': chaperone_file_path
         }
-        
-        # Add to registrations list
-        registrations.append(new_registration)
-        
-        # Save to file
-        save_registrations(registrations)
-        
-        # Return success response
+
+        # Save to MongoDB instead of JSON file
+        result = db.individual_registrations.insert_one(new_registration)
+
         return jsonify({
             'message': 'Registration successful!',
-            'registration_id': new_registration['id']
+            'registration_id': str(result.inserted_id)
         }), 200
-        
+
     except Exception as e:
-        return jsonify({
-            'error': f'Server error: {str(e)}'
-        }), 500
+        return jsonify({'error': f'Server error: {str(e)}'}), 500
+
+# @app.route('/register_indiv', methods=['POST'])
+# def register_individual():
+#     """Handle individual registration with optional file upload"""
+#     try:
+#         # Get JSON data from request
+#         data = request.get_json()
+        
+#         # Validate required fields
+#         required_fields = [
+#             'firstname', 'lastname', 'email', 'phonenumber',
+#             'dateofbirth', 'tshirtsize', 'emergencycontactname',
+#             'emergencycontactphone', 'numberofguests'
+#         ]
+        
+#         # Check if all required fields are present
+#         missing_fields = [field for field in required_fields if field not in data]
+#         if missing_fields:
+#             return jsonify({
+#                 'error': f'Missing required fields: {", ".join(missing_fields)}'
+#             }), 400
+        
+#         # Load existing registrations
+#         registrations = load_registrations()
+#         registration_id = len(registrations) + 1
+        
+#         # Handle chaperone file if present (for minors)
+#         chaperone_file_path = None
+#         if data.get('isminor') and data.get('chaperonefile'):
+#             try:
+#                 # Decode base64 file data
+#                 file_data = data['chaperonefile']
+#                 file_name = data.get('chaperonefilename', 'chaperone_form.pdf')
+                
+#                 # Create secure filename with registration ID
+#                 filename = secure_filename(f"{registration_id}_{data['firstname']}_{data['lastname']}_{file_name}")
+#                 file_path = os.path.join(app.config['CHAPERONE_FOLDER'], filename)
+                
+#                 # Save the file
+#                 with open(file_path, 'wb') as f:
+#                     f.write(base64.b64decode(file_data.split(',')[1] if ',' in file_data else file_data))
+                
+#                 chaperone_file_path = file_path
+#             except Exception as e:
+#                 return jsonify({
+#                     'error': f'Failed to save chaperone form: {str(e)}'
+#                 }), 400
+        
+#         # Create new registration entry
+#         new_registration = {
+#             'id': registration_id,
+#             'timestamp': datetime.now().isoformat(),
+#             'firstname': data['firstname'],
+#             'lastname': data['lastname'],
+#             'email': data['email'],
+#             'phonenumber': data['phonenumber'],
+#             'dateofbirth': data['dateofbirth'],
+#             'tshirtsize': data['tshirtsize'],
+#             'emergencycontactname': data['emergencycontactname'],
+#             'emergencycontactphone': data['emergencycontactphone'],
+#             'numberofguests': data['numberofguests'],
+#             'isminor': data.get('isminor', False),
+#             'chaperonefile': chaperone_file_path
+#         }
+        
+#         # Add to registrations list
+#         registrations.append(new_registration)
+        
+#         # Save to file
+#         save_registrations(registrations)
+        
+#         # Return success response
+#         return jsonify({
+#             'message': 'Registration successful!',
+#             'registration_id': new_registration['id']
+#         }), 200
+        
+#     except Exception as e:
+#         return jsonify({
+#             'error': f'Server error: {str(e)}'
+#         }), 500
 
 @app.route('/register_team', methods=['POST'])
 def register_team():
-    """Handle team registration with multiple members"""
+    """Handle team registration with multiple members (stored in MongoDB)"""
     try:
-        # Get JSON data from request
         data = request.get_json()
-        
+
+        # ✅ Validate members
         if 'members' not in data or len(data['members']) == 0:
             return jsonify({'error': 'No team members provided'}), 400
-        
-        # Validate emergency contact fields
+
+        # ✅ Validate emergency contact + guests
         required_fields = ['emergencycontactname', 'emergencycontactphone', 'numberofguests']
         missing_fields = [field for field in required_fields if field not in data]
         if missing_fields:
             return jsonify({
                 'error': f'Missing required fields: {", ".join(missing_fields)}'
             }), 400
-        
-        # Load existing registrations
-        registrations = load_registrations()
-        registration_id = len(registrations) + 1
-        
-        # Handle chaperone files if present
+
+        # ✅ Handle optional chaperone files (for minors)
         chaperone_file_paths = []
         if data.get('chaperonefiles'):
             for idx, file_data_obj in enumerate(data['chaperonefiles']):
                 try:
                     file_data = file_data_obj['data']
                     file_name = file_data_obj['name']
-                    
-                    # Create secure filename
-                    filename = secure_filename(f"{registration_id}_team_chaperone_{idx+1}_{file_name}")
-                    file_path = os.path.join(app.config['CHAPERONE_FOLDER'], filename)  # FIXED: Changed from UPLOAD_FOLDER
-                    
-                    # Save the file
+                    filename = secure_filename(f"team_chaperone_{idx+1}_{file_name}")
+                    file_path = os.path.join(app.config['CHAPERONE_FOLDER'], filename)
+
                     with open(file_path, 'wb') as f:
                         f.write(base64.b64decode(file_data.split(',')[1] if ',' in file_data else file_data))
-                    
+
                     chaperone_file_paths.append(file_path)
                 except Exception as e:
                     return jsonify({'error': f'Failed to save chaperone form {idx+1}: {str(e)}'}), 400
-        
-        # Create new team registration entry
+
+        # ✅ Create new team registration entry
         new_registration = {
-            'id': registration_id,
             'type': 'team',
-            'timestamp': datetime.now().isoformat(),
+            'timestamp': datetime.utcnow(),
             'members': data['members'],
             'team_size': len(data['members']),
-            'emergencycontactname': data['emergencycontactname'],  # ADDED
-            'emergencycontactphone': data['emergencycontactphone'],  # ADDED
-            'numberofguests': data['numberofguests'],  # ADDED
+            'emergencycontactname': data['emergencycontactname'],
+            'emergencycontactphone': data['emergencycontactphone'],
+            'numberofguests': data['numberofguests'],
             'chaperonefiles': chaperone_file_paths
         }
-        
-        # Add to registrations list
-        registrations.append(new_registration)
-        
-        # Save to file
-        save_registrations(registrations)
-        
-        # Return success response
+
+        # ✅ Save to MongoDB instead of JSON
+        result = db.team_registrations.insert_one(new_registration)
+
         return jsonify({
             'message': 'Team registration successful!',
-            'registration_id': new_registration['id']
+            'registration_id': str(result.inserted_id)
         }), 200
-        
-    except Exception as e:
-        return jsonify({
-            'error': f'Server error: {str(e)}'
-        }), 500
 
+    except Exception as e:
+        return jsonify({'error': f'Server error: {str(e)}'}), 500
+
+
+
+# @app.route('/register_team', methods=['POST'])
+# def register_team():
+#     """Handle team registration with multiple members"""
+#     try:
+#         # Get JSON data from request
+#         data = request.get_json()
+        
+#         if 'members' not in data or len(data['members']) == 0:
+#             return jsonify({'error': 'No team members provided'}), 400
+        
+#         # Validate emergency contact fields
+#         required_fields = ['emergencycontactname', 'emergencycontactphone', 'numberofguests']
+#         missing_fields = [field for field in required_fields if field not in data]
+#         if missing_fields:
+#             return jsonify({
+#                 'error': f'Missing required fields: {", ".join(missing_fields)}'
+#             }), 400
+        
+#         # Load existing registrations
+#         registrations = load_registrations()
+#         registration_id = len(registrations) + 1
+        
+#         # Handle chaperone files if present
+#         chaperone_file_paths = []
+#         if data.get('chaperonefiles'):
+#             for idx, file_data_obj in enumerate(data['chaperonefiles']):
+#                 try:
+#                     file_data = file_data_obj['data']
+#                     file_name = file_data_obj['name']
+                    
+#                     # Create secure filename
+#                     filename = secure_filename(f"{registration_id}_team_chaperone_{idx+1}_{file_name}")
+#                     file_path = os.path.join(app.config['CHAPERONE_FOLDER'], filename)  # FIXED: Changed from UPLOAD_FOLDER
+                    
+#                     # Save the file
+#                     with open(file_path, 'wb') as f:
+#                         f.write(base64.b64decode(file_data.split(',')[1] if ',' in file_data else file_data))
+                    
+#                     chaperone_file_paths.append(file_path)
+#                 except Exception as e:
+#                     return jsonify({'error': f'Failed to save chaperone form {idx+1}: {str(e)}'}), 400
+        
+#         # Create new team registration entry
+#         new_registration = {
+#             'id': registration_id,
+#             'type': 'team',
+#             'timestamp': datetime.now().isoformat(),
+#             'members': data['members'],
+#             'team_size': len(data['members']),
+#             'emergencycontactname': data['emergencycontactname'],  # ADDED
+#             'emergencycontactphone': data['emergencycontactphone'],  # ADDED
+#             'numberofguests': data['numberofguests'],  # ADDED
+#             'chaperonefiles': chaperone_file_paths
+#         }
+        
+#         # Add to registrations list
+#         registrations.append(new_registration)
+        
+#         # Save to file
+#         save_registrations(registrations)
+        
+#         # Return success response
+#         return jsonify({
+#             'message': 'Team registration successful!',
+#             'registration_id': new_registration['id']
+#         }), 200
+        
+#     except Exception as e:
+#         return jsonify({
+#             'error': f'Server error: {str(e)}'
+#         }), 500
 
 @app.route("/upload_audio", methods=["POST"])
 def upload_audio():
-    if "file" not in request.files:
-        return jsonify({"error": "No file part"}), 400
+    """Handle audio file upload and store metadata in MongoDB"""
+    try:
+        # ✅ Check for file in request
+        if "file" not in request.files:
+            return jsonify({"error": "No file part"}), 400
 
-    file = request.files["file"]
+        file = request.files["file"]
+        if file.filename == "":
+            return jsonify({"error": "No file selected"}), 400
 
-    if file.filename == "":
-        return jsonify({"error": "No file selected"}), 400
+        # ✅ Save file locally to MUSIC_FOLDER
+        filename = secure_filename(file.filename)
+        file_path = os.path.join(app.config['MUSIC_FOLDER'], filename)
+        file.save(file_path)
 
-    # save to the correct folder
-    file_path = os.path.join(app.config['MUSIC_FOLDER'], secure_filename(file.filename))
-    file.save(file_path)
+        # ✅ Optional: store metadata in MongoDB
+        upload_info = {
+            "filename": filename,
+            "path": file_path,
+            "timestamp": datetime.utcnow(),
+        }
+
+        result = db.audio_uploads.insert_one(upload_info)
+
+        return jsonify({
+            "message": "File uploaded successfully",
+            "filename": filename,
+            "path": file_path,
+            "upload_id": str(result.inserted_id)
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": f"Server error: {str(e)}"}), 500
+
+# @app.route("/upload_audio", methods=["POST"])
+# def upload_audio():
+#     if "file" not in request.files:
+#         return jsonify({"error": "No file part"}), 400
+
+#     file = request.files["file"]
+
+#     if file.filename == "":
+#         return jsonify({"error": "No file selected"}), 400
+
+#     # save to the correct folder
+#     file_path = os.path.join(app.config['MUSIC_FOLDER'], secure_filename(file.filename))
+#     file.save(file_path)
 
 
-    return jsonify({
-        "message": "File uploaded successfully",
-        "filename": file.filename,
-        "path": file_path
-    })
+#     return jsonify({
+#         "message": "File uploaded successfully",
+#         "filename": file.filename,
+#         "path": file_path
+#     })
 
 if __name__ == '__main__':
     app.run(debug=True)
