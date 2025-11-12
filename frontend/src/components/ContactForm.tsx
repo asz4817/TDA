@@ -112,6 +112,7 @@ const ContactForm = () => {
             </form>
             <p className="mt-3 text-green-500 text-center mt-4">{responseMessage}</p>
             <div id="response"></div>
+            
         </section>
     </div>
   )

@@ -63,6 +63,8 @@ const TXDC = () => {
     <div className="mx-auto w-[75vw]">   
        <RegistrationInfo />
        <EventSchedule />
+      
+
     </div>
     </div>
   )

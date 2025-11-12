@@ -671,7 +671,7 @@ const RegistrationSystem = () => {
                                         {chaperoneFile && <p className="text-blue-400 text-sm mt-2">{chaperoneFile.name}</p>}
                                     </label>
                                 </div>
-                                <label className="flex items-start gap-4 cursor-pointer">
+                                <label className="flex items-start gap-4 cursor-pointer mb-2">
                                     <input 
                                         type="checkbox"
                                         className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
@@ -806,9 +806,9 @@ const RegistrationSystem = () => {
                                 </div>
                             </div>
                             <div>
-                                <div className="text-center mb-8">
+                                <div className="text-center mb-6">
                                     <button 
-                                        className="text-blue-400 text-sm hover:underline cursor-pointer"
+                                        className="text-blue-400 text-sm hover:underline cursor-pointer pt-2"
                                         onClick={addNewTeamMember}>
                                         + Add new team member
                                     </button>
@@ -971,7 +971,7 @@ if (teamStep === 2) {
                                 </label>
                             </div>
 
-                            <label className="flex items-start gap-4 cursor-pointer">
+                            <label className="flex items-start gap-4 cursor-pointer mb-2">
                                 <input 
                                     type="checkbox"
                                     className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
@@ -994,7 +994,7 @@ if (teamStep === 2) {
                                 </svg>
                             </button>
                             <button  
-                                className="flex-1 mx-8 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
+                            className="flex-1 ml-3 mx-4 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                 onClick={() => {
                                     if (!teamAgreedToTerms) {
                                         setResponseMessage('You must agree to the terms and waivers to proceed.');
@@ -1009,7 +1009,7 @@ if (teamStep === 2) {
                                 }}>
                                 CONTINUE
                             </button>
-                            <div className="w-16"></div>
+                            {/* <div className="w-16"></div> */}
                         </div>
                         {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
                     </div>
@@ -1040,7 +1040,7 @@ if (teamStep === 2) {
                             </span>
                         </label>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-center">
                         <button 
                             className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
                             onClick={() => setTeamStep(1)}>
@@ -1049,7 +1049,7 @@ if (teamStep === 2) {
                             </svg>
                         </button>
                         <button  
-                            className="flex-1 mx-8 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
+                            className="flex-1 ml-3 mx-4 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                             onClick={() => {
                                 if (!teamAgreedToTerms) {
                                     setResponseMessage('You must agree to the terms and waivers to proceed.');
@@ -1061,7 +1061,7 @@ if (teamStep === 2) {
                             }}>
                             CONTINUE
                         </button>
-                        <div className="w-16"></div>
+                        {/* <div className="w-16"></div> */}
                     </div>
                     {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
                 </div>
@@ -1102,7 +1102,7 @@ if (teamStep === 2) {
                                     onChange={(e) => setTeamNumberOfGuests(e.target.value)}
                                 />
                             </div>
-                            <div className="items-center justify-between">
+                            <div className="flex items-center justify-between">
                                 <button 
                                     className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer"
                                     // onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
@@ -1112,11 +1112,11 @@ if (teamStep === 2) {
                                     </svg>
                                 </button>
                                 <button  
-                                    className="flex-1 mx-8 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
+                            className="flex-1 ml-3 mx-4 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                     onClick={submitTeamForm}>
                                     SUBMIT & PAY
                                 </button>
-                                <div className="w-16"></div>
+                                {/* <div className="w-16"></div> */}
                             </div>
                             {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
                         </div>
