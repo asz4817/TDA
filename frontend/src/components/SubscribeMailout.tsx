@@ -46,6 +46,7 @@ const SubscribeMailout = () => {
         className="text-sm tracking-widest text-center mb-[1vh]"
         style={{
           fontFamily: "unbounded",
+          fontWeight: '300',
           fontSize: "clamp(8px, 2vw, 12px)"
         }}>
         JOIN OUR MAILING LIST:
@@ -56,6 +57,7 @@ const SubscribeMailout = () => {
           className="w-full mb-4 p-2 bg-transparent border-b border-white text-white text-sm focus:outline-none focus:border-gray-400" 
           style={{
             fontFamily: "unbounded",
+            fontWeight: '200',
             fontSize: "clamp(8px, 2vw, 12px)"
           }}
           type="email" 
@@ -72,6 +74,7 @@ const SubscribeMailout = () => {
           className="w-full border text-white py-2 text-sm tracking-widest hover:bg-white hover:text-black transition"
           style={{
             fontFamily: "unbounded",
+            fontWeight: '300',
             fontSize: "clamp(8px, 2vw, 12px)",
             cursor: "pointer"
           }}>

@@ -43,7 +43,7 @@ const EventSchedule = () => {
                       fontWeight: 700,
                       fontStyle: 'normal',
                       fontSize: '50px',
-                      lineHeight: '0.9',
+                      lineHeight: '0.95',
                     }}>
                     DAY 0
                   </h2>
@@ -62,7 +62,7 @@ const EventSchedule = () => {
                     fontFamily: 'unbounded, sans-serif',
                     fontWeight: '300',
                     fontSize: '12px',
-                    lineHeight: '1'
+                    lineHeight: '1.2'
                   }}>
                   <p className="text-gray-400 mb-1 mt-1">Location: Gregory Plaza</p>
                   <p className="text-gray-400 mb-3">Address: 2101 Speedway, Austin, TX 78712</p>
@@ -82,7 +82,7 @@ const EventSchedule = () => {
                       fontWeight: 700,
                       fontStyle: 'normal',
                       fontSize: '50px',
-                      lineHeight: '0.9',
+                      lineHeight: '0.95',
                     }}>
                     DAY 1
                   </h2>
@@ -101,7 +101,7 @@ const EventSchedule = () => {
                     fontFamily: 'unbounded, sans-serif',
                     fontWeight: '300',
                     fontSize: '12px',
-                    lineHeight: '1'
+                    lineHeight: '1.2'
                   }}>
                   <p className="text-gray-400 mb-1">Location: Texas Union Shirley Ballroom</p>
                   <p className="text-gray-400 mb-3">Address: 2308 Whitis Ave, Austin, TX 78712</p>
@@ -122,7 +122,7 @@ const EventSchedule = () => {
                       fontWeight: 700,
                       fontStyle: 'normal',
                       fontSize: '50px',
-                      lineHeight: '0.9',
+                      lineHeight: '0.95',
                     }}>
                     DAY 2
                   </h2>
@@ -141,7 +141,7 @@ const EventSchedule = () => {
                     fontFamily: 'unbounded, sans-serif',
                     fontWeight: '300',
                     fontSize: '12px',
-                    lineHeight: '1'
+                    lineHeight: '1.2'
                   }}>
                   <p className="text-gray-400 mb-1">Location: Texas Union Shirley Ballroom</p>
                   <p className="text-gray-400 mb-3">Address: 2308 Whitis Ave, Austin, TX 78712</p>

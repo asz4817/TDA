@@ -59,6 +59,7 @@ const ContactForm = () => {
                         className="w-full bg-transparent border-b border-gray-500 py-3 px-1 text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors text-sm tracking-wider" 
                         style={{
                           fontFamily: "unbounded",
+                          fontWeight: '200',
                           fontSize: "clamp(6px, 2vw, 11px)",
                       }}
                         type="text" 
@@ -74,6 +75,7 @@ const ContactForm = () => {
                       className="w-full bg-transparent border-b border-gray-500 py-3 px-1 text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors text-sm tracking-wider" 
                       style={{
                         fontFamily: "unbounded",
+                        fontWeight: '200',
                         fontSize: "clamp(6px, 2vw, 11px)",
                     }}  
                         type="email" 
@@ -88,6 +90,7 @@ const ContactForm = () => {
                         className="w-full bg-transparent border-b border-gray-500 py-3 px-1 text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors text-sm tracking-wider resize-none" 
                         style={{
                           fontFamily: "unbounded",
+                          fontWeight: '200',
                           fontSize: "clamp(8px, 2vw, 11px)",
                       }}
                         id="message" 
@@ -104,6 +107,7 @@ const ContactForm = () => {
                   type="submit"
                   style={{
                     fontFamily: "unbounded",
+                    fontWeight: '300',
                     fontSize: "clamp(8px, 2vw, 12px)",
                     cursor: "pointer",
                 }}>

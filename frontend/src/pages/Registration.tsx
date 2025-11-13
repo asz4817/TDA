@@ -1,4 +1,4 @@
-import ContactBg from "../assets/ContactUsimg.png";
+import ContactBg from "../assets/testtxdcbanner.png";
 import RegistrationSystem from "../components/RegistrationSystem";
 import EmailIcon from "../assets/mail.svg";
 
@@ -6,7 +6,7 @@ const Registration = () => {
   return (
     <div>
       <section
-      className="relative w-full bg-cover bg-center mb-10 mt-30"
+      className="relative w-full bg-cover bg-center pb-10 pt-30"
         style={{ backgroundImage: `url(${ContactBg})`,backgroundColor: "transparent",}}
     >
           <div className="absolute inset-0 bg-black opacity-50"></div>

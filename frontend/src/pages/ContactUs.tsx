@@ -30,6 +30,7 @@ const ContactUs = () => {
 
                 <p style={{
                         fontFamily: "unbounded",
+                        fontWeight: '300',
                         // fontSize: "14px",
                         fontSize: "clamp(2px, 2vw, 14px)",
                         

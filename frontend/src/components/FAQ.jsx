@@ -62,6 +62,7 @@ const FAQ = () => {
           <h2 
             style={{
               fontFamily: 'unbounded, sans-serif',
+              fontWeight: '300',
               fontSize: 'clamp(8px, 3vw, 18px)'
             }}
           >
@@ -92,7 +93,7 @@ const FAQ = () => {
                         style={{
                           fontFamily: 'unbounded, sans-serif',
                           fontSize: 'clamp(8px, 2vw, 14px)',
-                          fontWeight: 400,
+                          fontWeight: 300,
                           alignSelf: "center",
                         }}
                         className="flex-1 justify-center"
@@ -119,6 +120,7 @@ const FAQ = () => {
                       <p 
                         style={{
                           fontFamily: 'unbounded, sans-serif',
+                          fontWeight: '300',
                           fontSize: 'clamp(8px, 2vw, 14px)',
                         }}
                         className="text-gray-300"
@@ -138,6 +140,7 @@ const FAQ = () => {
           <h2 
             style={{
               fontFamily: 'unbounded, sans-serif',
+              fontWeight: '300',
               fontSize: 'clamp(8px, 3vw, 18px)'
             }}
             className="pt-10"
@@ -169,7 +172,7 @@ const FAQ = () => {
                         style={{
                           fontFamily: 'unbounded, sans-serif',
                           fontSize: 'clamp(8px, 2vw, 14px)',
-                          fontWeight: 400,
+                          fontWeight: 300,
                           alignSelf: "center",
                         }}
                         className="flex-1 justify-center"
@@ -196,6 +199,7 @@ const FAQ = () => {
                         style={{
                           fontFamily: 'unbounded, sans-serif',
                           fontSize: 'clamp(8px, 2vw, 14px)',
+                          fontWeight: '300',
                         }}
                         className="text-gray-300"
                       >
