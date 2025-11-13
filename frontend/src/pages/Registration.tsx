@@ -6,31 +6,25 @@ const Registration = () => {
   return (
     <div>
       <section
-      className="relative w-full h-screen bg-cover bg-center mb-10 mt-30"
+      className="relative w-full bg-cover bg-center mb-10 mt-30"
         style={{ backgroundImage: `url(${ContactBg})`,backgroundColor: "transparent",}}
     >
           <div className="absolute inset-0 bg-black opacity-50"></div>
     <div className="">
-        <div className="w-[70%] grid grid-cols-2 mx-auto">      
-            <div className="space-y-4 z-50 mt-2vh pt-35 pb-30">
+        <div className="w-[80%] grid md:grid-cols-2 mx-auto">      
+            <div className="space-y-4 z-50 md:py-30 pb-10">
                 <h1 className="leading-1" 
                 style={{
                   fontFamily: 'roc-grotesk-compressed, sans-serif',
                   fontWeight: 700,
                   fontStyle: 'normal',
-                  fontSize: '108px',
+                  lineHeight: "0.9",
+                  fontSize: 'clamp(50px, 8vw, 108px)',
+                  marginBottom: "5%"
                 }}>
-                  TXDC 2026
-                  </h1>
-                <h1 
-                style={{
-                  fontFamily: 'roc-grotesk-compressed, sans-serif',
-                  fontWeight: 700,
-                  fontStyle: 'normal',
-                  fontSize: '108px',
-                }}>
+                  TXDC 2026 
                   REGISTRATION
-                </h1>  
+                  </h1>
                 <p className="" style={{
                   fontFamily: "unbounded",
                   fontWeight: '300'
@@ -42,19 +36,11 @@ const Registration = () => {
 
                 
                 <a href="mailto:texasdiabolo@gmail.com" target="_blank" rel="noopener noreferrer">
-            <img src={EmailIcon} alt="Email" className="w-5 h-5 hover:opacity-75" />
-          </a>
+                  <img src={EmailIcon} alt="Email" className="w-5 h-5 hover:opacity-75" />
+                </a>
             </div>
 
-            <div
-            // style={{
-            //   display: "flex",
-            //   alignItems: "center",
-            //   justifyContent: "center",
-            //   height: "60vh",
-            //   width: "100%",
-            // }}
-            >
+            <div className="my-auto">
                <RegistrationSystem />
             </div>
         </div>

@@ -61,7 +61,7 @@ export default function Navbar() {
             OUR STORY
           </NavLink> */}
 
-          <NavLink
+          {/* <NavLink
             to="/txdc2026"
             className={({ isActive }) =>
               `transition hover:text-gray-300 ${
@@ -73,11 +73,11 @@ export default function Navbar() {
             }}
           >
             TXDC 2026
-          </NavLink>
+          </NavLink> */}
 
 
           <NavLink
-            to="/contact"
+            to="/contactUs"
             className={({ isActive }) =>
               `transition hover:text-gray-300 ${
                 isActive ? "font-semibold" : "text-white"
@@ -93,7 +93,7 @@ export default function Navbar() {
 
 
         {/* Right: Button + User icon */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <a
               href="https://linktr.ee/texasdiabolo"
               target="_blank"

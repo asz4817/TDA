@@ -4,18 +4,18 @@ import '../App.css'
 const AboutUs = () => {
   return (
     <div className="w-[90%]">
-        <section className="backdrop-blur-sm border border-gray-400 rounded-3xl p-8 shadow-2xs px-10 py-20"        >
+        <section className="backdrop-blur-sm border border-gray-400 rounded-3xl p-8 shadow-2xs px-[4vw] py-[11vh]"        >
             <h1 className="text-3xl font-semibold mb-4"
                 style={{
                 fontFamily: `roc-grotesk-compressed, sans-serif`,
                 fontWeight: 700,
                 fontStyle: "normal",
-                fontSize: "clamp(48px, 8vw, 96px)",
+                fontSize: "clamp(3rem, -6rem + 16vw, 6rem)",
                 textAlign: "center",
             }}>ABOUT US</h1>
             <p style={{
                 fontFamily: "unbounded",
-                fontSize: "clamp(8px, 2vw, 14px)",
+                fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
                 textAlign: "center",
                 marginBottom: "4%",
             }}>
@@ -23,7 +23,7 @@ const AboutUs = () => {
             </p>
             <p style={{
                 fontFamily: "unbounded",
-                fontSize: "clamp(8px, 2vw, 14px)",
+                fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
                 textAlign: "center",
             }}>
                 We are a nationally ranked diabolo team that celebrates Asian American culture through captivating performances.

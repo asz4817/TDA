@@ -88,8 +88,8 @@ const PerformanceCards = () => {
               onClick={() => setActiveCard(performance.id)}
               className={`relative rounded-xl overflow-hidden cursor-pointer transition-all duration-500 ease-out
                 ${activeCard === performance.id
-                  ? "w-full md:w-[700px] h-[400px] md:h-[600px]"
-                  : "w-full md:w-[180px] h-[120px] md:h-[600px]"
+                  ? "w-full md:w-[700px] h-[40vh] md:h-[80vh]"
+                  : "w-full md:w-[180px] h-[10vh] md:h-[80vh]"
               }`}
             >
               {/* Background Image */}

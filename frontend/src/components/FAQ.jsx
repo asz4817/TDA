@@ -71,7 +71,7 @@ const FAQ = () => {
           <div className="space-y-0">
             {faqData.prospective.map((item) => (
               <div key={item.id} className="border-b border-white">
-                <div className="py-4">
+                <div className="py-3 md:py-4">
                   {/* Question Row */}
                   <div 
                     className="flex items-start justify-between cursor-pointer"
@@ -102,7 +102,7 @@ const FAQ = () => {
                     </div>
                     
                     <button 
-                      className="text-3xl md:text-5xl font-light ml-8 transition-transform duration-300"
+                      className="text-3xl md:text-5xl font-light ml-8 mt-1 transition-transform duration-300"
                       style={{ transform: openItems[item.id] ? 'rotate(0deg)' : 'rotate(0deg)' }}
                     >
                       {openItems[item.id] ? '−' : '+'}
@@ -148,7 +148,7 @@ const FAQ = () => {
           <div className="space-y-0">
             {faqData.organizers.map((item) => (
               <div key={item.id} className="border-b border-white">
-                <div className="py-4">
+                <div className="py-3 md:py-4">
                   {/* Question Row */}
                   <div 
                     className="flex items-start justify-between cursor-pointer"
@@ -159,27 +159,27 @@ const FAQ = () => {
                         style={{
                           fontFamily: 'roc-grotesk-compressed, sans-serif',
                           fontWeight: 700,
+                          // fontSize: "50px"
                           fontSize: "clamp(30px, 5vw, 50px)"
                         }}
                       >
                         {item.number}
                       </span>
                       <h3 
-                         style={{
+                        style={{
                           fontFamily: 'unbounded, sans-serif',
                           fontSize: 'clamp(8px, 2vw, 14px)',
                           fontWeight: 400,
                           alignSelf: "center",
                         }}
-                        className="flex-1"
+                        className="flex-1 justify-center"
                       >
                         {item.question}
                       </h3>
                     </div>
                     
                     <button 
-                      className="text-3xl md:text-5xl font-light ml-8 transition-transform duration-300"
-                      style={{ transform: openItems[item.id] ? 'rotate(0deg)' : 'rotate(0deg)' }}
+                      className="text-3xl md:text-5xl font-light ml-8 mt-1 transition-transform duration-300"
                     >
                       {openItems[item.id] ? '−' : '+'}
                     </button>
@@ -188,10 +188,10 @@ const FAQ = () => {
                   {/* Answer Section */}
                   <div 
                     className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      openItems[item.id] ? 'max-h-96 opacity-100 mt-6' : 'max-h-0 opacity-0'
+                      openItems[item.id] ? 'max-h-96 opacity-100 ' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <div className="pl-16">
+                    <div className="pl-13 md:pl-16">
                       <p 
                         style={{
                           fontFamily: 'unbounded, sans-serif',
@@ -204,6 +204,7 @@ const FAQ = () => {
                     </div>
                   </div>
                 </div>
+                
               </div>
             ))}
           </div>
