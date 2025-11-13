@@ -3,7 +3,7 @@ import WeAreLogo from "../assets/WE ARE TEXAS DIABOLO.svg";
 import BasedIn from "../assets/BasedIn.svg"
 import Socials from "./Socials";
 import AboutUs from "./AboutUs";
-import { Parallax } from 'react-scroll-parallax';
+// import { Parallax } from 'react-scroll-parallax';
 import {useEffect, useState } from 'react';
 import '../App.css';
 import PerformanceCards from "./PerformanceCards";

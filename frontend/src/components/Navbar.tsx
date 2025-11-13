@@ -77,7 +77,7 @@ export default function Navbar() {
 
 
           <NavLink
-            to="/contact"
+            to="/contactUs"
             className={({ isActive }) =>
               `transition hover:text-gray-300 ${
                 isActive ? "font-semibold" : "text-white"

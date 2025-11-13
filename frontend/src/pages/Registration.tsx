@@ -39,8 +39,8 @@ const Registration = () => {
 
                 
                 <a href="mailto:texasdiabolo@gmail.com" target="_blank" rel="noopener noreferrer">
-            <img src={EmailIcon} alt="Email" className="w-5 h-5 hover:opacity-75" />
-          </a>
+                  <img src={EmailIcon} alt="Email" className="w-5 h-5 hover:opacity-75" />
+                </a>
             </div>
 
             <div className="my-auto">
