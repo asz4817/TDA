@@ -52,7 +52,7 @@ const ContactForm = () => {
 
   return (
     <div className="my-[4vh] w-full justify-self-end max-w-md ">
-        <section className="backdrop-blur-xs border border-gray-400 rounded-lg px-4 py-2 md:p-8 shadow-2xl">
+        <section className="backdrop-blur-xs border border-gray-400 rounded-3xl px-4 py-2 md:p-8 shadow-2xl">
             <form id="contact-form" onSubmit={submitContactForm}>
                 <div className="soace-y-2 md:space-y-6">
                     <input 

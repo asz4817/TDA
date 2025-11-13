@@ -15,6 +15,7 @@ const Registration = () => {
         <p className=""
         style={{
           fontFamily: 'unbounded, sans-serif',
+          fontWeight: '300',
           lineHeight: '1.3'
         }}>
           For more information on competition rules, scoring criteria, and additional information, please read our{' '}
@@ -38,6 +39,7 @@ const Registration = () => {
             <div className="pt-4"
             style={{
               fontFamily: 'unbounded, sans-serif',
+              fontWeight: '300',
             }}>
               <p className="text-sm">• Registration Due: 11:59 PM CST on December 31, 2025</p>
               <p className="text-sm">• Music Due: 11:59 PM CST on February 14th, 2026</p>
@@ -60,6 +62,7 @@ const Registration = () => {
             <div className="pt-4"
             style={{
               fontFamily: 'unbounded, sans-serif',
+              fontWeight: '300',
             }}>
               <p className="text-sm">All Individual Divisions: $35 per competitor</p>
               <p className="text-sm">Team Open: $50 per team</p>
@@ -87,6 +90,7 @@ const Registration = () => {
             <div className="pt-4"
             style={{
               fontFamily: 'unbounded, sans-serif',
+              fontWeight: '300',
               fontSize: '12px',
               lineHeight: "1.3px"
             }}>

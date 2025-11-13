@@ -26,6 +26,7 @@ const EventSchedule = () => {
                 <p 
                 style={{
                     fontFamily: 'unbounded, sans-serif',
+                    fontWeight: '300',
                     lineHeight: '1.2',
                     fontSize: '16px',
                     marginBottom: '12px'
@@ -60,6 +61,7 @@ const EventSchedule = () => {
                 <div
                   style={{
                     fontFamily: 'unbounded, sans-serif',
+                    fontWeight: '300',
                     fontSize: '12px',
                     lineHeight: '1'
                   }}>
@@ -99,6 +101,7 @@ const EventSchedule = () => {
                 <div
                   style={{
                     fontFamily: 'unbounded, sans-serif',
+                    fontWeight: '300',
                     fontSize: '12px',
                     lineHeight: '1'
                   }}>
@@ -139,6 +142,7 @@ const EventSchedule = () => {
                 <div
                   style={{
                     fontFamily: 'unbounded, sans-serif',
+                    fontWeight: '300',
                     fontSize: '12px',
                     lineHeight: '1'
                   }}>

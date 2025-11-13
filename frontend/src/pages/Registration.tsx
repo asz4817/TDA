@@ -33,9 +33,11 @@ const Registration = () => {
                 </h1>  
                 <p className="" style={{
                   fontFamily: "unbounded",
+                  fontWeight: '300'
                 }}>When: March 14-15th, 2026</p>
                 <p className="" style={{
-                  fontFamily: "unbounded"
+                  fontFamily: "unbounded",
+                  fontWeight: '300'
                 }}>For any inquiries or assistance please contact us through our email.</p>
 
                 
