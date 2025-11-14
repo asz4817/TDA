@@ -404,24 +404,47 @@ const RegistrationSystem = () => {
         return (
             <div className="flex items-center justify-center">
                 <div className="w-full max-w-md backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl">
-                    <h1 className="text-3xl font-light text-white mb-12 tracking-wide text-center">REGISTER NOW</h1>
+                    <h1 className="mb-10 tracking-wide text-center"
+                        style={{
+                            fontFamily: "unbounded",
+                            fontWeight: '300',
+                            fontSize: "clamp(22px, 2vw, 24px)",
+                        }}>REGISTER NOW</h1>
                     <div className="space-y-6">
                         <button
                             onClick={() => setCurrentView('individual')}
                             className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(8px, 2vw, 12px)",
+                                cursor: "pointer",
+                            }}
                         >
                             INDIVIDUAL REGISTRATION
                         </button>
                         <button
                             onClick={() => setCurrentView('team')}
                             className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(8px, 2vw, 12px)",
+                                cursor: "pointer",
+                            }}
                         >
                             TEAM REGISTRATION
                         </button>
                         <button
                             onClick={() => setCurrentView('music')}
                             className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
-                        >
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(8px, 2vw, 12px)",
+                                cursor: "pointer",
+                            }}>
+                        
                             MUSIC SUBMISSION
                         </button>
                     </div>
@@ -460,14 +483,19 @@ const RegistrationSystem = () => {
 
         return (
             <div className="flex items-center justify-center">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
+                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[40vh] flex flex-col">
                     {renderStepIndicator(step, 4)}
                     
                     {step === 1 && (
                         <div>
-                            <h2 className="text-3xl font-light text-white mb-12 tracking-wide">PERSONAL<br/>INFORMATION</h2>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>PERSONAL<br/>INFORMATION</h2>
                             <div className="space-y-8">
-                                <div className="grid grid-cols-2 gap-6">
+                                <div className="grid grid-cols-2 gap-[2vh]">
                                     <input 
                                         className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest" 
                                         type="text" 
@@ -499,38 +527,37 @@ const RegistrationSystem = () => {
                                 />
                                 <div className="grid grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-gray-500 text-xs tracking-widest uppercase mb-2">DATE OF BIRTH</label>
+                                        <label className="block text-gray-500 text-xs tracking-widest uppercase">DATE OF BIRTH</label>
                                         <input 
-                                            className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white focus:outline-none focus:border-white transition-colors text-xs" 
+                                            className="w-full bg-transparent border-b border-gray-600 py-3 px-1 placeholder-gray-500 text-white focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                             type="date" 
+                                            placeholder="date"
                                             value={dateOfBirth}
                                             onChange={(e) => setDateOfBirth(e.target.value)}
                                         />
                                     </div>
-                                    <div className="relative mt-8">
-                                        <select
-                                            className="w-full bg-transparent border-b border-gray-600 py-[10px] px-1 text-white focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase appearance-none"
-                                            value={tshirtSize}
-                                            onChange={(e) => setTshirtSize(e.target.value)}
-                                        >
-                                            <option value="" disabled>Select Size</option>
-                                            <option value="XS">XS</option>
-                                            <option value="S">S</option>
-                                            <option value="M">M</option>
-                                            <option value="L">L</option>
-                                            <option value="XL">XL</option>
-                                            <option value="2XL">2XL</option>
-                                            <option value="3XL">3XL</option>
-                                        </select>
-                                        <svg className="absolute right-2 bottom-3 pointer-events-none text-gray-400" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                                        </svg>
+                                    <div className="">
+                                        <label className="block text-gray-500 text-xs tracking-widest uppercase">T-Shirt Size</label>
+                                            <select
+                                                className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase appearance-none"
+                                                value={tshirtSize}
+                                                onChange={(e) => setTshirtSize(e.target.value)}
+                                            >
+                                                <option value="" disabled>Select Size</option>
+                                                <option value="XS">XS</option>
+                                                <option value="S">S</option>
+                                                <option value="M">M</option>
+                                                <option value="L">L</option>
+                                                <option value="XL">XL</option>
+                                                <option value="2XL">2XL</option>
+                                                <option value="3XL">3XL</option>
+                                            </select>
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex md:w-[50%] mx-auto">
+                            <div className="flex mt-8 md:w-[30%] mx-auto">
                                  <button
-                                className="w-16 h-16 mt-6 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+                                className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
                                 onClick={() => {
                                 // const updated = [...teamMembers];
                                 // updated[currentTeamMemberIndex] = currentMember;
@@ -544,14 +571,14 @@ const RegistrationSystem = () => {
                                 }
                                 }}
                             >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                 </svg>
                             </button>
                             <button 
-                                className="w-16 h-16 mt-6 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
+                                className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
                                 onClick={handleIndividualNext}>
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                 </svg>
                             </button>
@@ -563,8 +590,8 @@ const RegistrationSystem = () => {
 
                     {step === 2 && (
                         <div className="flex-1 flex flex-col">
-                            <h2 className="text-3xl font-light text-white mb-12 tracking-wide">EMERGENCY CONTACT<br/>INFORMATION</h2>
-                            <div className="space-y-12 flex-1">
+                            <h2 className="text-3xl font-light text-white mb-6 tracking-wide">EMERGENCY CONTACT<br/>INFORMATION</h2>
+                            <div className="space-y-[5vh] flex-1">
                                 <input 
                                     className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                     type="text" 
@@ -589,9 +616,9 @@ const RegistrationSystem = () => {
                                 />
                             </div>
                             
-                            <div className="flex w-[50%] mx-auto">
+                            <div className="flex w-[30%] mx-auto">
                                  <button
-                                className="w-16 h-16 mt-6 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+                                className="w-8 h-8 mt-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
                                 onClick={() => {
                                 // const updated = [...teamMembers];
                                 // updated[currentTeamMemberIndex] = currentMember;
@@ -605,14 +632,14 @@ const RegistrationSystem = () => {
                                 }
                                 }}
                             >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                 </svg>
                             </button>
                             <button 
-                                className="w-16 h-16 mt-6 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
+                                className="w-8 h-8 mt-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
                                 onClick={handleIndividualNext}>
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                 </svg>
                             </button>
@@ -624,11 +651,11 @@ const RegistrationSystem = () => {
                     {step === 3 && !isMinor(dateOfBirth) && (
                         <div className="flex-1 flex flex-col justify-between">
                             <div>
-                                <h2 className="text-3xl font-light text-white mb-12 tracking-wide">WAIVERS<br/>& FORMS</h2>
+                                <h2 className="text-3xl font-light text-white mb-8 tracking-wide">WAIVERS<br/>& FORMS</h2>
                                 <label className="flex items-start gap-4 cursor-pointer">
                                     <input 
                                         type="checkbox"
-                                        className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
+                                        className="w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
                                         checked={agreedToTerms}
                                         onChange={(e) => setAgreedToTerms(e.target.checked)}
                                     />
@@ -641,7 +668,7 @@ const RegistrationSystem = () => {
                             </div>
                             <div>
                                 <button 
-                                    className="w-full bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
+                                    className="w-full mt-8 mb-4 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                     onClick={submitIndividualForm}>
                                     SUBMIT & PAY
                                 </button>
@@ -653,12 +680,12 @@ const RegistrationSystem = () => {
                     {step === 3 && isMinor(dateOfBirth) && (
                         <div className="flex-1 flex flex-col justify-between">
                             <div>
-                                <h2 className="text-3xl font-light text-white mb-8 tracking-wide">WAIVERS<br/>& FORMS</h2>
-                                <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">
+                                <h2 className="text-3xl font-light text-white mb-4 tracking-wide">WAIVERS<br/>& FORMS</h2>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light">
                                     For competitors under the age of 18, all competitors must have a parent/guardian sign and upload to the following{' '}
                                     <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors while participating in TXDC. Custodial responsibility will remain with chaperones.
                                 </p>
-                                <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-8 text-center cursor-pointer hover:border-gray-500 transition-colors">
+                                <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-6 text-center cursor-pointer hover:border-gray-500 transition-colors">
                                     <input 
                                         type="file"
                                         id="chaperone-upload"
@@ -671,7 +698,7 @@ const RegistrationSystem = () => {
                                         {chaperoneFile && <p className="text-blue-400 text-sm mt-2">{chaperoneFile.name}</p>}
                                     </label>
                                 </div>
-                                <label className="flex items-start gap-4 cursor-pointer mb-2">
+                                <label className="flex items-start gap-4 cursor-pointer my-4">
                                     <input 
                                         type="checkbox"
                                         className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
@@ -733,7 +760,7 @@ const RegistrationSystem = () => {
         // Step 1: Collect team member personal info
         if (teamStep === 1) {
             return (
-                <div className="flex items-center justify-center">
+                <div className="flex">
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
                         {renderStepIndicator(1, 4)}
                         
@@ -805,6 +832,7 @@ const RegistrationSystem = () => {
                                     </div>
                                 </div>
                             </div>
+                            
                             <div>
                                 <div className="text-center mb-6">
                                     <button 
@@ -813,10 +841,10 @@ const RegistrationSystem = () => {
                                         + Add new team member
                                     </button>
                                 </div>
-                            <div className="flex items-center mt-6">
+                            <div className="flex items-center justify-center">
                                 {/* Back button */}
                                 <button
-                                    className="w-10 h-7 md:w-16 md:h-15 bg-transparent border md:border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+                                    className="w-8 h-8 md:w-8 md:h-8 bg-transparent border md:border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
                                     onClick={() => {
                                     if (currentTeamMemberIndex > 0) {
                                         setCurrentTeamMemberIndex(currentTeamMemberIndex - 1);
@@ -827,11 +855,11 @@ const RegistrationSystem = () => {
                                     }
                                     }}
                                 >
-                                    <svg className="w-3 h-3 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-3 h-3 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                     </svg>
                                 </button>
-
+                            
                             {/* Middle (Next / Proceed) */}
                             <div className="md:mx-8 flex">
                                 {(() => {
@@ -866,7 +894,7 @@ const RegistrationSystem = () => {
                                 if (teamSize > 1) {
                                     return (
                                     <button
-                                    className="w-full md:my-2 px-2 ml-10 py-2 bg-transparent border md:border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-xs md:text-sm cursor-pointer"
+                                    className="flex-1 bg-transparent border-2 border-white text-white px-4 py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer"
                                     onClick={proceedWithTeam}
                                     >
                                     PROCEED WITH {teamSize} TEAM MEMBERS
@@ -883,8 +911,6 @@ const RegistrationSystem = () => {
                                 // );
                                 })()}
                             </div>
-
-                            <div style={{ width: 64 }} />
                             </div>
 
                                 {/* <div className="flex items-center justify-between">
@@ -971,7 +997,7 @@ if (teamStep === 2) {
                                 </label>
                             </div>
 
-                            <label className="flex items-start gap-4 cursor-pointer mb-2">
+                            <label className="flex items-start gap-4 cursor-pointer mb-4">
                                 <input 
                                     type="checkbox"
                                     className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
@@ -987,14 +1013,14 @@ if (teamStep === 2) {
                         </div>
                         <div className="flex items-center justify-between">
                             <button 
-                                className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
+                                className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
                                 onClick={() => setTeamStep(1)}>
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                 </svg>
                             </button>
                             <button  
-                            className="flex-1 ml-3 mx-4 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
+                            className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                 onClick={() => {
                                     if (!teamAgreedToTerms) {
                                         setResponseMessage('You must agree to the terms and waivers to proceed.');
@@ -1042,14 +1068,14 @@ if (teamStep === 2) {
                     </div>
                     <div className="flex items-center justify-center">
                         <button 
-                            className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
+                            className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
                             onClick={() => setTeamStep(1)}>
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
                         <button  
-                            className="flex-1 ml-3 mx-4 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
+                            className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                             onClick={() => {
                                 if (!teamAgreedToTerms) {
                                     setResponseMessage('You must agree to the terms and waivers to proceed.');
@@ -1104,15 +1130,15 @@ if (teamStep === 2) {
                             </div>
                             <div className="flex items-center justify-between">
                                 <button 
-                                    className="w-16 h-16 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer"
+                                    className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer"
                                     // onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
                                     onClick={() => setTeamStep(2)}>
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                     </svg>
                                 </button>
                                 <button  
-                            className="flex-1 ml-3 mx-4 bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
+                            className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                     onClick={submitTeamForm}>
                                     SUBMIT & PAY
                                 </button>
@@ -1152,7 +1178,7 @@ if (teamStep === 2) {
         }
         return (
             <div className="flex items-center justify-center">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
+                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl  flex flex-col">
                     {renderStepIndicator(step, 2)}
                <div className="flex-1 flex flex-col justify-between">
                             <div>
@@ -1160,7 +1186,7 @@ if (teamStep === 2) {
                                 <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">
                                     The maximum performance time is 4 minutes for individual divisions and 5 minutes for teams. The minimum performance time is 2 minutes. Music chosen must be suitable for an audience of all ages. 
                                 </p>
-                                <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-8 text-center cursor-pointer hover:border-gray-500 transition-colors">
+                                <div className="mb-8 border-2 border-dashed border-gray-600 rounded-lg p-12 text-center cursor-pointer hover:border-gray-500 transition-colors">
                                     <input 
                                         type="file"
                                         id="music-upload"
@@ -1189,13 +1215,23 @@ if (teamStep === 2) {
  
                             </div>
                             <div>
-                                <button 
-                                    className="w-full bg-transparent border-2 border-white text-white py-5 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
+                            <div className="flex items-center justify-between">
+                            <button 
+                                className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
+                                onClick={() => setCurrentView('home')}>
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+                            <button 
+                                    className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                     onClick={submitMusicFile}>
                                     SUBMIT
                                 </button>
-                                {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
                             </div>
+                            {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
+                            {/* <div className="w-16"></div> */}
+                        </div>
                         </div>
                         </div>
             </div>
