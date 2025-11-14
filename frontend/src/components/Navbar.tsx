@@ -105,7 +105,7 @@ export default function Navbar() {
                 minWidth: "max-content",
               }}
             >
-              JOIN THE TEAM
+              CONNECT WITH US
             </a>
 
             <img src={Line} alt="Line" className="h-[50%] md:h-[3vw]" />
