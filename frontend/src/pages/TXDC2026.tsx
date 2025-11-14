@@ -5,6 +5,7 @@ import RegistrationInfo from "../components/RegistrationInfo";
 import EventSchedule from "../components/EventSchedule";
 import HomeBg from "../assets/testtxdcbanner3.png";
 import arrow from "../assets/arrow-up-right.svg"
+import '../App.css'
 
 const TXDC = () => {
   return (
@@ -41,11 +42,11 @@ const TXDC = () => {
                     <div className="flex gap-4 items-center">
                         <NavLink
                         to="/txdc2026/register"
-                        className="px-5 py-2 border flex items-center gap-1 border-white rounded-full hover:bg-white hover:text-black transition"
+                        className="px-5 py-2 border flex items-center gap-1 border-white rounded-full hover:bg-white hover:text-black transition boxx"
                                 style={{fontFamily: "unbounded",
                                     fontSize: "11px"
                         }}>
-                        REGISTER NOW <img src={arrow} className="w-5 h-5"></img>
+                        REGISTER NOW <img src={arrow} className="w-5 h-5" id="arrow"></img>
                         </NavLink>
                         <h1 style={{
                             fontFamily: "unbounded",

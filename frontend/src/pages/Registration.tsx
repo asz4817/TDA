@@ -7,7 +7,11 @@ const Registration = () => {
     <div>
       <section
       className="relative w-full bg-cover bg-center pb-10 pt-30"
-        style={{ backgroundImage: `url(${ContactBg})`,backgroundColor: "transparent",}}
+        style={{ backgroundImage: `url(${ContactBg})`,backgroundColor: "transparent",
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",}}
     >
           <div className="absolute inset-0 bg-black opacity-50"></div>
     <div className="">

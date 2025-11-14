@@ -16,7 +16,7 @@ const FAQ = () => {
         id: "p1",
         number: "01",
         question: "How do I join the team, and do I need diabolo experience to perform?",
-        answer: "Join our discord! We are super beginner friendly and we love teaching beginners! Almost everyone who joins starts off as a beginner- having never touched a diabolo before. Some of our members even learned how to yo-yo 2 weeks before a performance! We would love to see you at our regular Tuesday meet ups from 5-7pm on Speedway, and keep an eye out on our discord for our performance sign up forms."
+        answer: "Join our discord! We are super beginner friendly and we love teaching beginners! Almost everyone who joins starts off as a beginner - having never touched a diabolo before. Some of our members even learned how to yo-yo 2 weeks before a performance! We would love to see you at our regular Tuesday meet ups from 5-7pm on Speedway, and keep an eye out on our discord for our performance sign up forms."
       },
       {
         id: "p2",

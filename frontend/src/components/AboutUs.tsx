@@ -4,7 +4,12 @@ import '../App.css'
 const AboutUs = () => {
   return (
     <div className="w-[90%]">
-        <section className="backdrop-blur-sm border border-gray-400 rounded-3xl p-8 shadow-2xs px-[4vw] py-[11vh]"        >
+        <section className="backdrop-blur-xs border border-gray-600 rounded-3xl p-8 shadow-2xs px-[4vw] py-[11vh]"
+            style={{
+                backgroundColor: "rgba(0, 0, 0, 0.4)"
+
+            }}
+        >
             <h1 className="text-3xl font-semibold mb-4"
                 style={{
                 fontFamily: `roc-grotesk-compressed, sans-serif`,

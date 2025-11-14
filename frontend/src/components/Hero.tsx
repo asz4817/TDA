@@ -37,7 +37,7 @@ const Hero = () => {
 
       currentPosition > 0 ? setScrolling(false) : setScrolling(true);
       setScrollTop(currentPosition <= 0 ? 0 : currentPosition);
-      if (currentPosition > scrollMax * 0.4) {
+      if (currentPosition > scrollMax * 0.6) {
         setDiaboloTop(-40);
         setAboutTop(-200)
       } else if (currentPosition > 0) {
@@ -140,10 +140,11 @@ const Hero = () => {
       <div
       style={{
         position: "fixed",
-        top: scrollTop >= scrollMax * 0.4 ? "0%" : "100%",
+        top: scrollTop >= scrollMax * 0.6 ? "0%" : "100%",
         transition: "top 1s ease-in-out",
         backgroundColor: "black",
         height: "100%",
+        width: "100%",
       }}>
         <Divider />
         <PerformanceCards />
@@ -154,7 +155,7 @@ const Hero = () => {
         position: "fixed",
         height: "fit-content",
         minWidth: "100%",
-        bottom: scrollTop >= (scrollMax * 0.8 )? "0%" : "-100%",
+        bottom: scrollTop >= (scrollMax * 0.9 )? "0%" : "-100%",
         transition: "bottom 1s ease-in-out",
         backgroundColor: "black",
         zIndex: 100
