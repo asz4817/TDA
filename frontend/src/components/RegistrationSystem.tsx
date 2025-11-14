@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ChevronDown } from 'lucide-react';
 
 const RegistrationSystem = () => {
     // Navigation state
@@ -12,6 +13,7 @@ const RegistrationSystem = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [tshirtSize, setTshirtSize] = useState('');
+    const [division, setDivision] = useState('');
     const [emergencyContactName, setEmergencyContactName] = useState('');
     const [emergencyContactPhone, setEmergencyContactPhone] = useState('');
     const [numberOfGuests, setNumberOfGuests] = useState('');
@@ -104,7 +106,7 @@ const RegistrationSystem = () => {
     // Individual registration handlers
     const handleIndividualNext = () => {
         if (step === 1) {
-            if (!firstName || !lastName || !email || !phoneNumber || !dateOfBirth || !tshirtSize) {
+            if (!firstName || !lastName || !email || !phoneNumber || !division || !dateOfBirth || !tshirtSize) {
                 setResponseMessage('Please fill in all fields');
                 return;
             }
@@ -193,6 +195,7 @@ const RegistrationSystem = () => {
             phonenumber: phoneNumber,
             dateofbirth: dateOfBirth,
             tshirtsize: tshirtSize,
+            division: division,
             emergencycontactname: emergencyContactName,
             emergencycontactphone: emergencyContactPhone,
             numberofguests: numberOfGuests,
@@ -226,33 +229,40 @@ const RegistrationSystem = () => {
             }
             }
 
-    };
-
-    // // Team registration handlers
-    // const _handleTeamNext = () => {
-    //     if (teamStep === 1) {
-    //         if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || 
-    //             !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
-    //             setResponseMessage('Please fill in all fields');
-    //             return;
-    //         }
-    //     }
-    //     if (teamStep === 2) {
-    //         if (!currentMember.emergencyContactName || !currentMember.emergencyContactPhone || 
-    //             !currentMember.numberOfGuests) {
-    //             setResponseMessage('Please fill in all fields');
-    //             return;
-    //         }
-    //     }
-    //     if (teamStep < 2) {
-    //         setTeamStep(teamStep + 1);
-    //         setResponseMessage('');
-    //     }
-    // };
-
-    
+    };    
 
     const addNewTeamMember = () => {
+        // Only validate personal info fields
+        if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || 
+            !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
+            setResponseMessage('Please complete all fields before adding a new member');
+            return;
+        }
+
+        // Save current member
+        const updatedMembers = [...teamMembers];
+        if (currentTeamMemberIndex < teamMembers.length) {
+            updatedMembers[currentTeamMemberIndex] = currentMember;
+        } else {
+            updatedMembers.push(currentMember);
+        }
+        setTeamMembers(updatedMembers);
+        setTeamSize(updatedMembers.length + 1);
+
+        // Reset for new member
+        setCurrentMember({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phoneNumber: '',
+            dateOfBirth: '',
+            tshirtSize: ''
+        });
+        setCurrentTeamMemberIndex(updatedMembers.length);
+        setResponseMessage('');
+    };
+
+    const deleteTeamMember = () => {
         // Only validate personal info fields
         if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || 
             !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
@@ -518,13 +528,36 @@ const RegistrationSystem = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <input 
-                                    className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                    type="tel"
-                                    placeholder="PHONE NUMBER"
-                                    value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                />
+                                    <div>
+                                        <input 
+                                            className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
+                                            type="tel"
+                                            placeholder="PHONE NUMBER"
+                                            value={phoneNumber}
+                                            onChange={(e) => setPhoneNumber(e.target.value)}
+                                        />
+                                    </div>
+
+                                <div className="relative">    
+                                        <select
+                                                className={`w-full bg-transparent border-b border-gray-600 py-3 px-1 
+                                                            text-xs tracking-widest uppercase appearance-none
+                                                            focus:outline-none focus:border-white transition-colors
+                                                            ${division === "" ? "text-gray-500" : "text-white"}`}
+                                                value={division}
+                                                onChange={(e) => setDivision(e.target.value)}
+                                            >
+                                                <option value="" disabled>Select Division <ChevronDown /></option>
+                                                <option value="National Open">National Open</option>
+                                                <option value="Regional Open">Regional Open</option>
+                                                <option value="Regional Under 18">Regional Under 18</option>
+                                            </select>
+                                            <ChevronDown 
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+                                            />
+
+                                </div>
+
                                 <div className="grid grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-gray-500 text-xs tracking-widest uppercase">DATE OF BIRTH</label>
@@ -835,11 +868,17 @@ const RegistrationSystem = () => {
                             
                             <div>
                                 <div className="text-center mb-6">
-                                    <button 
+                                    <div><button 
                                         className="text-blue-400 text-sm hover:underline cursor-pointer pt-2"
                                         onClick={addNewTeamMember}>
                                         + Add new team member
                                     </button>
+                                    </div>
+                                    <div><button 
+                                        className="text-blue-400 text-sm hover:underline cursor-pointer pt-2"
+                                        onClick={deleteTeamMember}>
+                                        - Delete this team member
+                                    </button></div>
                                 </div>
                             <div className="flex items-center justify-center">
                                 {/* Back button */}

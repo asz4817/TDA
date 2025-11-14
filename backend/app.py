@@ -179,6 +179,7 @@ def register_individual():
             'lastname': data['lastname'],
             'email': data['email'],
             'phonenumber': data['phonenumber'],
+            'division': data['division'],
             'dateofbirth': data['dateofbirth'],
             'tshirtsize': data['tshirtsize'],
             'emergencycontactname': data['emergencycontactname'],
