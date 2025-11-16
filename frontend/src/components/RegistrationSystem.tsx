@@ -559,22 +559,23 @@ const RegistrationSystem = () => {
                             <div className="space-y-8">
                                 <div className="grid grid-cols-2 gap-[2vh]">
                                     <input 
-                                        className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest" 
+                                        className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                         type="text" 
                                         placeholder="FIRST NAME" 
                                         value={firstName}
                                         onChange={(e) => setFirstName(e.target.value)}
                                     />
                                     <input 
-                                        className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest" 
+                                        className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                         type="text" 
+                                        required
                                         placeholder="LAST NAME" 
                                         value={lastName}
                                         onChange={(e) => setLastName(e.target.value)}
                                     />
                                 </div>
                                 <input 
-                                    className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest" 
+                                    className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                     type="email" 
                                     placeholder="EMAIL" 
                                     value={email}
@@ -1001,7 +1002,7 @@ const RegistrationSystem = () => {
                             </div>
                             
                             <div>
-                            <div className="flex mt-8 md:w-[30%] mx-auto">
+                            <div className="flex items-center justify-between">
                                 {/* Back button */}
                                 <button
                                     className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center disabled:opacity-50 cursor-pointer"
@@ -1024,7 +1025,7 @@ const RegistrationSystem = () => {
                                 if (hasNext) {
                                     return (
                                         <button 
-                                        className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
+                                        className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                         onClick={() => {
                                         const updated = [...teamMembers];
                                         if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
@@ -1049,9 +1050,7 @@ const RegistrationSystem = () => {
                                         setResponseMessage('');
                                         }}
                                         >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
+                                    NEXT MEMBER
                                     </button>
                                     
                                     );
@@ -1059,12 +1058,10 @@ const RegistrationSystem = () => {
                                 if (teamSize > 1) {
                                     return (
                                         <button 
-                                        className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer" 
+                                        className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-300 font-normal tracking-widest text-sm cursor-pointer" 
                                         onClick={proceedWithTeam}
                                         >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
+                                    PROCEED WITH {teamSize} MEMBERS
                                     </button>
                                 );
                                 }
@@ -1230,8 +1227,8 @@ if (teamStep === 2) {
                         </button>
                         {/* <div className="w-16"></div> */}
                     </div>
-                    {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
                 </div>
+                    {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
             </div>
         </div>
     );
