@@ -10,7 +10,11 @@ const ContactUs = () => {
     <div>
     <section
       className="relative w-full bg-contain bg-no-repeat bg-cover bg-center bg-top md:pt-50 md:pb-30 h-full"
-        style={{ backgroundImage: `url(${ContactBg})`,backgroundColor: "transparent"}}
+        style={{ backgroundImage: `url(${ContactBg})`,backgroundColor: "transparent",
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",}}
     >
           <div className="absolute inset-0 bg-black opacity-50"></div>
     <div className="">
