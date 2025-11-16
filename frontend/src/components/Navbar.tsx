@@ -79,7 +79,7 @@ export default function Navbar() {
           <NavLink
             to="/contactUs"
             className={({ isActive }) =>
-              `transition hover:text-gray-300 ${
+              `transition hover:text-gray-400 duration-400 ${
                 isActive ? "font-semibold" : "text-white"
               }`
             }
@@ -97,7 +97,7 @@ export default function Navbar() {
           <a
               href="https://linktr.ee/texasdiabolo"
               target="_blank"
-              className="border border-white rounded-full hover:bg-white hover:text-black transition whitespace-nowrap"
+              className="border border-white rounded-full hover:bg-white hover:text-black transition-all duration-400 whitespace-nowrap "
               style={{
                 fontFamily: "unbounded",
                 fontSize: "clamp(4px, 1vw, 11px)",

@@ -42,7 +42,7 @@ const TXDC = () => {
                     <div className="flex gap-4 items-center">
                         <NavLink
                         to="/txdc2026/register"
-                        className="px-5 py-2 border flex items-center gap-1 border-white rounded-full hover:bg-white hover:text-black transition boxx"
+                        className="px-5 py-2 border flex items-center gap-1 border-white rounded-full hover:bg-white hover:text-black transition-all duration-400 boxx"
                                 style={{fontFamily: "unbounded",
                                     fontSize: "11px"
                         }}>

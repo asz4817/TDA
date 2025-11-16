@@ -53,7 +53,7 @@ const PerformanceCards = () => {
           lineHeight: "1",
         }}>PERFORMANCES</h2>
         <a href="https://youtube.com/@texasdiabolo" target="_blank" rel="noopener noreferrer" className="inline-block">
-          <img src={Arrow} alt="YouTube" className="w-12 h-12 hover:opacity-75 mx-auto" />
+          <img src={Arrow} alt="YouTube" className="w-12 h-12 mx-auto"/>
         </a>
       </div>
 
@@ -75,7 +75,7 @@ const PerformanceCards = () => {
             fontSize: "clamp(20px, 5vw, 64px)",
           }}>PERFORMANCES</h2>
           <a href="https://youtube.com/@texasdiabolo" target="_blank" rel="noopener noreferrer">
-            <img src={Arrow} alt="YouTube" className="w-15 h-15 hover:opacity-75" />
+            <img src={Arrow} alt="YouTube" className="w-15 h-15 hover:opacity-60 transition-opacity duration-400" />
           </a>
         </div>
 
@@ -106,15 +106,15 @@ const PerformanceCards = () => {
               {/* Content */}
               <div className="relative h-full flex flex-col justify-end p-4 md:p-8">
                 <div
-                  className={`transition-opacity duration-300 ${
+                  className={`transition-opacity duration-600 delay-200 ${
                     activeCard === performance.id ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   <h3 
                     style={{
                       opacity: activeCard === performance.id ? 1 : 0,
-                      transition: "opacity 300ms ease-in-out",
-                      transitionDelay: "200ms",
+                      // transition: "opacity 300ms ease-in-out",
+                      // transitionDelay: "200ms",
                       fontFamily: "unbounded",
                       fontSize: window.innerWidth < 768 ? "18px" : "24px",
                     }}
@@ -123,6 +123,7 @@ const PerformanceCards = () => {
                   </h3>
                   <p 
                     style={{
+                      opacity: activeCard === performance.id ? 1 : 0,
                       marginTop: "-1%",
                       fontFamily: "unbounded",
                       fontSize: window.innerWidth < 768 ? "16px" : "20px",
@@ -137,11 +138,15 @@ const PerformanceCards = () => {
                     href={performance.youtubeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 border border-white rounded-full hover:bg-white hover:text-black transition-colors"
+                    className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 border border-white rounded-full hover:bg-white hover:text-black transition-colors duration-400"
+                    style={{
+                      opacity: activeCard === performance.id ? 1 : 0,
+                    }}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <span 
                       style={{
+                        
                         fontFamily: "unbounded",
                         fontSize: "12px"
                       }}
@@ -160,7 +165,7 @@ const PerformanceCards = () => {
 
                 {/* Small indicator when not active */}
                 <div
-                  className={`transition-opacity duration-300 ${
+                  className={`transition-opacity duration-400 ${
                     activeCard === performance.id ? "opacity-0" : "opacity-100"
                   }`}
                 >

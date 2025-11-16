@@ -1,7 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
 
 @font-face {
     font-family: unbounded; /* set name */
@@ -28,4 +25,8 @@
 
 .boxx:hover > #arrow{
   filter: brightness(0) saturate(100%);
+}
+
+#arrow {
+  transition: filter 400ms linear;
 }

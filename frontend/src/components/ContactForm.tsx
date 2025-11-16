@@ -107,7 +107,7 @@ const ContactForm = () => {
                     />
                 </div>
                 <button  
-                  className="w-full mt-4 md:mt-8 bg-transparent border border-white text-white py-3 hover:bg-white hover:text-black transition-all duration-300 font-medium tracking-wider text-sm" 
+                  className="w-full mt-4 md:mt-8 bg-transparent border border-white text-white py-3 hover:bg-white hover:text-black transition-all duration-400 font-medium tracking-wider text-sm" 
                   type="submit"
                   style={{
                     fontFamily: "unbounded",

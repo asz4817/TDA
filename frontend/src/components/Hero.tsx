@@ -147,7 +147,15 @@ const Hero = () => {
         width: "100%",
       }}>
         <Divider />
+        <div
+        style={{
+          opacity: scrollTop >= scrollMax * 0.6 ? 1 : 0,
+          transition: `translate 1.7s ease-in-out, opacity 2s linear`,
+          transitionDelay: "0.2s",
+          translate: scrollTop >= scrollMax * 0.6 ?"0 0": "0 40%",
+        }}>
         <PerformanceCards />
+        </div>
 
       </div>
           <div

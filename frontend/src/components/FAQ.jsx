@@ -103,7 +103,7 @@ const FAQ = () => {
                     </div>
                     
                     <button 
-                      className="text-3xl md:text-5xl font-light ml-8 mt-1 transition-transform duration-300"
+                      className="text-3xl md:text-5xl font-light ml-8 mt-1 transition-transform duration-400"
                       style={{ transform: openItems[item.id] ? 'rotate(0deg)' : 'rotate(0deg)' }}
                     >
                       {openItems[item.id] ? '−' : '+'}
@@ -112,7 +112,7 @@ const FAQ = () => {
 
                   {/* Answer Section */}
                   <div 
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    className={`overflow-hidden transition-all duration-400 ease-in-out ${
                       openItems[item.id] ? 'max-h-96 opacity-100 ' : 'max-h-0 opacity-0'
                     }`}
                   >
@@ -182,7 +182,7 @@ const FAQ = () => {
                     </div>
                     
                     <button 
-                      className="text-3xl md:text-5xl font-light ml-8 mt-1 transition-transform duration-300"
+                      className="text-3xl md:text-5xl font-light ml-8 mt-1 transition-transform duration-400"
                     >
                       {openItems[item.id] ? '−' : '+'}
                     </button>
@@ -190,7 +190,7 @@ const FAQ = () => {
 
                   {/* Answer Section */}
                   <div 
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    className={`overflow-hidden transition-all duration-400 ease-in-out ${
                       openItems[item.id] ? 'max-h-96 opacity-100 ' : 'max-h-0 opacity-0'
                     }`}
                   >

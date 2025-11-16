@@ -71,7 +71,7 @@ const SubscribeMailout = () => {
         {/* Submit button */}
         <button
           type="submit"
-          className="w-full border text-white py-2 text-sm tracking-widest hover:bg-white hover:text-black transition"
+          className="w-full border text-white py-2 text-sm tracking-widest hover:bg-white hover:text-black transition-all duration-400"
           style={{
             fontFamily: "unbounded",
             fontWeight: '300',
