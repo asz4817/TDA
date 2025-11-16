@@ -23,6 +23,7 @@ const RegistrationSystem = () => {
     const [responseMessage, setResponseMessage] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [teamSize, setTeamSize] = useState(2);
+    const [teamSizeString, setTeamSizeString] = useState('');
     const [teamName, setTeamName] = useState('');
 
     // Team registration states
@@ -885,9 +886,11 @@ const RegistrationSystem = () => {
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                             type="number" 
-                                            placeholder="2" 
-                                            value={teamSize}
-                                            onChange={(e) => setTeamSize(Number(e.target.value))}
+                                            placeholder="TEAM SIZE" 
+                                            value={teamSizeString}
+                                            onChange={(e) => {setTeamSizeString(e.target.value)
+                                                setTeamSize(parseInt(e.target.value));
+                                            }}
                                         />
                                     </div>
                                 </div>
