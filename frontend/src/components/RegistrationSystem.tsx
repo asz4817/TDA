@@ -233,68 +233,6 @@ const RegistrationSystem = () => {
 
     };    
 
-    const addNewTeamMember = () => {
-        // Only validate personal info fields
-        if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || 
-            !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
-            setResponseMessage('Please complete all fields before adding a new member');
-            return;
-        }
-
-        // Save current member
-        const updatedMembers = [...teamMembers];
-        if (currentTeamMemberIndex < teamMembers.length) {
-            updatedMembers[currentTeamMemberIndex] = currentMember;
-        } else {
-            updatedMembers.push(currentMember);
-        }
-        setTeamMembers(updatedMembers);
-        setTeamSize(updatedMembers.length + 1);
-
-        // Reset for new member
-        setCurrentMember({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            dateOfBirth: '',
-            tshirtSize: ''
-        });
-        setCurrentTeamMemberIndex(updatedMembers.length);
-        setResponseMessage('');
-    };
-
-    const deleteTeamMember = () => {
-        // Only validate personal info fields
-        if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || 
-            !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
-            setResponseMessage('Please complete all fields before adding a new member');
-            return;
-        }
-
-        // Save current member
-        const updatedMembers = [...teamMembers];
-        if (currentTeamMemberIndex < teamMembers.length) {
-            updatedMembers[currentTeamMemberIndex] = currentMember;
-        } else {
-            updatedMembers.push(currentMember);
-        }
-        setTeamMembers(updatedMembers);
-        setTeamSize(updatedMembers.length + 1);
-
-        // Reset for new member
-        setCurrentMember({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            dateOfBirth: '',
-            tshirtSize: ''
-        });
-        setCurrentTeamMemberIndex(updatedMembers.length);
-        setResponseMessage('');
-    };
-
     const inputTeamInfo = () => {
         if (!teamName || !teamSize) {
             setResponseMessage('Please complete all fields');
