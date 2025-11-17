@@ -226,7 +226,8 @@ def register_team():
                 try:
                     file_data = file_data_obj['data']
                     file_name = file_data_obj['name']
-                    filename = secure_filename(f"team_chaperone_{idx+1}_{file_name}")
+                    team_name = data['teamName']
+                    filename = secure_filename(f"{team_name}_chaperone_{idx+1}_{file_name}")
                     file_path = os.path.join(app.config['CHAPERONE_FOLDER'], filename)
 
                     with open(file_path, 'wb') as f:
@@ -261,44 +262,6 @@ def register_team():
         return jsonify({'error': f'Server error: {str(e)}'}), 500
 
 
-
-
-# @app.route("/upload_audio", methods=["POST"])
-# def upload_audio():
-#     """Handle audio file upload and store metadata in MongoDB"""
-#     try:
-#         #  Check for file in request
-#         if "file" not in request.files:
-#             return jsonify({"error": "No file part"}), 400
-
-#         file = request.files["file"]
-#         if file.filename == "":
-#             return jsonify({"error": "No file selected"}), 400
-
-#         # Save file locally to MUSIC_FOLDER
-#         filename = secure_filename(file.filename)
-#         file_path = os.path.join(app.config['MUSIC_FOLDER'], filename)
-#         file.save(file_path)
-
-#         # Optional: store metadata in MongoDB
-#         upload_info = {
-#             "filename": filename,
-#             "path": file_path,
-#             "timestamp": datetime.utcnow(),
-#         }
-
-#         result = db.audio_uploads.insert_one(upload_info)
-
-#         return jsonify({
-#             "message": "File uploaded successfully",
-#             "filename": filename,
-#             "path": file_path,
-#             "upload_id": str(result.inserted_id)
-#         }), 200
-
-#     except Exception as e:
-#         return jsonify({"error": f"Server error: {str(e)}"}), 500
-    
 @app.route("/upload_audio", methods=["POST"])
 def upload_audio():
     if "file" not in request.files:
