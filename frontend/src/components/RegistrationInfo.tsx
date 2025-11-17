@@ -41,8 +41,8 @@ const Registration = () => {
               fontFamily: 'unbounded, sans-serif',
               fontWeight: '300',
             }}>
-              <p className="text-sm">• Registration Due: 11:59 PM CST on December 31, 2025</p>
-              <p className="text-sm">• Music Due: 11:59 PM CST on February 14th, 2026</p>
+              <p className="text-sm">• Registration Due: 11:59 PM CST on December 31<sup>ST</sup>, 2025</p>
+              <p className="text-sm">• Music Due: 11:59 PM CST on February 14<sup>TH</sup>, 2026</p>
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@ const Registration = () => {
               
               <p className="text-sm">
                 • Individual Regional Junior Division: Optional division for competitors under the age of 18.{' '}
-                <span className="text-gray-400">Competitors must be under the age of 18 on March 14th, 2026 and have a valid Texas mailing address.</span>
+                <span className="text-gray-400">Competitors must be under the age of 18 on March 7<sup>TH</sup>, 2026 and have a valid Texas mailing address.</span>
               </p>
               
               <p className="text-sm">

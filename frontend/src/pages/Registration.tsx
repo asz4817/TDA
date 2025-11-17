@@ -16,7 +16,7 @@ const Registration = () => {
           <div className="absolute inset-0 bg-black opacity-50"></div>
     <div className="">
         <div className="w-[80%] grid md:grid-cols-2 mx-auto">      
-            <div className="space-y-4 z-50 md:py-30 pb-10">
+            <div className="space-y-4 z-50 md:py-[10vh] pb-[2vh]">
                 <h1 className="leading-1" 
                 style={{
                   fontFamily: 'roc-grotesk-compressed, sans-serif',
@@ -32,7 +32,7 @@ const Registration = () => {
                   <p className="" style={{
                   fontFamily: "unbounded",
                   fontWeight: '300'
-                }}>When: March 14-15th, 2026</p>
+                }}>When: March 7-8<sup>TH</sup>, 2026</p>
                 <p className="" style={{
                   fontFamily: "unbounded",
                   fontWeight: '300'

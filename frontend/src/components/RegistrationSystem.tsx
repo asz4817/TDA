@@ -460,12 +460,17 @@ const RegistrationSystem = () => {
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(4, 4)}
                         <div className="text-left flex-1 flex flex-col justify-center">
-                            <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>See you in March!</h2>
                             <p className="text-white text-base leading-relaxed mb-6 font-light">
                                 Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
                             </p>
                             <p className="text-white text-base leading-relaxed font-light">
-                                Please do not forget to submit your music for your routine to our website by February 14th, 2026!
+                                Please do not forget to submit your music for your routine to the music submission form by February 14<sup>TH</sup>, 2026!
                             </p>
                         </div>
                         <div className="flex justify-center mt-12">
@@ -793,12 +798,17 @@ const RegistrationSystem = () => {
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(5, 5)}
                         <div className="text-left flex-1 flex flex-col justify-center">
-                            <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>See you in March!</h2>
                             <p className="text-white text-base leading-relaxed mb-6 font-light">
                                 Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
                             </p>
                             <p className="text-white text-base leading-relaxed font-light">
-                                Please do not forget to send us your music for your routine by February 14th, 2026 to texasdiabolo@gmail.com. We can't wait to see you in March!
+                                Please do not forget to submit your music for your routine by February 14<sup>TH</sup>, 2026 to the music submission form. We can't wait to see you in March!
                             </p>
                         </div>
                         <div className="flex justify-center mt-12">
