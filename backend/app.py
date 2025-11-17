@@ -240,8 +240,9 @@ def register_team():
         new_registration = {
             'type': 'team',
             'timestamp': datetime.utcnow(),
-            'members': data['members'],
+            'team_name': data['teamName'],
             'team_size': len(data['members']),
+            'members': data['members'],
             'emergencycontactname': data['emergencycontactname'],
             'emergencycontactphone': data['emergencycontactphone'],
             'numberofguests': data['numberofguests'],

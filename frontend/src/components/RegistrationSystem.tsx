@@ -24,7 +24,6 @@ const RegistrationSystem = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [teamSize, setTeamSize] = useState(2);
     const [teamSizeString, setTeamSizeString] = useState('');
-    const [teamName, setTeamName] = useState('');
 
     // Team registration states
         type TeamMember = {
@@ -39,6 +38,7 @@ const RegistrationSystem = () => {
             numberOfGuests?: string;
         };
     
+        const [teamName, setTeamName] = useState('')
         const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
         const [currentTeamMemberIndex, setCurrentTeamMemberIndex] = useState(0);
         const [teamStep, setTeamStep] = useState(0); // 1: member info, 2: waivers, 3: emergency contact
@@ -279,9 +279,6 @@ const RegistrationSystem = () => {
 
         setTeamStep(1);
         
-
-
-        
     }
 
     const proceedWithTeam = () => {
@@ -343,6 +340,7 @@ const RegistrationSystem = () => {
 
         const registrationData = {
             type: 'team',
+            teamName: teamName,
             members: teamMembers,
             emergencycontactname: teamEmergencyContactName,
             emergencycontactphone: teamEmergencyContactPhone,
@@ -1266,6 +1264,9 @@ if (teamStep === 2) {
                <div className="flex-1 flex flex-col justify-between">
                             <div>
                                 <h2 className="text-3xl font-light text-white mb-8 tracking-wide">MUSIC FILE<br/>SUBMISSION</h2>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-2 font-light">
+                                    Please name your file "lastName_firstName_division."
+                                </p>  
                                 <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">
                                     The maximum performance time is 4 minutes for individual divisions and 5 minutes for teams. The minimum performance time is 2 minutes. Music chosen must be suitable for an audience of all ages. 
                                 </p>

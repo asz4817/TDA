@@ -1,6 +1,6 @@
 const Registration = () => {
   return (
-    <div className="min-h-screen bg-black text-white pt-10 md:pt-20">
+    <div className="bg-black text-white py-10 md:py-20">
       <div className="max-w-8xl mx-auto">
         {/* Registration Title */}
         <h1
