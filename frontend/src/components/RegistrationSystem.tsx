@@ -613,7 +613,12 @@ const RegistrationSystem = () => {
 
                     {step === 2 && (
                         <div className="flex-1 flex flex-col">
-                            <h2 className="text-3xl font-light text-white mb-6 tracking-wide">EMERGENCY CONTACT<br/>INFORMATION</h2>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>EMERGENCY CONTACT<br/>INFORMATION</h2>
                             <div className="space-y-[5vh] flex-1">
                                 <input 
                                     className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -674,7 +679,12 @@ const RegistrationSystem = () => {
                     {step === 3 && !isMinor(dateOfBirth) && (
                         <div className="flex-1 flex flex-col justify-between">
                             <div>
-                                <h2 className="text-3xl font-light text-white mb-8 tracking-wide">WAIVERS<br/>& FORMS</h2>
+                                <h2 className="text-white mb-[4vh] tracking-wide"
+                                style={{
+                                    fontFamily: "unbounded",
+                                    fontWeight: '300',
+                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                }}>WAIVERS<br/>& FORMS</h2>
                                 <label className="flex items-start gap-4 cursor-pointer">
                                     <input 
                                         type="checkbox"
@@ -689,7 +699,7 @@ const RegistrationSystem = () => {
                                     </span>
                                 </label>
                             </div>
-                            <div className="flex items-center justify-between">
+                            <div className="mt-[4vh] flex items-center justify-between">
                                 <button 
                                     className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
                                     // onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
@@ -712,7 +722,12 @@ const RegistrationSystem = () => {
                     {step === 3 && isMinor(dateOfBirth) && (
                         <div className="flex-1 flex flex-col justify-between">
                             <div>
-                                <h2 className="text-3xl font-light text-white mb-4 tracking-wide">WAIVERS<br/>& FORMS</h2>
+                                <h2 className="text-white mb-[4vh] tracking-wide"
+                                style={{
+                                    fontFamily: "unbounded",
+                                    fontWeight: '300',
+                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                }}>WAIVERS<br/>& FORMS</h2>
                                 <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light">
                                     For competitors under the age of 18, all competitors must have a parent/guardian sign and upload to the following{' '}
                                     <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors while participating in TXDC. Custodial responsibility will remain with chaperones.
@@ -804,11 +819,15 @@ const RegistrationSystem = () => {
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[40px] flex flex-col">
                         {renderStepIndicator(1, 5)}
                         
-                        <div className="flex-1 flex flex-col">
-                                <h2 className="text-3xl font-light text-white mb-4 tracking-wide">
-                                    TEAM INFORMATION
-                                </h2>
-                                <div className="space-y-8 mt-12">
+                        <div>
+                                <h2 className="text-white mb-[2vh] tracking-wide"
+                                style={{
+                                    fontFamily: "unbounded",
+                                    fontWeight: '300',
+                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                }}>
+                                    TEAM <br/> INFORMATION</h2>
+                                <div className="space-y-8">
                                     {/* <div className="grid grid-cols-2 gap-6"> */}
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -818,11 +837,11 @@ const RegistrationSystem = () => {
                                             onChange={(e) => setTeamName(e.target.value)}
                                         />
                                     {/* </div> */}
-                                    <div className="grid grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-2 gap-[2vh]">
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                             type="number" 
-                                            placeholder="TEAM SIZE" 
+                                            placeholder="NUMBER OF TEAM MEMBERS" 
                                             value={teamSizeString}
                                             onChange={(e) => {setTeamSizeString(e.target.value)
                                                 setTeamSize(parseInt(e.target.value));
@@ -873,11 +892,16 @@ const RegistrationSystem = () => {
                         
                         <div className="flex-1 flex flex-col justify-between">
                             <div>
-                                <h2 className="text-3xl font-light text-white mb-4 tracking-wide">
+                                <h2 className="text-white mb-[2vh] tracking-wide"
+                                style={{
+                                    fontFamily: "unbounded",
+                                    fontWeight: '300',
+                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                }}>
                                     TEAM MEMBER {memberNumber}<br/>PERSONAL INFORMATION
                                 </h2>
-                                <div className="space-y-8 mt-12">
-                                    <div className="grid grid-cols-2 gap-6">
+                                <div className="space-y-8 mt-[2vh]">
+                                    <div className="grid grid-cols-2 gap-[2vh]">
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                             type="text" 
@@ -907,7 +931,7 @@ const RegistrationSystem = () => {
                                         value={currentMember.phoneNumber}
                                         onChange={(e) => setCurrentMember({...currentMember, phoneNumber: e.target.value})}
                                     />
-                                    <div className="grid grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-2 gap-6 mb-[4vh]">
                                         <div>
                                             <label className="block text-gray-500 text-xs tracking-widest uppercase mb-2">DATE OF BIRTH</label>
                                             <input 
@@ -917,7 +941,7 @@ const RegistrationSystem = () => {
                                                 onChange={(e) => setCurrentMember({...currentMember, dateOfBirth: e.target.value})}
                                             />
                                         </div>
-                                        <div className="relative mt-8 mb-4">
+                                        <div className="mt-7">
                                             <select
                                                 className="w-full bg-transparent border-b border-gray-600 py-[10px] px-1 text-white focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase appearance-none"
                                                 value={currentMember.tshirtSize}
@@ -1025,10 +1049,15 @@ if (teamStep === 2) {
                     {renderStepIndicator(3, 5)}
                     <div className="flex-1 flex flex-col justify-between">
                         <div>
-                            <h2 className="text-3xl font-light text-white mb-8 tracking-wide">WAIVERS<br/>& FORMS</h2>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>WAIVERS<br/>& FORMS</h2>
                             <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">
                                 For competitors under the age of 18, all competitors must have a parent/guardian sign and upload to the following{' '}
-                                <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors while participating in TXDC. Custodial responsibility will remain with chaperones.
+                                <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors participating in TXDC. Custodial responsibility will remain with chaperones.
                             </p>
                             
                             <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-8 text-center">
@@ -1130,7 +1159,12 @@ if (teamStep === 2) {
                 {renderStepIndicator(3, 5)}
                 <div className="flex-1 flex flex-col justify-between">
                     <div>
-                        <h2 className="text-3xl font-light text-white mb-12 tracking-wide">WAIVERS<br/>& FORMS</h2>
+                        <h2 className="text-white mb-[4vh] tracking-wide"
+                        style={{
+                            fontFamily: "unbounded",
+                            fontWeight: '300',
+                            fontSize: "clamp(22px, 2vw, 24px)",
+                        }}>WAIVERS<br/>& FORMS</h2>
                         <label className="flex items-start gap-4 cursor-pointer mb-8">
                             <input 
                                 type="checkbox"
@@ -1184,7 +1218,12 @@ if (teamStep === 2) {
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col">
                         {renderStepIndicator(4, 5)}
                         <div className="flex-1 flex flex-col justify-between">
-                            <h2 className="text-3xl font-light text-white mb-12 tracking-wide">EMERGENCY CONTACT<br/>INFORMATION</h2>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>EMERGENCY CONTACT<br/>INFORMATION</h2>
                             <div className="space-y-8 flex-1">
                                 <input 
                                     className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -1239,7 +1278,12 @@ if (teamStep === 2) {
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(2, 2)}
                         <div className="text-left flex-1 flex flex-col justify-center">
-                            <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
+                            <h2 className="text-white mb-8 tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>See you in March!</h2>
                             <p className="text-white text-base leading-relaxed mb-6 font-light">
                                 Thank you for submitting your music for the 2026 Texas Diabolo Competition! We will review your music submission and send you a confirmation email once it has been approved.</p>
                             <p className="text-white text-base leading-relaxed font-light">
@@ -1263,8 +1307,13 @@ if (teamStep === 2) {
                     {renderStepIndicator(step, 2)}
                <div className="flex-1 flex flex-col justify-between">
                             <div>
-                                <h2 className="text-3xl font-light text-white mb-8 tracking-wide">MUSIC FILE<br/>SUBMISSION</h2>
-                                <p className="text-gray-400 text-sm leading-relaxed mb-2 font-light">
+                                <h2 className="text-white mb-[4vh] tracking-wide"
+                                style={{
+                                    fontFamily: "unbounded",
+                                    fontWeight: '300',
+                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                }}>MUSIC FILE<br/>SUBMISSION</h2>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-2 font-bold">
                                     Please name your file "lastName_firstName_division."
                                 </p>  
                                 <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">

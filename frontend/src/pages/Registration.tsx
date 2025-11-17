@@ -29,10 +29,18 @@ const Registration = () => {
                   TXDC 2026 
                   REGISTRATION
                   </h1>
-                <p className="" style={{
+                  <p className="" style={{
                   fontFamily: "unbounded",
                   fontWeight: '300'
                 }}>When: March 14-15th, 2026</p>
+                <p className="" style={{
+                  fontFamily: "unbounded",
+                  fontWeight: '300'
+                }}>Divisions:
+                <br/>• Individual Open Stage Division
+                <br/>• Individual Regional Open Division
+                <br/>• Individual Regional Junior Division
+                <br/>• Team Open Stage Division</p>
                 <p className="" style={{
                   fontFamily: "unbounded",
                   fontWeight: '300'
