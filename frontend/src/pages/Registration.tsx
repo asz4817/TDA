@@ -31,10 +31,12 @@ const Registration = () => {
                   </h1>
                   <p className="" style={{
                   fontFamily: "unbounded",
+                  fontSize: "clamp(8px, 2vw, 12px)",
                   fontWeight: '300'
                 }}>When: March 7-8<sup>TH</sup>, 2026</p>
                 <p className="" style={{
                   fontFamily: "unbounded",
+                  fontSize: "clamp(8px, 2vw, 12px)",
                   fontWeight: '300'
                 }}>Divisions:
                 <br/>• Individual Open Stage Division
@@ -43,6 +45,7 @@ const Registration = () => {
                 <br/>• Team Open Stage Division</p>
                 <p className="" style={{
                   fontFamily: "unbounded",
+                  fontSize: "clamp(8px, 2vw, 12px)",
                   fontWeight: '300'
                 }}>For any inquiries or assistance please contact us through our email.</p>
 
@@ -52,7 +55,7 @@ const Registration = () => {
                 </a>
             </div>
 
-            <div className="my-auto">
+            <div className="my-[8vh]">
                <RegistrationSystem />
             </div>
         </div>

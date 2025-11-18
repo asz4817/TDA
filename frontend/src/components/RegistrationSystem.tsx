@@ -617,7 +617,7 @@ const RegistrationSystem = () => {
                     )}
 
                     {step === 2 && (
-                        <div className="flex-1 flex flex-col">
+                        <div>
                             <h2 className="text-white mb-[4vh] tracking-wide"
                             style={{
                                 fontFamily: "unbounded",
@@ -649,9 +649,9 @@ const RegistrationSystem = () => {
                                 />
                             </div>
                             
-                            <div className="flex w-[30%] mx-auto">
+                            <div className="flex mt-8 md:w-[30%] mx-auto">
                                  <button
-                                className="w-8 h-8 mt-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+                                className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
                                 onClick={() => {
                                 // const updated = [...teamMembers];
                                 // updated[currentTeamMemberIndex] = currentMember;
@@ -670,7 +670,7 @@ const RegistrationSystem = () => {
                                 </svg>
                             </button>
                             <button 
-                                className="w-8 h-8 mt-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer" 
+                                className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer" 
                                 onClick={handleIndividualNext}>
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -1120,7 +1120,7 @@ if (teamStep === 2) {
                                     checked={teamAgreedToTerms}
                                     onChange={(e) => setTeamAgreedToTerms(e.target.checked)}
                                 />
-                                <span className="text-white text-base leading-relaxed font-light">
+                                <span className="text-white text-sm leading-relaxed font-light">
                                     I consent and acknowledge that a parents/guardian along with my team and guests have read and agreed to these{' '}
                                     <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
                                     <a href="#" className="text-blue-400 underline">injury and liability forms</a>.
