@@ -355,14 +355,21 @@ const RegistrationSystem = () => {
                 body: JSON.stringify(registrationData),
             });
 
+            const stripeTab = window.open("", "_blank");  // allowed by gesture
+            if (!stripeTab) {
+                setResponseMessage("Popup blocked — please allow popups and try again.");
+                return;
+            }
             const text = await res.text();
             let result = JSON.parse(text);
 
             if (res.ok) {
                 setIsSubmitted(true);
                 setTeamStep(4);
-                window.open('https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01', '_blank');
+                stripeTab.location.href = "https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01";
+                // window.open('https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01', '_blank');
             } else {
+                stripeTab.close();
                 setResponseMessage(result.error || 'Error submitting form');
             }
         } catch (err: unknown) {
