@@ -112,7 +112,7 @@ const ContactForm = () => {
                   style={{
                     fontFamily: "unbounded",
                     fontWeight: '300',
-                    fontSize: "clamp(8px, 2vw, 12px)",
+                    fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
                     cursor: "pointer",
                 }}>
                     SUBMIT

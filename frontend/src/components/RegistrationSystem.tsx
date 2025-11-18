@@ -425,8 +425,7 @@ const RegistrationSystem = () => {
                     <h1 className="mb-10 tracking-wide text-center"
                         style={{
                             fontFamily: "unbounded",
-                            fontWeight: '300',
-                            fontSize: "clamp(22px, 2vw, 24px)",
+                            fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                         }}>REGISTER NOW</h1>
                     <div className="space-y-6">
                         <button
@@ -435,7 +434,7 @@ const RegistrationSystem = () => {
                             style={{
                                 fontFamily: "unbounded",
                                 fontWeight: '300',
-                                fontSize: "clamp(8px, 2vw, 12px)",
+                                fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
                                 cursor: "pointer",
                             }}
                         >
@@ -447,7 +446,7 @@ const RegistrationSystem = () => {
                             style={{
                                 fontFamily: "unbounded",
                                 fontWeight: '300',
-                                fontSize: "clamp(8px, 2vw, 12px)",
+                                fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
                                 cursor: "pointer",
                             }}
                         >
@@ -459,7 +458,7 @@ const RegistrationSystem = () => {
                             style={{
                                 fontFamily: "unbounded",
                                 fontWeight: '300',
-                                fontSize: "clamp(8px, 2vw, 12px)",
+                                fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
                                 cursor: "pointer",
                             }}>
                         
@@ -483,12 +482,22 @@ const RegistrationSystem = () => {
                             style={{
                                 fontFamily: "unbounded",
                                 fontWeight: '300',
-                                fontSize: "clamp(22px, 2vw, 24px)",
+                                fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                             }}>See you in March!</h2>
-                            <p className="text-white text-base leading-relaxed mb-6 font-light">
+                            <p className="text-white text-base leading-relaxed mb-6 font-light"
+                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+                                        }}>
                                 Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
                             </p>
-                            <p className="text-white text-base leading-relaxed font-light">
+                            <p className="text-white text-base leading-relaxed font-light"
+                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+                                        }}>
                                 Please do not forget to submit your music for your routine to the music submission form by February 14<sup>TH</sup>, 2026!
                             </p>
                         </div>
@@ -514,10 +523,10 @@ const RegistrationSystem = () => {
                             <h2 className="text-white mb-[4vh] tracking-wide"
                             style={{
                                 fontFamily: "unbounded",
-                                fontWeight: '300',
-                                fontSize: "clamp(22px, 2vw, 24px)",
+                                fontWeight: '400',
+                                fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                             }}>PERSONAL<br/>INFORMATION</h2>
-                            <div className="space-y-8">
+                            <div className="space-y-5 md:space-y-8">
                                 <div className="grid grid-cols-2 gap-[2vh]">
                                     <input 
                                         className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -525,6 +534,11 @@ const RegistrationSystem = () => {
                                         placeholder="FIRST NAME" 
                                         value={firstName}
                                         onChange={(e) => setFirstName(e.target.value)}
+                                        style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                     />
                                     <input 
                                         className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -533,6 +547,11 @@ const RegistrationSystem = () => {
                                         placeholder="LAST NAME" 
                                         value={lastName}
                                         onChange={(e) => setLastName(e.target.value)}
+                                        style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                     />
                                 </div>
                                 <input 
@@ -541,6 +560,11 @@ const RegistrationSystem = () => {
                                     placeholder="EMAIL" 
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                 />
                                     <div>
                                         <input 
@@ -549,6 +573,11 @@ const RegistrationSystem = () => {
                                             placeholder="PHONE NUMBER"
                                             value={phoneNumber}
                                             onChange={(e) => setPhoneNumber(e.target.value)}
+                                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                         />
                                     </div>
 
@@ -560,6 +589,11 @@ const RegistrationSystem = () => {
                                                             ${division === "" ? "text-gray-500" : "text-white"}`}
                                                 value={division}
                                                 onChange={(e) => setDivision(e.target.value)}
+                                                style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                             >
                                                 <option value="" disabled>Select Division <ChevronDown /></option>
                                                 <option value="National Open">National Open</option>
@@ -574,21 +608,40 @@ const RegistrationSystem = () => {
 
                                 <div className="grid grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-gray-500 text-xs tracking-widest uppercase">DATE OF BIRTH</label>
+                                        <label className="block text-gray-500 text-xs tracking-widest uppercase ml-1" style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}>DATE OF BIRTH</label>
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 placeholder-gray-500 text-white focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                             type="date" 
                                             placeholder="date"
                                             value={dateOfBirth}
                                             onChange={(e) => setDateOfBirth(e.target.value)}
+                                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                         />
                                     </div>
                                     <div className="">
-                                        <label className="block text-gray-500 text-xs tracking-widest uppercase">T-Shirt Size</label>
+                                        <label className="block text-gray-500 text-xs tracking-widest uppercase"
+                                        style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}>T-Shirt Size</label>
                                             <select
                                                 className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase appearance-none"
                                                 value={tshirtSize}
                                                 onChange={(e) => setTshirtSize(e.target.value)}
+                                                style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                             >
                                                 <option value="" disabled>Select Size</option>
                                                 <option value="XS">XS</option>
@@ -640,16 +693,21 @@ const RegistrationSystem = () => {
                             <h2 className="text-white mb-[4vh] tracking-wide"
                             style={{
                                 fontFamily: "unbounded",
-                                fontWeight: '300',
-                                fontSize: "clamp(22px, 2vw, 24px)",
+                                fontWeight: '400',
+                                fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                             }}>EMERGENCY CONTACT<br/>INFORMATION</h2>
-                            <div className="space-y-[5vh] flex-1">
+                            <div className="space-y-5 md:space-y-8 flex-1">
                                 <input 
                                     className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                     type="text" 
                                     placeholder="EMERGENCY CONTACT FULL NAME" 
                                     value={emergencyContactName}
                                     onChange={(e) => setEmergencyContactName(e.target.value)}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                 />
                                 <input 
                                     className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -657,6 +715,11 @@ const RegistrationSystem = () => {
                                     placeholder="EMERGENCY CONTACT PHONE NUMBER"
                                     value={emergencyContactPhone}
                                     onChange={(e) => setEmergencyContactPhone(e.target.value)}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                 />
                                 <input 
                                     className="w-1/2 bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -665,6 +728,11 @@ const RegistrationSystem = () => {
                                     min="0"
                                     value={numberOfGuests}
                                     onChange={(e) => setNumberOfGuests(e.target.value)}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                 />
                             </div>
                             
@@ -706,8 +774,8 @@ const RegistrationSystem = () => {
                                 <h2 className="text-white mb-[4vh] tracking-wide"
                                 style={{
                                     fontFamily: "unbounded",
-                                    fontWeight: '300',
-                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                    fontWeight: '400', 
+                                    fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                                 }}>WAIVERS<br/>& FORMS</h2>
                                 <label className="flex items-start gap-4 cursor-pointer">
                                     <input 
@@ -716,7 +784,12 @@ const RegistrationSystem = () => {
                                         checked={agreedToTerms}
                                         onChange={(e) => setAgreedToTerms(e.target.checked)}
                                     />
-                                    <span className="text-white text-base leading-relaxed font-light mb-8">
+                                    <span className="text-white text-base leading-relaxed font-light mb-8"
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                         I consent and acknowledge that me and my guests have read and agree to these{' '}
                                         <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
                                         <a href="#" className="text-blue-400 underline">injury and liability forms</a>.
@@ -734,7 +807,12 @@ const RegistrationSystem = () => {
                                 </button>
                                 <button  
                             className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                    onClick={submitIndividualForm}>
+                                    onClick={submitIndividualForm}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                     SUBMIT & PAY
                                 </button>
                                 {/* <div className="w-16"></div> */}
@@ -749,10 +827,14 @@ const RegistrationSystem = () => {
                                 <h2 className="text-white mb-[4vh] tracking-wide"
                                 style={{
                                     fontFamily: "unbounded",
-                                    fontWeight: '300',
-                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                    fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                                 }}>WAIVERS<br/>& FORMS</h2>
-                                <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light">
+                                <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light"
+                                style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                     For competitors under the age of 18, all competitors must have a parent/guardian sign and upload to the following{' '}
                                     <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors while participating in TXDC. Custodial responsibility will remain with chaperones.
                                 </p>
@@ -765,8 +847,18 @@ const RegistrationSystem = () => {
                                         onChange={(e) => setChaperoneFile(e.target.files?.[0] ?? null)}
                                     />
                                     <label htmlFor="chaperone-upload" className="cursor-pointer">
-                                        <p className="text-white text-base font-light">Upload file here</p>
-                                        {chaperoneFile && <p className="text-blue-400 text-sm mt-2">{chaperoneFile.name}</p>}
+                                        <p className="text-white text-base font-light"
+                                        style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+                                        }}
+                                        >Upload file here</p>
+                                        {chaperoneFile && <p className="text-blue-400 text-sm mt-2" style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+                                        }}>{chaperoneFile.name}</p>}
                                     </label>
                                 </div>
                                 <label className="flex items-start gap-4 cursor-pointer my-4">
@@ -776,7 +868,12 @@ const RegistrationSystem = () => {
                                         checked={agreedToTerms}
                                         onChange={(e) => setAgreedToTerms(e.target.checked)}
                                     />
-                                    <span className="text-white text-base leading-relaxed font-light">
+                                    <span className="text-white text-base leading-relaxed font-light"
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                         I consent and acknowledge that a parents/guardian along with my guests have read and agreed to these{' '}
                                         <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
                                         <a href="#" className="text-blue-400 underline">injury and liability forms</a>.
@@ -794,7 +891,12 @@ const RegistrationSystem = () => {
                                 </button>
                                 <button  
                             className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                    onClick={submitIndividualForm}>
+                                    onClick={submitIndividualForm}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                     SUBMIT & PAY
                                 </button>
                                 {/* <div className="w-16"></div> */}
@@ -820,13 +922,22 @@ const RegistrationSystem = () => {
                             <h2 className="text-white mb-[4vh] tracking-wide"
                             style={{
                                 fontFamily: "unbounded",
-                                fontWeight: '300',
-                                fontSize: "clamp(22px, 2vw, 24px)",
+                                fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                             }}>See you in March!</h2>
-                            <p className="text-white text-base leading-relaxed mb-6 font-light">
+                            <p className="text-white text-base leading-relaxed mb-6 font-light"
+                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+                                        }}>
                                 Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
                             </p>
-                            <p className="text-white text-base leading-relaxed font-light">
+                            <p className="text-white text-base leading-relaxed font-light"
+                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+                                        }}>
                                 Please do not forget to submit your music for your routine by February 14<sup>TH</sup>, 2026 to the music submission form. We can't wait to see you in March!
                             </p>
                         </div>
@@ -852,11 +963,10 @@ const RegistrationSystem = () => {
                                 <h2 className="text-white mb-[2vh] tracking-wide"
                                 style={{
                                     fontFamily: "unbounded",
-                                    fontWeight: '300',
-                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                    fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                                 }}>
                                     TEAM <br/> INFORMATION</h2>
-                                <div className="space-y-8">
+                                <div className="space-y-5 md:space-y-8">
                                     {/* <div className="grid grid-cols-2 gap-6"> */}
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -864,6 +974,11 @@ const RegistrationSystem = () => {
                                             placeholder="TEAM NAME" 
                                             value={teamName}
                                             onChange={(e) => setTeamName(e.target.value)}
+                                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                         />
                                     {/* </div> */}
                                     {/* <div className="grid grid-cols-2 gap-[2vh]"> */}
@@ -872,6 +987,11 @@ const RegistrationSystem = () => {
                                             type="number" 
                                             placeholder="NUMBER OF TEAM MEMBERS" 
                                             value={teamSizeString}
+                                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                             onChange={(e) => {setTeamSizeString(e.target.value)
                                                 setTeamSize(parseInt(e.target.value));
                                             }}
@@ -924,12 +1044,11 @@ const RegistrationSystem = () => {
                                 <h2 className="text-white mb-[2vh] tracking-wide"
                                 style={{
                                     fontFamily: "unbounded",
-                                    fontWeight: '300',
-                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                    fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                                 }}>
                                     TEAM MEMBER {memberNumber}<br/>PERSONAL INFORMATION
                                 </h2>
-                                <div className="space-y-8 mt-[2vh]">
+                                <div className="space-y-5 md:space-y-8 mt-[2vh]">
                                     <div className="grid grid-cols-2 gap-[2vh]">
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -937,6 +1056,11 @@ const RegistrationSystem = () => {
                                             placeholder="FIRST NAME" 
                                             value={currentMember.firstName}
                                             onChange={(e) => setCurrentMember({...currentMember, firstName: e.target.value})}
+                                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                         />
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -944,6 +1068,11 @@ const RegistrationSystem = () => {
                                             placeholder="LAST NAME" 
                                             value={currentMember.lastName}
                                             onChange={(e) => setCurrentMember({...currentMember, lastName: e.target.value})}
+                                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                         />
                                     </div>
                                     <input 
@@ -952,6 +1081,11 @@ const RegistrationSystem = () => {
                                         placeholder="EMAIL" 
                                         value={currentMember.email}
                                         onChange={(e) => setCurrentMember({...currentMember, email: e.target.value})}
+                                        style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                     />
                                     <input 
                                         className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -959,22 +1093,43 @@ const RegistrationSystem = () => {
                                         placeholder="PHONE NUMBER"
                                         value={currentMember.phoneNumber}
                                         onChange={(e) => setCurrentMember({...currentMember, phoneNumber: e.target.value})}
+                                        style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                     />
                                     <div className="grid grid-cols-2 gap-6 mb-[4vh]">
                                         <div>
-                                            <label className="block text-gray-500 text-xs tracking-widest uppercase mb-2">DATE OF BIRTH</label>
+                                            <label className="block text-gray-500 text-xs tracking-widest uppercase mb-2" style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}>DATE OF BIRTH</label>
                                             <input 
                                                 className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white focus:outline-none focus:border-white transition-colors text-xs" 
                                                 type="date" 
                                                 value={currentMember.dateOfBirth}
                                                 onChange={(e) => setCurrentMember({...currentMember, dateOfBirth: e.target.value})}
+                                                style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                             />
                                         </div>
-                                        <div className="mt-7">
+                                        <div className="" style={{
+                                            marginTop: `calc(var(--spacing) * 6.8)`
+                                        }}>
                                             <select
                                                 className="w-full bg-transparent border-b border-gray-600 py-[10px] px-1 text-white focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase appearance-none"
                                                 value={currentMember.tshirtSize}
                                                 onChange={(e) => setCurrentMember({...currentMember, tshirtSize: e.target.value})}
+                                                style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                             >
                                                 <option value="" disabled>TSHIRT SIZE</option>
                                                 <option value="XS">XS</option>
@@ -985,9 +1140,9 @@ const RegistrationSystem = () => {
                                                 <option value="2XL">2XL</option>
                                                 <option value="3XL">3XL</option>
                                             </select>
-                                            <svg className="absolute right-2 bottom-3 pointer-events-none text-gray-400" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                            {/* <svg className="absolute right-2 bottom-3 pointer-events-none text-gray-400" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                                            </svg>
+                                            </svg> */}
                                         </div>
                                     </div>
                                 </div>
@@ -1018,6 +1173,11 @@ const RegistrationSystem = () => {
                                     return (
                                         <button 
                                         className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
+                                                                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}
                                         onClick={() => {
                                         const updated = [...teamMembers];
                                         if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
@@ -1051,7 +1211,13 @@ const RegistrationSystem = () => {
                                     return (
                                         <button 
                                         className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
+                                        style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}
                                         onClick={proceedWithTeam}
+                                        
                                         >
                                     PROCEED WITH {teamSize} MEMBERS
                                     </button>
@@ -1081,10 +1247,14 @@ if (teamStep === 2) {
                             <h2 className="text-white mb-[4vh] tracking-wide"
                             style={{
                                 fontFamily: "unbounded",
-                                fontWeight: '300',
-                                fontSize: "clamp(22px, 2vw, 24px)",
+                                fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                             }}>WAIVERS<br/>& FORMS</h2>
-                            <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">
+                            <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light"
+                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                 For competitors under the age of 18, all competitors must have a parent/guardian sign and upload to the following{' '}
                                 <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors participating in TXDC. Custodial responsibility will remain with chaperones.
                             </p>
@@ -1099,8 +1269,18 @@ if (teamStep === 2) {
                                     onChange={handleFileUpload}
                                 />
                                 <label htmlFor="team-chaperone-upload" className="cursor-pointer">
-                                    <p className="text-white text-base font-light">Upload all files here</p>
-                                    <p className="text-gray-400 text-xs mt-2">
+                                    <p className="text-white text-base font-light"
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}>Upload all files here</p>
+                                    <p className="text-gray-400 text-xs mt-2"
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}>
                                         {minorCount} form(s) required | {chaperoneFiles.length} uploaded
                                     </p>
                                     {/* {chaperoneFiles.length > 0 && (
@@ -1116,6 +1296,11 @@ if (teamStep === 2) {
                                             <div
                                             key={idx}
                                             className="flex items-center justify-between text-blue-400 text-xs bg-gray-800 px-3 py-1 rounded-md"
+                                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                             >
                                             <span className="truncate">{file.name}</span>
                                             <button
@@ -1139,7 +1324,12 @@ if (teamStep === 2) {
                                     checked={teamAgreedToTerms}
                                     onChange={(e) => setTeamAgreedToTerms(e.target.checked)}
                                 />
-                                <span className="text-white text-sm leading-relaxed font-light">
+                                <span className="text-white text-sm leading-relaxed font-light"
+                                                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                     I consent and acknowledge that a parents/guardian along with my team and guests have read and agreed to these{' '}
                                     <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
                                     <a href="#" className="text-blue-400 underline">injury and liability forms</a>.
@@ -1168,7 +1358,12 @@ if (teamStep === 2) {
                                         setTeamStep(3);
                                         setResponseMessage('');
                                     }
-                                }}>
+                                }}
+                                style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                 CONTINUE
                             </button>
                             {/* <div className="w-16"></div> */}
@@ -1191,8 +1386,7 @@ if (teamStep === 2) {
                         <h2 className="text-white mb-[4vh] tracking-wide"
                         style={{
                             fontFamily: "unbounded",
-                            fontWeight: '300',
-                            fontSize: "clamp(22px, 2vw, 24px)",
+                            fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                         }}>WAIVERS<br/>& FORMS</h2>
                         <label className="flex items-start gap-4 cursor-pointer mb-8">
                             <input 
@@ -1201,7 +1395,12 @@ if (teamStep === 2) {
                                 checked={teamAgreedToTerms}
                                 onChange={(e) => setTeamAgreedToTerms(e.target.checked)}
                             />
-                            <span className="text-white text-base leading-relaxed font-light">
+                            <span className="text-white text-base leading-relaxed font-light"
+                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                 I consent and acknowledge that my team and guests have read and agreed to these{' '}
                                 <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
                                 <a href="#" className="text-blue-400 underline">injury and liability forms</a>.
@@ -1227,7 +1426,12 @@ if (teamStep === 2) {
                                     setTeamStep(3);
                                     setResponseMessage('');
                                 }
-                            }}>
+                            }}
+                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                             CONTINUE
                         </button>
                         {/* <div className="w-16"></div> */}
@@ -1250,16 +1454,20 @@ if (teamStep === 2) {
                             <h2 className="text-white mb-[4vh] tracking-wide"
                             style={{
                                 fontFamily: "unbounded",
-                                fontWeight: '300',
-                                fontSize: "clamp(22px, 2vw, 24px)",
+                                fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                             }}>EMERGENCY CONTACT<br/>INFORMATION</h2>
-                            <div className="space-y-8 flex-1">
+                            <div className="space-y-5 md:space-y-8 flex-1">
                                 <input 
                                     className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                     type="text" 
                                     placeholder="EMERGENCY CONTACT FULL NAME" 
                                     value={teamEmergencyContactName}
                                     onChange={(e) => setTeamEmergencyContactName(e.target.value)}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                 />
                                 <input 
                                     className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -1267,6 +1475,11 @@ if (teamStep === 2) {
                                     placeholder="EMERGENCY CONTACT PHONE NUMBER"
                                     value={teamEmergencyContactPhone}
                                     onChange={(e) => setTeamEmergencyContactPhone(e.target.value)}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                     />
                                 <input 
                                     className="w-1/2 bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase mb-8" 
@@ -1275,6 +1488,11 @@ if (teamStep === 2) {
                                     min="0"
                                     value={teamNumberOfGuests}
                                     onChange={(e) => setTeamNumberOfGuests(e.target.value)}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+                                        }}
                                 />
                             </div>
                             <div className="flex items-center justify-between">
@@ -1288,7 +1506,12 @@ if (teamStep === 2) {
                                 </button>
                                 <button  
                             className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                    onClick={submitTeamForm}>
+                                    onClick={submitTeamForm}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                     SUBMIT & PAY
                                 </button>
                                 {/* <div className="w-16"></div> */}
@@ -1310,12 +1533,21 @@ if (teamStep === 2) {
                             <h2 className="text-white mb-8 tracking-wide"
                             style={{
                                 fontFamily: "unbounded",
-                                fontWeight: '300',
-                                fontSize: "clamp(22px, 2vw, 24px)",
+                                fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                             }}>See you in March!</h2>
-                            <p className="text-white text-base leading-relaxed mb-6 font-light">
+                            <p className="text-white text-base leading-relaxed mb-6 font-light"
+                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+                                        }}>
                                 Thank you for submitting your music for the 2026 Texas Diabolo Competition! We will review your music submission and send you a confirmation email once it has been approved.</p>
-                            <p className="text-white text-base leading-relaxed font-light">
+                            <p className="text-white text-base leading-relaxed font-light"
+                            style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+                                        }}>
                                 We can't wait to see you in March!
                             </p>
                         </div>
@@ -1339,13 +1571,22 @@ if (teamStep === 2) {
                                 <h2 className="text-white mb-[4vh] tracking-wide"
                                 style={{
                                     fontFamily: "unbounded",
-                                    fontWeight: '300',
-                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                    fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
                                 }}>MUSIC FILE<br/>SUBMISSION</h2>
-                                <p className="text-gray-400 text-sm leading-relaxed mb-2 font-bold">
+                                <p className="text-gray-400 text-sm leading-relaxed mb-2 font-bold"
+                                style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                     Please name your file "lastName_firstName_division."
                                 </p>  
-                                <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">
+                                <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light"
+                                style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                     The maximum performance time is 4 minutes for individual divisions and 5 minutes for teams. The minimum performance time is 2 minutes. Music chosen must be suitable for an audience of all ages. 
                                 </p>
                                 <div className="mb-8 border-2 border-dashed border-gray-600 rounded-lg p-12 text-center cursor-pointer hover:border-gray-500 transition-colors">
@@ -1356,8 +1597,14 @@ if (teamStep === 2) {
                                         accept="audio/*"
                                         onChange={(e) => setMusicFile(e.target.files?.[0] ?? null)}
                                     />
-                                    <label htmlFor="music-upload" className="cursor-pointer">
-                                        <p className="text-white text-base font-light">Upload file here</p>
+                                    <label htmlFor="music-upload" className="cursor-pointer"
+                                    >
+                                        <p className="text-white text-base font-light"
+                                        style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+                                        }}>Upload file here</p>
                                         {musicFile && (
                                             <div className="mt-4 space-y-2 text-left">
                                             <div className="flex items-center justify-between text-blue-400 text-xs bg-gray-800 px-3 py-1 rounded-md">
@@ -1387,7 +1634,12 @@ if (teamStep === 2) {
                             </button>
                             <button 
                                     className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                    onClick={submitMusicFile}>
+                                    onClick={submitMusicFile}
+                                    style={{
+                                            fontFamily: "unbounded",
+                                            fontWeight: '300',
+                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+                                        }}>
                                     SUBMIT
                                 </button>
                             </div>

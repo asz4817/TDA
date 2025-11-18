@@ -61,12 +61,12 @@ const Registration = () => {
                       </h1>
                       <p className="" style={{
                       fontFamily: "unbounded",
-                      fontSize: "clamp(8px, 2vw, 12px)",
+                      fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
                       fontWeight: '300'
                     }}>When: March 7-8<sup>TH</sup>, 2026</p>
                     <p className="" style={{
                       fontFamily: "unbounded",
-                      fontSize: "clamp(8px, 2vw, 12px)",
+                      fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
                       fontWeight: '300'
                     }}>Divisions:
                     <br/>• Individual Open Stage Division
@@ -75,7 +75,7 @@ const Registration = () => {
                     <br/>• Team Open Stage Division</p>
                     <p className="" style={{
                       fontFamily: "unbounded",
-                      fontSize: "clamp(8px, 2vw, 12px)",
+                      fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
                       fontWeight: '300'
                     }}>For any inquiries or assistance please contact us through our email.</p>
 
@@ -131,12 +131,12 @@ const Registration = () => {
                       </h1>
                       <p className="" style={{
                       fontFamily: "unbounded",
-                      fontSize: "clamp(8px, 2vw, 12px)",
+                      fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
                       fontWeight: '300'
                     }}>When: March 7-8<sup>TH</sup>, 2026</p>
                     <p className="" style={{
                       fontFamily: "unbounded",
-                      fontSize: "clamp(8px, 2vw, 12px)",
+                      fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
                       fontWeight: '300'
                     }}>Divisions:
                     <br/>• Individual Open Stage Division
@@ -145,7 +145,7 @@ const Registration = () => {
                     <br/>• Team Open Stage Division</p>
                     <p className="" style={{
                       fontFamily: "unbounded",
-                      fontSize: "clamp(8px, 2vw, 12px)",
+                      fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
                       fontWeight: '300'
                     }}>For any inquiries or assistance please contact us through our email.</p>
 

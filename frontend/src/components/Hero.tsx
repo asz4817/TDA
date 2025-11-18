@@ -43,7 +43,7 @@ const Hero = () => {
         setAboutTop(0)
       } else {
         setDiaboloTop(70);
-        setAboutTop(140);
+        setAboutTop(180);
       }
     }
 

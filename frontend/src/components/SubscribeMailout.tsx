@@ -47,7 +47,7 @@ const SubscribeMailout = () => {
         style={{
           fontFamily: "unbounded",
           fontWeight: '300',
-          fontSize: "clamp(8px, 2vw, 12px)"
+          fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)"
         }}>
         JOIN OUR MAILING LIST:
       </h2>
@@ -58,7 +58,7 @@ const SubscribeMailout = () => {
           style={{
             fontFamily: "unbounded",
             fontWeight: '200',
-            fontSize: "clamp(8px, 2vw, 12px)"
+            fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)"
           }}
           type="email" 
           id="email" 
@@ -75,7 +75,7 @@ const SubscribeMailout = () => {
           style={{
             fontFamily: "unbounded",
             fontWeight: '300',
-            fontSize: "clamp(8px, 2vw, 12px)",
+            fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
             cursor: "pointer"
           }}>
           JOIN NOW
