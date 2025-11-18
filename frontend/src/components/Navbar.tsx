@@ -97,7 +97,7 @@ export default function Navbar() {
           <a
               href="https://linktr.ee/texasdiabolo"
               target="_blank"
-              className="border border-white rounded-full hover:bg-white hover:text-black transition-all duration-400 whitespace-nowrap "
+              className="border border-white rounded-full hover:bg-white hover:text-black transition-all duration-400 whitespace-nowrap pop-button"
               style={{
                 fontFamily: "unbounded",
                 fontSize: "clamp(4px, 1vw, 11px)",

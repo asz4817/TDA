@@ -684,7 +684,7 @@ const RegistrationSystem = () => {
                                         checked={agreedToTerms}
                                         onChange={(e) => setAgreedToTerms(e.target.checked)}
                                     />
-                                    <span className="text-white text-base leading-relaxed font-light">
+                                    <span className="text-white text-base leading-relaxed font-light mb-8">
                                         I consent and acknowledge that me and my guests have read and agree to these{' '}
                                         <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
                                         <a href="#" className="text-blue-400 underline">injury and liability forms</a>.

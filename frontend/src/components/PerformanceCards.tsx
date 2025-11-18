@@ -34,7 +34,7 @@ const PerformanceCards = () => {
   ];
 
   return (
-    <div className="text-white pt-12 px-4 md:px-8 ">
+    <div className="text-white pt-12 px-4 md:px-8">
       {/* Mobile Header (shows only on mobile) */}
       <div className="block md:hidden text-center">
         <h2 style={{

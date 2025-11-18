@@ -5,12 +5,15 @@
     src: url(assets/fonts/Unbounded-VariableFont_wght.ttf); /* url of the font */
   }
 
-@keyframes slide{
-  0%{
-    transform: translate3d(0, 0, 0);
+@keyframes pop {
+  0% {
+    transform: scale(1);
   }
-  100%{
-    transform: translate3d(-1692px, 0, 0);
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
@@ -40,4 +43,8 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.pop-button:hover {
+  animation: pop 0.2s;
 }

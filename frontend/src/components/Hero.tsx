@@ -15,7 +15,7 @@ const Hero = () => {
   const [scrolling, setScrolling] = useState(true);
   const [scrollTop, setScrollTop] = useState(0);
   const [diaboloTop, setDiaboloTop] = useState(70);
-  const [aboutTop, setAboutTop] = useState(140);
+  const [aboutTop, setAboutTop] = useState(200);
 
   const [scrollMax, setScrollMax] = useState(1000);
 
@@ -24,10 +24,8 @@ const Hero = () => {
       setScrollMax(document.body.scrollHeight - window.innerHeight);
     }
     window.addEventListener("resize", onResize);
-    window.addEventListener("load", onResize);
     onResize();
     return () => {window.removeEventListener("resize", onResize)
-      window.removeEventListener("load", onResize)
     };
   }, []);
 
@@ -37,7 +35,7 @@ const Hero = () => {
 
       currentPosition > 0 ? setScrolling(false) : setScrolling(true);
       setScrollTop(currentPosition <= 0 ? 0 : currentPosition);
-      if (currentPosition > scrollMax * 0.6) {
+      if (currentPosition > scrollMax * 0.5) {
         setDiaboloTop(-40);
         setAboutTop(-200)
       } else if (currentPosition > 0) {
@@ -104,7 +102,7 @@ const Hero = () => {
           <div 
             style={{
               position: "fixed",
-              top: diaboloTop + "%",
+              top: diaboloTop + "vh",
               left: "10%",
               transition: "top 1s ease-in-out",
             }}>
@@ -117,7 +115,7 @@ const Hero = () => {
         <div 
               style={{
                 position: "fixed",
-                top: aboutTop + "%",
+                top: aboutTop + "vh",
                 bottom: "0",
                 right: "0",
                 left: "47%",
@@ -140,7 +138,7 @@ const Hero = () => {
       <div
       style={{
         position: "fixed",
-        top: scrollTop >= scrollMax * 0.6 ? "0%" : "100%",
+        top: scrollTop >= scrollMax * 0.5 ? "0%" : "100%",
         transition: "top 1s ease-in-out",
         backgroundColor: "black",
         height: "100%",
@@ -149,10 +147,10 @@ const Hero = () => {
         <Divider />
         <div
         style={{
-          opacity: scrollTop >= scrollMax * 0.6 ? 1 : 0,
-          transition: `translate 1.7s ease-in-out, opacity 2s linear`,
+          opacity: scrollTop >= scrollMax * 0.5 ? 1 : 0,
+          transition: `translate 1.3s ease-in-out, opacity 2s linear`,
           transitionDelay: "0.2s",
-          translate: scrollTop >= scrollMax * 0.6 ?"0 0": "0 40%",
+          translate: scrollTop >= scrollMax * 0.5 ?"0 0": "0 40%",
         }}>
         <PerformanceCards />
         </div>
@@ -177,22 +175,19 @@ const Hero = () => {
       </div>
       <div className="block md:hidden">
 
-      <section className=""
-          style={{ 
-          position: "relative",
-          backgroundImage: `url(${HomeBg})`,
-          // backgroundColor: "transparent",
-          backgroundAttachment: "fixed",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-  
-            <div className="absolute right-[14%] bottom-[7%] fixed"
+      <section className="background-transparent w-screen mb-10">
+          <div className="absolute fixed z-[0] w-screen h-screen bg-black"
+          >
+            {/* <div className="bg-blue-500 h-screen w-screen absolute">
+            </div> */}
+            <img src={HomeBg} style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              opacity: scrollTop >= scrollMax * 0.8 ? 0 : 1,
+            }}></img>
+          </div>
+            {/* <div className="absolute right-[0%] bottom-[7%] fixed"
               style={{
                 // transform: scrolling ? "translateX(0)" : "translateX(500%)",
                 // transition: "transform 0.5s ease-out",
@@ -210,7 +205,7 @@ const Hero = () => {
                 }}
               />
             </div>
-            <div className="absolute bottom-[11%] right-[14%] fixed"
+            <div className="absolute bottom-[11%] right-[3%] fixed"
               style={{
                 // transform: scrolling ? "translateX(0)" : "translateX(500%)",
                 // transition: "transform 0.5s ease-out",
@@ -219,7 +214,7 @@ const Hero = () => {
               }}
             >
                 <Socials />
-            </div>
+            </div> */}
             <div
             style={{
               height: "70vh"
@@ -228,6 +223,8 @@ const Hero = () => {
             </div>
           <div
             style={{
+              position: "relative",
+              zIndex: 1,
               marginLeft: "5vw",
               backgroundColor: "transparent",
             }}>
@@ -253,7 +250,9 @@ const Hero = () => {
         </div>
             <div
             style={{
-              backgroundColor: "black"
+              position: "relative",
+              zIndex: 1,
+              backgroundColor: "black",
             }}>
 
               <Divider />
