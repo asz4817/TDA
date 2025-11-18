@@ -421,7 +421,7 @@ const RegistrationSystem = () => {
     if (currentView === 'home') {
         return (
             <div className="flex items-center justify-center">
-                <div className="w-full max-w-md backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl">
+                <div className="w-full max-w-md backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl bg-black/50">
                     <h1 className="mb-10 tracking-wide text-center"
                         style={{
                             fontFamily: "unbounded",
@@ -515,7 +515,7 @@ const RegistrationSystem = () => {
 
         return (
             <div className="flex items-center justify-center">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[50vh] flex flex-col">
+                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[50vh] flex flex-col bg-black/50">
                     {renderStepIndicator(step, 4)}
                     
                     {step === 1 && (
@@ -956,7 +956,7 @@ const RegistrationSystem = () => {
         if (teamStep === 0) {
             return (
                 <div className="flex items-center justify-center">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[40px] flex flex-col">
+                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[40px] flex flex-col bg-black/50">
                         {renderStepIndicator(1, 5)}
                         
                         <div>
@@ -1036,7 +1036,7 @@ const RegistrationSystem = () => {
         if (teamStep === 1) {
             return (
                 <div className="flex items-center justify-center">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col">
+                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col bg-black-50">
                         {renderStepIndicator(2, 5)}
                         
                         <div className="flex-1 flex flex-col justify-between">
@@ -1240,7 +1240,7 @@ if (teamStep === 2) {
     if (minorCount > 0) {
         return (
             <div className="flex items-center justify-center">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col">
+                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col bg-black-50">
                     {renderStepIndicator(3, 5)}
                     <div className="flex-1 flex flex-col justify-between">
                         <div>
@@ -1379,7 +1379,7 @@ if (teamStep === 2) {
     // If there are NO minors, show simplified waiver page (no file upload)
     return (
         <div className="flex items-center justify-center">
-            <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col">
+            <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col bg-black-50">
                 {renderStepIndicator(3, 5)}
                 <div className="flex-1 flex flex-col justify-between">
                     <div>
@@ -1448,7 +1448,7 @@ if (teamStep === 2) {
         if (teamStep === 3) {
             return (
                 <div className="flex items-center justify-center">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col">
+                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col bg-black-50">
                         {renderStepIndicator(4, 5)}
                         <div className="flex-1 flex flex-col justify-between">
                             <h2 className="text-white mb-[4vh] tracking-wide"
@@ -1564,7 +1564,7 @@ if (teamStep === 2) {
         }
         return (
             <div className="flex items-center justify-center">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl  flex flex-col">
+                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl  flex flex-col bg-black/50">
                     {renderStepIndicator(step, 2)}
                <div className="flex-1 flex flex-col justify-between">
                             <div>

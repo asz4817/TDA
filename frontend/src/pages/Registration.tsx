@@ -145,7 +145,7 @@ const Registration = () => {
                     <br/>• Team Open Stage Division</p>
                     <p className="" style={{
                       fontFamily: "unbounded",
-                      fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
+                      fontSize: "clamp(8px, 2vw, 12px)",
                       fontWeight: '300'
                     }}>For any inquiries or assistance please contact us through our email.</p>
 
