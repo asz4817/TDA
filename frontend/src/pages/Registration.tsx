@@ -4,7 +4,7 @@ import EmailIcon from "../assets/mail.svg";
 import { useEffect, useState } from "react";
 
 const Registration = () => {
-	const [scrolling, setScrolling] = useState(true);
+	const [, setScrolling] = useState(true);
 	const [scrollTop, setScrollTop] = useState(0);
 
 	const [scrollMax, setScrollMax] = useState(1000);
@@ -69,7 +69,7 @@ const Registration = () => {
 									style={{
 										fontFamily: "unbounded",
 										fontSize:
-											"clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
+											'clamp(12px, 8vw, 14px)',
 										fontWeight: "300",
 									}}
 								>
@@ -80,7 +80,7 @@ const Registration = () => {
 									style={{
 										fontFamily: "unbounded",
 										fontSize:
-											"clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
+											'clamp(12px, 8vw, 14px)',
 										fontWeight: "300",
 									}}
 								>
@@ -95,7 +95,7 @@ const Registration = () => {
 									style={{
 										fontFamily: "unbounded",
 										fontSize:
-											"clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
+											'clamp(12px, 8vw, 14px)',
 										fontWeight: "300",
 									}}
 								>
