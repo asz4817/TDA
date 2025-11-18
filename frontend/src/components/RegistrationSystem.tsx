@@ -1,1658 +1,2401 @@
 import { useState, useEffect } from "react";
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from "lucide-react";
 
 const RegistrationSystem = () => {
-    // Navigation state
-    const [currentView, setCurrentView] = useState('home'); // 'home', 'individual', 'team'
-    
-    // Individual registration states (from previous code)
-    const [step, setStep] = useState(1);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [dateOfBirth, setDateOfBirth] = useState('');
-    const [tshirtSize, setTshirtSize] = useState('');
-    const [division, setDivision] = useState('');
-    const [emergencyContactName, setEmergencyContactName] = useState('');
-    const [emergencyContactPhone, setEmergencyContactPhone] = useState('');
-    const [numberOfGuests, setNumberOfGuests] = useState('');
-    const [agreedToTerms, setAgreedToTerms] = useState(false);
-    const [chaperoneFile, setChaperoneFile] = useState<File | null>(null);
-    const [musicFile, setMusicFile] = useState<File | null>(null);
-    const [responseMessage, setResponseMessage] = useState('');
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const [teamSize, setTeamSize] = useState(2);
-    const [teamSizeString, setTeamSizeString] = useState('');
+	// Navigation state
+	const [currentView, setCurrentView] = useState("home"); // 'home', 'individual', 'team'
 
-    // Team registration states
-        type TeamMember = {
-            firstName: string;
-            lastName: string;
-            email: string;
-            phoneNumber: string;
-            dateOfBirth: string;
-            tshirtSize: string;
-            emergencyContactName?: string;
-            emergencyContactPhone?: string;
-            numberOfGuests?: string;
-        };
-    
-        const [teamName, setTeamName] = useState('')
-        const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
-        const [currentTeamMemberIndex, setCurrentTeamMemberIndex] = useState(0);
-        const [teamStep, setTeamStep] = useState(0); // 1: member info, 2: waivers, 3: emergency contact
-        const [chaperoneFiles, setChaperoneFiles] = useState<File[]>([]);
-        const [teamAgreedToTerms, setTeamAgreedToTerms] = useState(false);
-        
-        // Team-wide emergency contact (collected once at the end)
-        const [teamEmergencyContactName, setTeamEmergencyContactName] = useState('');
-        const [teamEmergencyContactPhone, setTeamEmergencyContactPhone] = useState('');
-        const [teamNumberOfGuests, setTeamNumberOfGuests] = useState('');
-    
-        // Current team member being edited
-        const [currentMember, setCurrentMember] = useState<TeamMember>({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            dateOfBirth: '',
-            tshirtSize: ''
-        });
+	// Individual registration states (from previous code)
+	const [step, setStep] = useState(1);
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [email, setEmail] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState("");
+	const [dateOfBirth, setDateOfBirth] = useState("");
+	const [tshirtSize, setTshirtSize] = useState("");
+	const [division, setDivision] = useState("");
+	const [emergencyContactName, setEmergencyContactName] = useState("");
+	const [emergencyContactPhone, setEmergencyContactPhone] = useState("");
+	const [numberOfGuests, setNumberOfGuests] = useState("");
+	const [agreedToTerms, setAgreedToTerms] = useState(false);
+	const [chaperoneFile, setChaperoneFile] = useState<File | null>(null);
+	const [musicFile, setMusicFile] = useState<File | null>(null);
+	const [responseMessage, setResponseMessage] = useState("");
+	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [teamSize, setTeamSize] = useState(2);
+	const [teamSizeString, setTeamSizeString] = useState("");
 
-    // const goBackMember = () => {
-    //     if (currentTeamMemberIndex > 0) {
-    //         const prevIndex = currentTeamMemberIndex - 1;
-    //         setCurrentTeamMemberIndex(prevIndex);
-    //         setCurrentMember(teamMembers[prevIndex]);
-    //     }
-    // };
+	// Team registration states
+	type TeamMember = {
+		firstName: string;
+		lastName: string;
+		email: string;
+		phoneNumber: string;
+		dateOfBirth: string;
+		tshirtSize: string;
+		emergencyContactName?: string;
+		emergencyContactPhone?: string;
+		numberOfGuests?: string;
+	};
 
-    const isMinor = (dob: string) => {
-        if (!dob) return false;
-        const march2026 = new Date('2026-03-01');
-        const birthDate = new Date(dob);
-        const age = march2026.getFullYear() - birthDate.getFullYear();
-        const monthDiff = march2026.getMonth() - birthDate.getMonth();
-        
-        if (monthDiff < 0 || (monthDiff === 0 && march2026.getDate() < birthDate.getDate())) {
-            return (age - 1) < 18;
-        }
-        return age < 18;
-    };
+	const [teamName, setTeamName] = useState("");
+	const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+	const [currentTeamMemberIndex, setCurrentTeamMemberIndex] = useState(0);
+	const [teamStep, setTeamStep] = useState(0); // 1: member info, 2: waivers, 3: emergency contact
+	const [chaperoneFiles, setChaperoneFiles] = useState<File[]>([]);
+	const [teamAgreedToTerms, setTeamAgreedToTerms] = useState(false);
 
-    const countTeamMinors = () => {
-        return teamMembers.filter(member => isMinor(member.dateOfBirth)).length;
-    };
+	// Team-wide emergency contact (collected once at the end)
+	const [teamEmergencyContactName, setTeamEmergencyContactName] =
+		useState("");
+	const [teamEmergencyContactPhone, setTeamEmergencyContactPhone] =
+		useState("");
+	const [teamNumberOfGuests, setTeamNumberOfGuests] = useState("");
 
-    useEffect(() => {
-        if (responseMessage && !isSubmitted) {
-          const timer = setTimeout(() => {
-            setResponseMessage('');
-          }, 5000);
-          return () => clearTimeout(timer);
-        }
-    }, [responseMessage, isSubmitted]);
-    
-    useEffect(() => {
-        if (teamMembers.length === 0) {
-            setTeamMembers([{
-            firstName: '', lastName: '', email: '',
-            phoneNumber: '', dateOfBirth: '', tshirtSize: ''
-            }]);
-            setCurrentTeamMemberIndex(0);
-            setTeamSize(2);
-        }
-        }, []);
+	// Current team member being edited
+	const [currentMember, setCurrentMember] = useState<TeamMember>({
+		firstName: "",
+		lastName: "",
+		email: "",
+		phoneNumber: "",
+		dateOfBirth: "",
+		tshirtSize: "",
+	});
 
-    // Individual registration handlers
-    const handleIndividualNext = () => {
-        if (step === 1) {
-            if (!firstName || !lastName || !email || !phoneNumber || !division || !dateOfBirth || !tshirtSize) {
-                setResponseMessage('Please fill in all fields');
-                return;
-            }
-        }
-        if (step === 2) {
-            if (!emergencyContactName || !emergencyContactPhone || !numberOfGuests) {
-                setResponseMessage('Please fill in all fields');
-                return;
-            }
-        }
-        if (step < 3) {
-            setStep(step + 1);
-            setResponseMessage('');
-        }
-    };
+	// const goBackMember = () => {
+	//     if (currentTeamMemberIndex > 0) {
+	//         const prevIndex = currentTeamMemberIndex - 1;
+	//         setCurrentTeamMemberIndex(prevIndex);
+	//         setCurrentMember(teamMembers[prevIndex]);
+	//     }
+	// };
 
-    const submitMusicFile = async () => {
-    if (!musicFile) {
-        setResponseMessage('Please upload a music file');
-        return;
-    }
+	const isMinor = (dob: string) => {
+		if (!dob) return false;
+		const march2026 = new Date("2026-03-01");
+		const birthDate = new Date(dob);
+		const age = march2026.getFullYear() - birthDate.getFullYear();
+		const monthDiff = march2026.getMonth() - birthDate.getMonth();
 
-    // Create FormData object
-    const formData = new FormData();
-    formData.append('file', musicFile);  // This matches request.files["file"] in your backend
+		if (
+			monthDiff < 0 ||
+			(monthDiff === 0 && march2026.getDate() < birthDate.getDate())
+		) {
+			return age - 1 < 18;
+		}
+		return age < 18;
+	};
 
-    try {
-        const res = await fetch('/upload_audio', {  // Note: underscore, not hyphen
-            method: 'POST',
-            body: formData,  // Send as FormData, not JSON
-        });
+	const countTeamMinors = () => {
+		return teamMembers.filter((member) => isMinor(member.dateOfBirth))
+			.length;
+	};
 
-        const text = await res.text();
-        let result = JSON.parse(text);
+	useEffect(() => {
+		if (responseMessage && !isSubmitted) {
+			const timer = setTimeout(() => {
+				setResponseMessage("");
+			}, 5000);
+			return () => clearTimeout(timer);
+		}
+	}, [responseMessage, isSubmitted]);
 
-        if (res.ok) {
-            setIsSubmitted(true);
-            setStep(2);
-            setResponseMessage('');
-        } else {
-            setResponseMessage(result.error || 'Error submitting music file');
-        }
-    } catch (err: unknown) {
-        if (err instanceof Error) {
-            setResponseMessage(`Error: ${err.message}`);
-        } else {
-            setResponseMessage('An unknown error occurred.');
-        }
-        }
+	useEffect(() => {
+		if (teamMembers.length === 0) {
+			setTeamMembers([
+				{
+					firstName: "",
+					lastName: "",
+					email: "",
+					phoneNumber: "",
+					dateOfBirth: "",
+					tshirtSize: "",
+				},
+			]);
+			setCurrentTeamMemberIndex(0);
+			setTeamSize(2);
+		}
+	}, []);
 
-}
+	// Individual registration handlers
+	const handleIndividualNext = () => {
+		if (step === 1) {
+			if (
+				!firstName ||
+				!lastName ||
+				!email ||
+				!phoneNumber ||
+				!division ||
+				!dateOfBirth ||
+				!tshirtSize
+			) {
+				setResponseMessage("Please fill in all fields");
+				return;
+			}
+		}
+		if (step === 2) {
+			if (
+				!emergencyContactName ||
+				!emergencyContactPhone ||
+				!numberOfGuests
+			) {
+				setResponseMessage("Please fill in all fields");
+				return;
+			}
+		}
+		if (step < 3) {
+			setStep(step + 1);
+			setResponseMessage("");
+		}
+	};
 
-    const submitIndividualForm = async () => {
-        if (!agreedToTerms) {
-            setResponseMessage('Please agree to the terms and conditions');
-            return;
-        }
+	const submitMusicFile = async () => {
+		if (!musicFile) {
+			setResponseMessage("Please upload a music file");
+			return;
+		}
 
-        if (isMinor(dateOfBirth) && !chaperoneFile) {
-            setResponseMessage('Please upload the chaperone form');
-            return;
-        }
+		// Create FormData object
+		const formData = new FormData();
+		formData.append("file", musicFile); // This matches request.files["file"] in your backend
 
-        let chaperoneFileData = null;
-        let chaperoneFileName = null;
-        if (chaperoneFile) {
-            try {
-                const reader = new FileReader();
-                chaperoneFileData = await new Promise((resolve, reject) => {
-                    reader.onload = () => resolve(reader.result);
-                    reader.onerror = reject;
-                    reader.readAsDataURL(chaperoneFile);
-                });
-                chaperoneFileName = chaperoneFile.name;
-            } catch (err) {
-                setResponseMessage('Error reading file. Please try again.');
-                return;
-            }
-        }
+		try {
+			const res = await fetch("/upload_audio", {
+				// Note: underscore, not hyphen
+				method: "POST",
+				body: formData, // Send as FormData, not JSON
+			});
 
-        const registrationData = {
-            type: 'individual',
-            firstname: firstName,
-            lastname: lastName,
-            email: email,
-            phonenumber: phoneNumber,
-            dateofbirth: dateOfBirth,
-            tshirtsize: tshirtSize,
-            division: division,
-            emergencycontactname: emergencyContactName,
-            emergencycontactphone: emergencyContactPhone,
-            numberofguests: numberOfGuests,
-            isminor: isMinor(dateOfBirth),
-            chaperonefile: chaperoneFileData,
-            chaperonefilename: chaperoneFileName
-        };
+			const text = await res.text();
+			let result = JSON.parse(text);
 
-        const stripeTab = window.open("about:blank", "_blank");
+			if (res.ok) {
+				setIsSubmitted(true);
+				setStep(2);
+				setResponseMessage("");
+			} else {
+				setResponseMessage(
+					result.error || "Error submitting music file"
+				);
+			}
+		} catch (err: unknown) {
+			if (err instanceof Error) {
+				setResponseMessage(`Error: ${err.message}`);
+			} else {
+				setResponseMessage("An unknown error occurred.");
+			}
+		}
+	};
 
-            if (!stripeTab) {
-                setResponseMessage("Popup blocked — please allow popups and try again.");
-                return;
-            }
+	const submitIndividualForm = async () => {
+		if (!agreedToTerms) {
+			setResponseMessage("Please agree to the terms and conditions");
+			return;
+		}
 
-        try {
-            const res = await fetch('/register_indiv', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(registrationData),
-            });
+		if (isMinor(dateOfBirth) && !chaperoneFile) {
+			setResponseMessage("Please upload the chaperone form");
+			return;
+		}
 
-            const text = await res.text();
-            let result = JSON.parse(text);
-            
+		let chaperoneFileData = null;
+		let chaperoneFileName = null;
+		if (chaperoneFile) {
+			try {
+				const reader = new FileReader();
+				chaperoneFileData = await new Promise((resolve, reject) => {
+					reader.onload = () => resolve(reader.result);
+					reader.onerror = reject;
+					reader.readAsDataURL(chaperoneFile);
+				});
+				chaperoneFileName = chaperoneFile.name;
+			} catch (err) {
+				setResponseMessage("Error reading file. Please try again.");
+				return;
+			}
+		}
 
-            if (res.ok) {
-                setIsSubmitted(true);
-                setStep(4);
-                stripeTab.location.href = 'https://buy.stripe.com/dRm3cnbtZ9I55ob7oRaZi00';
-            } else {
-                setResponseMessage(result.error || 'Error submitting form');
-                stripeTab.close();
-            }
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                setResponseMessage(`Error: ${err.message}`);
-            } else {
-                setResponseMessage('An unknown error occurred.');
-            }
-            }
+		const registrationData = {
+			type: "individual",
+			firstname: firstName,
+			lastname: lastName,
+			email: email,
+			phonenumber: phoneNumber,
+			dateofbirth: dateOfBirth,
+			tshirtsize: tshirtSize,
+			division: division,
+			emergencycontactname: emergencyContactName,
+			emergencycontactphone: emergencyContactPhone,
+			numberofguests: numberOfGuests,
+			isminor: isMinor(dateOfBirth),
+			chaperonefile: chaperoneFileData,
+			chaperonefilename: chaperoneFileName,
+		};
 
-    };    
+		const stripeTab = window.open("about:blank", "_blank");
 
-    const inputTeamInfo = () => {
-        if (!teamName || !teamSize) {
-            setResponseMessage('Please complete all fields');
-            return
-        }
-        else if (teamSize < 2) {
-            setResponseMessage('Cannot have a team size less than 2');
-            return;
-        }
+		if (!stripeTab) {
+			setResponseMessage(
+				"Popup blocked — please allow popups and try again."
+			);
+			return;
+		}
 
-        const updatedMembers = [...teamMembers];
-        // if (currentTeamMemberIndex < teamMembers.length) {
-        //     updatedMembers[currentTeamMemberIndex] = currentMember;
-        // } else {
-        //     updatedMembers.push(currentMember);
-        // }
-        while (updatedMembers.length < teamSize) {
-            updatedMembers.push({
-                firstName: '',
-                lastName: '',
-                email: '',
-                phoneNumber: '',
-                dateOfBirth: '',
-                tshirtSize: ''
-            });
-        }
-        if (updatedMembers.length > teamSize) {
-            updatedMembers.slice(0, teamSize);
-        }
-        setTeamMembers(updatedMembers);
-        // setTeamSize(updatedMembers.length + 1);
+		try {
+			const res = await fetch("/register_indiv", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(registrationData),
+			});
 
-        // Reset for new member
-        // setCurrentMember({
-        //     firstName: '',
-        //     lastName: '',
-        //     email: '',
-        //     phoneNumber: '',
-        //     dateOfBirth: '',
-        //     tshirtSize: ''
-        // });
-        // setCurrentTeamMemberIndex(updatedMembers.length);
+			const text = await res.text();
+			let result = JSON.parse(text);
 
+			if (res.ok) {
+				setIsSubmitted(true);
+				setStep(4);
+				stripeTab.location.href =
+					"https://buy.stripe.com/dRm3cnbtZ9I55ob7oRaZi00";
+			} else {
+				setResponseMessage(result.error || "Error submitting form");
+				stripeTab.close();
+			}
+		} catch (err: unknown) {
+			if (err instanceof Error) {
+				setResponseMessage(`Error: ${err.message}`);
+			} else {
+				setResponseMessage("An unknown error occurred.");
+			}
+		}
+	};
 
-        setTeamStep(1);
-        
-    }
+	const inputTeamInfo = () => {
+		if (!teamName || !teamSize) {
+			setResponseMessage("Please complete all fields");
+			return;
+		} else if (teamSize < 2) {
+			setResponseMessage("Cannot have a team size less than 2");
+			return;
+		}
 
-    const proceedWithTeam = () => {
-        // Validate current member's fields first
-        if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || 
-            !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
-            setResponseMessage('Please complete all fields for the current member');
-            return;
-        }
+		const updatedMembers = [...teamMembers];
+		// if (currentTeamMemberIndex < teamMembers.length) {
+		//     updatedMembers[currentTeamMemberIndex] = currentMember;
+		// } else {
+		//     updatedMembers.push(currentMember);
+		// }
+		while (updatedMembers.length < teamSize) {
+			updatedMembers.push({
+				firstName: "",
+				lastName: "",
+				email: "",
+				phoneNumber: "",
+				dateOfBirth: "",
+				tshirtSize: "",
+			});
+		}
+		if (updatedMembers.length > teamSize) {
+			updatedMembers.slice(0, teamSize);
+		}
+		setTeamMembers(updatedMembers);
+		// setTeamSize(updatedMembers.length + 1);
 
-        // Save current member first
-        const updatedMembers = [...teamMembers];
-        if (currentTeamMemberIndex < teamMembers.length) {
-            updatedMembers[currentTeamMemberIndex] = currentMember;
-        } else {
-            updatedMembers.push(currentMember);
-        }
-        setTeamMembers(updatedMembers);
+		// Reset for new member
+		// setCurrentMember({
+		//     firstName: '',
+		//     lastName: '',
+		//     email: '',
+		//     phoneNumber: '',
+		//     dateOfBirth: '',
+		//     tshirtSize: ''
+		// });
+		// setCurrentTeamMemberIndex(updatedMembers.length);
 
-        // Check if any minors
-        setTeamStep(2); // Go to waiver/chaperone page
-    };
+		setTeamStep(1);
+	};
 
-    const submitTeamForm = async () => {
-        if (!teamAgreedToTerms) {
-            setResponseMessage('Please agree to the terms and conditions');
-            return;
-        }
+	const proceedWithTeam = () => {
+		// Validate current member's fields first
+		if (
+			!currentMember.firstName ||
+			!currentMember.lastName ||
+			!currentMember.email ||
+			!currentMember.phoneNumber ||
+			!currentMember.dateOfBirth ||
+			!currentMember.tshirtSize
+		) {
+			setResponseMessage(
+				"Please complete all fields for the current member"
+			);
+			return;
+		}
 
-        // Validate emergency contact fields
-        if (!teamEmergencyContactName || !teamEmergencyContactPhone || !teamNumberOfGuests) {
-            setResponseMessage('Please complete all emergency contact fields');
-            return;
-        }
+		// Save current member first
+		const updatedMembers = [...teamMembers];
+		if (currentTeamMemberIndex < teamMembers.length) {
+			updatedMembers[currentTeamMemberIndex] = currentMember;
+		} else {
+			updatedMembers.push(currentMember);
+		}
+		setTeamMembers(updatedMembers);
 
-        const minorCount = countTeamMinors();
-        if (minorCount > 0 && chaperoneFiles.length !== minorCount) {
-            setResponseMessage(`Please upload exactly ${minorCount} chaperone form(s)`);
-            return;
-        }
+		// Check if any minors
+		setTeamStep(2); // Go to waiver/chaperone page
+	};
 
-        // Convert files to base64
-        const fileDataPromises = chaperoneFiles.map(file => {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve({ data: reader.result, name: file.name });
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
-        });
+	const submitTeamForm = async () => {
+		if (!teamAgreedToTerms) {
+			setResponseMessage("Please agree to the terms and conditions");
+			return;
+		}
 
-        let filesData = [];
-        try {
-            filesData = await Promise.all(fileDataPromises);
-        } catch (err) {
-            setResponseMessage('Error reading files');
-            return;
-        }
+		// Validate emergency contact fields
+		if (
+			!teamEmergencyContactName ||
+			!teamEmergencyContactPhone ||
+			!teamNumberOfGuests
+		) {
+			setResponseMessage("Please complete all emergency contact fields");
+			return;
+		}
 
-        const registrationData = {
-            type: 'team',
-            teamName: teamName,
-            members: teamMembers,
-            emergencycontactname: teamEmergencyContactName,
-            emergencycontactphone: teamEmergencyContactPhone,
-            numberofguests: teamNumberOfGuests,
-            chaperonefiles: filesData
-        };
+		const minorCount = countTeamMinors();
+		if (minorCount > 0 && chaperoneFiles.length !== minorCount) {
+			setResponseMessage(
+				`Please upload exactly ${minorCount} chaperone form(s)`
+			);
+			return;
+		}
 
-        const stripeTab = window.open("about:blank", "_blank");
+		// Convert files to base64
+		const fileDataPromises = chaperoneFiles.map((file) => {
+			return new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.onload = () =>
+					resolve({ data: reader.result, name: file.name });
+				reader.onerror = reject;
+				reader.readAsDataURL(file);
+			});
+		});
 
-            if (!stripeTab) {
-                setResponseMessage("Popup blocked — please allow popups and try again.");
-                return;
-            }
+		let filesData = [];
+		try {
+			filesData = await Promise.all(fileDataPromises);
+		} catch (err) {
+			setResponseMessage("Error reading files");
+			return;
+		}
 
-        try {
-            const res = await fetch('/register_team', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(registrationData),
-            });
+		const registrationData = {
+			type: "team",
+			teamName: teamName,
+			members: teamMembers,
+			emergencycontactname: teamEmergencyContactName,
+			emergencycontactphone: teamEmergencyContactPhone,
+			numberofguests: teamNumberOfGuests,
+			chaperonefiles: filesData,
+		};
 
-            
-            const text = await res.text();
-            let result = JSON.parse(text);
+		const stripeTab = window.open("about:blank", "_blank");
 
-            if (res.ok) {
-                setIsSubmitted(true);
-                setTeamStep(4);
-                stripeTab.location.href = "https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01";
-                // window.open('https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01', '_blank');
-            } else {
-                stripeTab.close();
-                setResponseMessage(result.error || 'Error submitting form');
-            }
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                setResponseMessage(`Error: ${err.message}`);
-            } else {
-                setResponseMessage('An unknown error occurred.');
-            }
-        }
-    };
+		if (!stripeTab) {
+			setResponseMessage(
+				"Popup blocked — please allow popups and try again."
+			);
+			return;
+		}
 
-    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = Array.from(e.target.files ?? []) as File[];
-        setChaperoneFiles([...chaperoneFiles, ...files]);
-    };
+		try {
+			const res = await fetch("/register_team", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(registrationData),
+			});
 
-    const handleRemoveFile = (index: number) => {
-  setChaperoneFiles((prev) => prev.filter((_, i) => i !== index));
-};
+			const text = await res.text();
+			let result = JSON.parse(text);
 
-    const renderStepIndicator = (currentStep: number, totalSteps: number) => {
-        return (
-            <div className="flex justify-center gap-2 mb-8">
-                {Array.from({ length: totalSteps }, (_, i) => (
-                    <div 
-                        key={i}
-                        className={`w-2 h-2 rounded-full ${
-                            i + 1 === currentStep ? 'bg-white' : 'bg-gray-600'
-                        }`}
-                    />
-                ))}
-            </div>
-        );
-    };
+			if (res.ok) {
+				setIsSubmitted(true);
+				setTeamStep(4);
+				stripeTab.location.href =
+					"https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01";
+				// window.open('https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01', '_blank');
+			} else {
+				stripeTab.close();
+				setResponseMessage(result.error || "Error submitting form");
+			}
+		} catch (err: unknown) {
+			if (err instanceof Error) {
+				setResponseMessage(`Error: ${err.message}`);
+			} else {
+				setResponseMessage("An unknown error occurred.");
+			}
+		}
+	};
 
-    // HOME PAGE
-    if (currentView === 'home') {
-        return (
-            <div className="flex items-center justify-center">
-                <div className="w-full max-w-md backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl bg-black/50">
-                    <h1 className="mb-10 tracking-wide text-center"
-                        style={{
-                            fontFamily: "unbounded",
-                            fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                        }}>REGISTER NOW</h1>
-                    <div className="space-y-6">
-                        <button
-                            onClick={() => setCurrentView('individual')}
-                            className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
-                            style={{
-                                fontFamily: "unbounded",
-                                fontWeight: '300',
-                                fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
-                                cursor: "pointer",
-                            }}
-                        >
-                            INDIVIDUAL REGISTRATION
-                        </button>
-                        <button
-                            onClick={() => setCurrentView('team')}
-                            className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
-                            style={{
-                                fontFamily: "unbounded",
-                                fontWeight: '300',
-                                fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
-                                cursor: "pointer",
-                            }}
-                        >
-                            TEAM REGISTRATION
-                        </button>
-                        <button
-                            onClick={() => setCurrentView('music')}
-                            className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
-                            style={{
-                                fontFamily: "unbounded",
-                                fontWeight: '300',
-                                fontSize: "clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
-                                cursor: "pointer",
-                            }}>
-                        
-                            MUSIC SUBMISSION
-                        </button>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+	const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const files = Array.from(e.target.files ?? []) as File[];
+		setChaperoneFiles([...chaperoneFiles, ...files]);
+	};
 
-    // INDIVIDUAL REGISTRATION (existing code)
-    if (currentView === 'individual') {
-        if (isSubmitted && step === 4) {
-            return (
-                <div className="flex items-center justify-center">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
-                        {renderStepIndicator(4, 4)}
-                        <div className="text-left flex-1 flex flex-col justify-center">
-                            <h2 className="text-white mb-[4vh] tracking-wide"
-                            style={{
-                                fontFamily: "unbounded",
-                                fontWeight: '300',
-                                fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                            }}>See you in March!</h2>
-                            <p className="text-white text-base leading-relaxed mb-6 font-light"
-                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
-                                        }}>
-                                Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
-                            </p>
-                            <p className="text-white text-base leading-relaxed font-light"
-                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
-                                        }}>
-                                Please do not forget to submit your music for your routine to the music submission form by February 14<sup>TH</sup>, 2026!
-                            </p>
-                        </div>
-                        <div className="flex justify-center mt-12">
-                            <div className="w-32 h-32 rounded-full border-4 border-white flex items-center justify-center">
-                                <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
+	const handleRemoveFile = (index: number) => {
+		setChaperoneFiles((prev) => prev.filter((_, i) => i !== index));
+	};
 
-        return (
-            <div className="flex items-center justify-center">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[50vh] flex flex-col bg-black/50">
-                    {renderStepIndicator(step, 4)}
-                    
-                    {step === 1 && (
-                        <div>
-                            <h2 className="text-white mb-[4vh] tracking-wide"
-                            style={{
-                                fontFamily: "unbounded",
-                                fontWeight: '400',
-                                fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                            }}>PERSONAL<br/>INFORMATION</h2>
-                            <div className="space-y-5 md:space-y-8">
-                                <div className="grid grid-cols-2 gap-[2vh]">
-                                    <input 
-                                        className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                        type="text" 
-                                        placeholder="FIRST NAME" 
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                        style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                    />
-                                    <input 
-                                        className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                        type="text" 
-                                        required
-                                        placeholder="LAST NAME" 
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
-                                        style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                    />
-                                </div>
-                                <input 
-                                    className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                    type="email" 
-                                    placeholder="EMAIL" 
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                />
-                                    <div>
-                                        <input 
-                                            className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                            type="tel"
-                                            placeholder="PHONE NUMBER"
-                                            value={phoneNumber}
-                                            onChange={(e) => setPhoneNumber(e.target.value)}
-                                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                        />
-                                    </div>
+	const renderStepIndicator = (currentStep: number, totalSteps: number) => {
+		return (
+			<div className="flex justify-center gap-2 mb-8">
+				{Array.from({ length: totalSteps }, (_, i) => (
+					<div
+						key={i}
+						className={`w-2 h-2 rounded-full ${
+							i + 1 === currentStep ? "bg-white" : "bg-gray-600"
+						}`}
+					/>
+				))}
+			</div>
+		);
+	};
 
-                                <div className="relative">    
-                                        <select
-                                                className={`w-full bg-transparent border-b border-gray-600 py-3 px-1 
+	// HOME PAGE
+	if (currentView === "home") {
+		return (
+			<div className="flex items-center justify-center">
+				<div className="w-full max-w-md backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl bg-black/50">
+					<h1
+						className="mb-10 tracking-wide text-center"
+						style={{
+							fontFamily: "unbounded",
+							fontWeight: "400",
+							fontSize:
+								"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+						}}
+					>
+						REGISTER NOW
+					</h1>
+					<div className="space-y-6">
+						<button
+							onClick={() => setCurrentView("individual")}
+							className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+							style={{
+								fontFamily: "unbounded",
+								fontWeight: "300",
+								fontSize:
+									"clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
+								cursor: "pointer",
+							}}
+						>
+							INDIVIDUAL REGISTRATION
+						</button>
+						<button
+							onClick={() => setCurrentView("team")}
+							className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+							style={{
+								fontFamily: "unbounded",
+								fontWeight: "300",
+								fontSize:
+									"clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
+								cursor: "pointer",
+							}}
+						>
+							TEAM REGISTRATION
+						</button>
+						<button
+							onClick={() => setCurrentView("music")}
+							className="w-full bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+							style={{
+								fontFamily: "unbounded",
+								fontWeight: "300",
+								fontSize:
+									"clamp(0.5rem, -0.25rem + 1.3333vw, 0.75rem)",
+								cursor: "pointer",
+							}}
+						>
+							MUSIC SUBMISSION
+						</button>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	// INDIVIDUAL REGISTRATION (existing code)
+	if (currentView === "individual") {
+		if (isSubmitted && step === 4) {
+			return (
+				<div className="flex items-center justify-center">
+					<div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
+						{renderStepIndicator(4, 4)}
+						<div className="text-left flex-1 flex flex-col justify-center">
+							<h2
+								className="text-white mb-[4vh] tracking-wide"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "300",
+									fontSize:
+										"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+								}}
+							>
+								See you in March!
+							</h2>
+							<p
+								className="text-white text-base leading-relaxed mb-6 font-light"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "300",
+									fontSize:
+										"clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+								}}
+							>
+								Thank you for registering for the 2026 Texas
+								Diabolo Competition! Once we've received your
+								payment, you will receive an email confirmation
+								for your registration.
+							</p>
+							<p
+								className="text-white text-base leading-relaxed font-light"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "300",
+									fontSize:
+										"clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+								}}
+							>
+								Please do not forget to submit your music for
+								your routine to the music submission form by
+								February 14<sup>TH</sup>, 2026!
+							</p>
+						</div>
+						<div className="flex justify-center mt-12">
+							<div className="w-32 h-32 rounded-full border-4 border-white flex items-center justify-center">
+								<svg
+									className="w-16 h-16 text-white"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={3}
+										d="M5 13l4 4L19 7"
+									/>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			);
+		}
+
+		return (
+			<div className="flex items-center justify-center">
+				<div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[50vh] flex flex-col bg-black/50">
+					{renderStepIndicator(step, 4)}
+
+					{step === 1 && (
+						<div>
+							<h2
+								className="text-white mb-[4vh] tracking-wide"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "400",
+									fontSize:
+										"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+								}}
+							>
+								PERSONAL
+								<br />
+								INFORMATION
+							</h2>
+							<div className="space-y-5 md:space-y-8">
+								<div className="grid grid-cols-2 gap-[2vh]">
+									<input
+										className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+										type="text"
+										placeholder="FIRST NAME"
+										value={firstName}
+										onChange={(e) =>
+											setFirstName(e.target.value)
+										}
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+										}}
+									/>
+									<input
+										className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+										type="text"
+										required
+										placeholder="LAST NAME"
+										value={lastName}
+										onChange={(e) =>
+											setLastName(e.target.value)
+										}
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+										}}
+									/>
+								</div>
+								<input
+									className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+									type="email"
+									placeholder="EMAIL"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+									}}
+								/>
+								<div>
+									<input
+										className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+										type="tel"
+										placeholder="PHONE NUMBER"
+										value={phoneNumber}
+										onChange={(e) =>
+											setPhoneNumber(e.target.value)
+										}
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+										}}
+									/>
+								</div>
+
+								<div className="relative">
+									<select
+										className={`w-full bg-transparent border-b border-gray-600 py-3 px-1 
                                                             text-xs tracking-widest uppercase appearance-none
                                                             focus:outline-none focus:border-white transition-colors
-                                                            ${division === "" ? "text-gray-500" : "text-white"}`}
-                                                value={division}
-                                                onChange={(e) => setDivision(e.target.value)}
-                                                style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                            >
-                                                <option value="" disabled>Select Division <ChevronDown /></option>
-                                                <option value="National Open">National Open</option>
-                                                <option value="Regional Open">Regional Open</option>
-                                                <option value="Regional Under 18">Regional Under 18</option>
-                                            </select>
-                                            <ChevronDown 
-                                                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-                                            />
+                                                            ${
+																division === ""
+																	? "text-gray-500"
+																	: "text-white"
+															}`}
+										value={division}
+										onChange={(e) =>
+											setDivision(e.target.value)
+										}
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+										}}
+									>
+										<option value="" disabled>
+											Select Division <ChevronDown />
+										</option>
+										<option value="National Open">
+											National Open
+										</option>
+										<option value="Regional Open">
+											Regional Open
+										</option>
+										<option value="Regional Under 18">
+											Regional Under 18
+										</option>
+									</select>
+									<ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+								</div>
 
-                                </div>
+								<div className="grid grid-cols-2 gap-6">
+									<div>
+										<label
+											className="block text-gray-500 text-xs tracking-widest uppercase ml-1"
+											style={{
+												fontFamily: "unbounded",
+												fontWeight: "300",
+												fontSize:
+													"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+											}}
+										>
+											DATE OF BIRTH
+										</label>
+										<input
+											className="w-full bg-transparent border-b border-gray-600 py-3 px-1 placeholder-gray-500 text-white focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+											type="date"
+											placeholder="date"
+											value={dateOfBirth}
+											onChange={(e) =>
+												setDateOfBirth(e.target.value)
+											}
+											style={{
+												fontFamily: "unbounded",
+												fontWeight: "300",
+												fontSize:
+													"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+											}}
+										/>
+									</div>
+									<div className="">
+										<label
+											className="block text-gray-500 text-xs tracking-widest uppercase"
+											style={{
+												fontFamily: "unbounded",
+												fontWeight: "300",
+												fontSize:
+													"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+											}}
+										>
+											T-Shirt Size
+										</label>
+										<select
+											className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase appearance-none"
+											value={tshirtSize}
+											onChange={(e) =>
+												setTshirtSize(e.target.value)
+											}
+											style={{
+												fontFamily: "unbounded",
+												fontWeight: "300",
+												fontSize:
+													"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+											}}
+										>
+											<option value="" disabled>
+												Select Size
+											</option>
+											<option value="XS">XS</option>
+											<option value="S">S</option>
+											<option value="M">M</option>
+											<option value="L">L</option>
+											<option value="XL">XL</option>
+											<option value="2XL">2XL</option>
+											<option value="3XL">3XL</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div className="flex mt-8 md:w-[30%] mx-auto">
+								<button
+									className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+									onClick={() => {
+										// const updated = [...teamMembers];
+										// updated[currentTeamMemberIndex] = currentMember;
+										// setTeamMembers(updated);
+										if (currentTeamMemberIndex > 0) {
+											setCurrentTeamMemberIndex(
+												currentTeamMemberIndex - 1
+											);
+											setCurrentMember(
+												teamMembers[
+													currentTeamMemberIndex - 1
+												]
+											);
+											setResponseMessage("");
+										} else {
+											setCurrentView("home");
+										}
+									}}
+								>
+									<svg
+										className="w-5 h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M15 19l-7-7 7-7"
+										/>
+									</svg>
+								</button>
+								<button
+									className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
+									onClick={handleIndividualNext}
+								>
+									<svg
+										className="w-5 h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M9 5l7 7-7 7"
+										/>
+									</svg>
+								</button>
+							</div>
 
-                                <div className="grid grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-gray-500 text-xs tracking-widest uppercase ml-1" style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}>DATE OF BIRTH</label>
-                                        <input 
-                                            className="w-full bg-transparent border-b border-gray-600 py-3 px-1 placeholder-gray-500 text-white focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                            type="date" 
-                                            placeholder="date"
-                                            value={dateOfBirth}
-                                            onChange={(e) => setDateOfBirth(e.target.value)}
-                                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                        />
-                                    </div>
-                                    <div className="">
-                                        <label className="block text-gray-500 text-xs tracking-widest uppercase"
-                                        style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}>T-Shirt Size</label>
-                                            <select
-                                                className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase appearance-none"
-                                                value={tshirtSize}
-                                                onChange={(e) => setTshirtSize(e.target.value)}
-                                                style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                            >
-                                                <option value="" disabled>Select Size</option>
-                                                <option value="XS">XS</option>
-                                                <option value="S">S</option>
-                                                <option value="M">M</option>
-                                                <option value="L">L</option>
-                                                <option value="XL">XL</option>
-                                                <option value="2XL">2XL</option>
-                                                <option value="3XL">3XL</option>
-                                            </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex mt-8 md:w-[30%] mx-auto">
-                                 <button
-                                className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
-                                onClick={() => {
-                                // const updated = [...teamMembers];
-                                // updated[currentTeamMemberIndex] = currentMember;
-                                // setTeamMembers(updated);
-                                if (currentTeamMemberIndex > 0) {
-                                    setCurrentTeamMemberIndex(currentTeamMemberIndex - 1);
-                                    setCurrentMember(teamMembers[currentTeamMemberIndex - 1]);
-                                    setResponseMessage('');
-                                } else {
-                                    setCurrentView('home');
-                                }
-                                }}
-                            >
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </button>
-                            <button 
-                                className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer" 
-                                onClick={handleIndividualNext}>
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
-                            </div>
+							{responseMessage && (
+								<p className="mt-4 text-red-400 text-center text-sm">
+									{responseMessage}
+								</p>
+							)}
+						</div>
+					)}
 
-                            {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
-                        </div>
-                    )}
+					{step === 2 && (
+						<div>
+							<h2
+								className="text-white mb-[4vh] tracking-wide"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "400",
+									fontSize:
+										"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+								}}
+							>
+								EMERGENCY CONTACT
+								<br />
+								INFORMATION
+							</h2>
+							<div className="space-y-5 md:space-y-8 flex-1">
+								<input
+									className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+									type="text"
+									placeholder="EMERGENCY CONTACT FULL NAME"
+									value={emergencyContactName}
+									onChange={(e) =>
+										setEmergencyContactName(e.target.value)
+									}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+									}}
+								/>
+								<input
+									className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+									type="tel"
+									placeholder="EMERGENCY CONTACT PHONE NUMBER"
+									value={emergencyContactPhone}
+									onChange={(e) =>
+										setEmergencyContactPhone(e.target.value)
+									}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+									}}
+								/>
+								<input
+									className="w-1/2 bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+									type="number"
+									placeholder="NUMBER OF GUESTS"
+									min="0"
+									value={numberOfGuests}
+									onChange={(e) =>
+										setNumberOfGuests(e.target.value)
+									}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+									}}
+								/>
+							</div>
 
-                    {step === 2 && (
-                        <div>
-                            <h2 className="text-white mb-[4vh] tracking-wide"
-                            style={{
-                                fontFamily: "unbounded",
-                                fontWeight: '400',
-                                fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                            }}>EMERGENCY CONTACT<br/>INFORMATION</h2>
-                            <div className="space-y-5 md:space-y-8 flex-1">
-                                <input 
-                                    className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                    type="text" 
-                                    placeholder="EMERGENCY CONTACT FULL NAME" 
-                                    value={emergencyContactName}
-                                    onChange={(e) => setEmergencyContactName(e.target.value)}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                />
-                                <input 
-                                    className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                    type="tel"
-                                    placeholder="EMERGENCY CONTACT PHONE NUMBER"
-                                    value={emergencyContactPhone}
-                                    onChange={(e) => setEmergencyContactPhone(e.target.value)}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                />
-                                <input 
-                                    className="w-1/2 bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                    type="number" 
-                                    placeholder="NUMBER OF GUESTS" 
-                                    min="0"
-                                    value={numberOfGuests}
-                                    onChange={(e) => setNumberOfGuests(e.target.value)}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                />
-                            </div>
-                            
-                            <div className="flex mt-8 md:w-[30%] mx-auto">
-                                 <button
-                                className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
-                                onClick={() => {
-                                // const updated = [...teamMembers];
-                                // updated[currentTeamMemberIndex] = currentMember;
-                                // setTeamMembers(updated);
-                                if (currentTeamMemberIndex > 0) {
-                                    setCurrentTeamMemberIndex(currentTeamMemberIndex - 1);
-                                    setCurrentMember(teamMembers[currentTeamMemberIndex - 1]);
-                                    setResponseMessage('');
-                                } else {
-                                    setStep(step-1);
-                                }
-                                }}
-                            >
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </button>
-                            <button 
-                                className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer" 
-                                onClick={handleIndividualNext}>
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
-                            </div>
-                            {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
-                        </div>
-                    )}
+							<div className="flex mt-8 md:w-[30%] mx-auto">
+								<button
+									className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+									onClick={() => {
+										// const updated = [...teamMembers];
+										// updated[currentTeamMemberIndex] = currentMember;
+										// setTeamMembers(updated);
+										if (currentTeamMemberIndex > 0) {
+											setCurrentTeamMemberIndex(
+												currentTeamMemberIndex - 1
+											);
+											setCurrentMember(
+												teamMembers[
+													currentTeamMemberIndex - 1
+												]
+											);
+											setResponseMessage("");
+										} else {
+											setStep(step - 1);
+										}
+									}}
+								>
+									<svg
+										className="w-5 h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M15 19l-7-7 7-7"
+										/>
+									</svg>
+								</button>
+								<button
+									className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
+									onClick={handleIndividualNext}
+								>
+									<svg
+										className="w-5 h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M9 5l7 7-7 7"
+										/>
+									</svg>
+								</button>
+							</div>
+							{responseMessage && (
+								<p className="mt-4 text-red-400 text-center text-sm">
+									{responseMessage}
+								</p>
+							)}
+						</div>
+					)}
 
-                    {step === 3 && !isMinor(dateOfBirth) && (
-                        <div className="flex-1 flex flex-col justify-between">
-                            <div>
-                                <h2 className="text-white mb-[4vh] tracking-wide"
-                                style={{
-                                    fontFamily: "unbounded",
-                                    fontWeight: '400', 
-                                    fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                                }}>WAIVERS<br/>& FORMS</h2>
-                                <label className="flex items-start gap-4 cursor-pointer">
-                                    <input 
-                                        type="checkbox"
-                                        className="w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
-                                        checked={agreedToTerms}
-                                        onChange={(e) => setAgreedToTerms(e.target.checked)}
-                                    />
-                                    <span className="text-white text-base leading-relaxed font-light mb-8"
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                        I consent and acknowledge that me and my guests have read and agree to these{' '}
-                                        <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
-                                        <a href="#" className="text-blue-400 underline">injury and liability forms</a>.
-                                    </span>
-                                </label>
-                            </div>
-                            <div className="mt-[4vh] flex items-center justify-between">
-                                <button 
-                                    className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
-                                    // onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
-                                    onClick={() => setStep(step-1)}>
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </button>
-                                <button  
-                            className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                    onClick={submitIndividualForm}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                    SUBMIT & PAY
-                                </button>
-                                {/* <div className="w-16"></div> */}
-                            </div>
-                            {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
-                        </div>
-                    )}
+					{step === 3 && !isMinor(dateOfBirth) && (
+						<div className="flex-1 flex flex-col justify-between">
+							<div>
+								<h2
+									className="text-white mb-[4vh] tracking-wide"
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "400",
+										fontSize:
+											"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+									}}
+								>
+									WAIVERS
+									<br />& FORMS
+								</h2>
+								<label className="flex items-start gap-4 cursor-pointer">
+									<input
+										type="checkbox"
+										className="w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
+										checked={agreedToTerms}
+										onChange={(e) =>
+											setAgreedToTerms(e.target.checked)
+										}
+									/>
+									<span
+										className="text-white text-base leading-relaxed font-light mb-8"
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+										}}
+									>
+										I consent and acknowledge that me and my
+										guests have read and agree to these{" "}
+										<a
+											href="#"
+											className="text-blue-400 underline"
+										>
+											photo release
+										</a>{" "}
+										and{" "}
+										<a
+											href="#"
+											className="text-blue-400 underline"
+										>
+											injury and liability forms
+										</a>
+										.
+									</span>
+								</label>
+							</div>
+							<div className="mt-[4vh] flex items-center justify-between">
+								<button
+									className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
+									// onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
+									onClick={() => setStep(step - 1)}
+								>
+									<svg
+										className="w-5 h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M15 19l-7-7 7-7"
+										/>
+									</svg>
+								</button>
+								<button
+									className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+									onClick={submitIndividualForm}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+									}}
+								>
+									SUBMIT & PAY
+								</button>
+								{/* <div className="w-16"></div> */}
+							</div>
+							{responseMessage && (
+								<p className="mt-4 text-red-400 text-center text-sm">
+									{responseMessage}
+								</p>
+							)}
+						</div>
+					)}
 
-                    {step === 3 && isMinor(dateOfBirth) && (
-                        <div className="flex-1 flex flex-col justify-between">
-                            <div>
-                                <h2 className="text-white mb-[4vh] tracking-wide"
-                                style={{
-                                    fontFamily: "unbounded",
-                                    fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                                }}>WAIVERS<br/>& FORMS</h2>
-                                <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light"
-                                style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                    For competitors under the age of 18, all competitors must have a parent/guardian sign and upload to the following{' '}
-                                    <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors while participating in TXDC. Custodial responsibility will remain with chaperones.
-                                </p>
-                                <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-6 text-center cursor-pointer hover:border-gray-500 transition-colors">
-                                    <input 
-                                        type="file"
-                                        id="chaperone-upload"
-                                        className="hidden"
-                                        accept=".pdf,.doc,.docx"
-                                        onChange={(e) => setChaperoneFile(e.target.files?.[0] ?? null)}
-                                    />
-                                    <label htmlFor="chaperone-upload" className="cursor-pointer">
-                                        <p className="text-white text-base font-light"
-                                        style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
-                                        }}
-                                        >Upload file here</p>
-                                        {chaperoneFile && <p className="text-blue-400 text-sm mt-2" style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
-                                        }}>{chaperoneFile.name}</p>}
-                                    </label>
-                                </div>
-                                <label className="flex items-start gap-4 cursor-pointer my-4">
-                                    <input 
-                                        type="checkbox"
-                                        className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
-                                        checked={agreedToTerms}
-                                        onChange={(e) => setAgreedToTerms(e.target.checked)}
-                                    />
-                                    <span className="text-white text-base leading-relaxed font-light"
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                        I consent and acknowledge that a parents/guardian along with my guests have read and agreed to these{' '}
-                                        <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
-                                        <a href="#" className="text-blue-400 underline">injury and liability forms</a>.
-                                    </span>
-                                </label>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <button 
-                                    className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
-                                    // onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
-                                    onClick={() => setStep(step-1)}>
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </button>
-                                <button  
-                            className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                    onClick={submitIndividualForm}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                    SUBMIT & PAY
-                                </button>
-                                {/* <div className="w-16"></div> */}
-                            </div>
-                            {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
-                        </div>
-                    )}
-                </div>
-            </div>
-        );
-    }
+					{step === 3 && isMinor(dateOfBirth) && (
+						<div className="flex-1 flex flex-col justify-between">
+							<div>
+								<h2
+									className="text-white mb-[4vh] tracking-wide"
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "400",
+										fontSize:
+											"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+									}}
+								>
+									WAIVERS
+									<br />& FORMS
+								</h2>
+								<p
+									className="text-gray-400 text-sm leading-relaxed mb-6 font-light"
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+									}}
+								>
+									For competitors under the age of 18, all
+									competitors must have a parent/guardian sign
+									and upload to the following{" "}
+									<a
+										href="#"
+										className="text-blue-400 underline"
+									>
+										chaperone form
+									</a>
+									. In accordance to University policy, the
+									Texas Diabolo Association will not take
+									custodial responsibility of minors while
+									participating in TXDC. Custodial
+									responsibility will remain with chaperones.
+								</p>
+								<div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-6 text-center cursor-pointer hover:border-gray-500 transition-colors">
+									<input
+										type="file"
+										id="chaperone-upload"
+										className="hidden"
+										accept=".pdf,.doc,.docx"
+										onChange={(e) =>
+											setChaperoneFile(
+												e.target.files?.[0] ?? null
+											)
+										}
+									/>
+									<label
+										htmlFor="chaperone-upload"
+										className="cursor-pointer"
+									>
+										<p
+											className="text-white text-base font-light"
+											style={{
+												fontFamily: "unbounded",
+												fontWeight: "300",
+												fontSize:
+													"clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+											}}
+										>
+											Upload file here
+										</p>
+										{chaperoneFile && (
+											<p
+												className="text-blue-400 text-sm mt-2"
+												style={{
+													fontFamily: "unbounded",
+													fontWeight: "300",
+													fontSize:
+														"clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+												}}
+											>
+												{chaperoneFile.name}
+											</p>
+										)}
+									</label>
+								</div>
+								<label className="flex items-start gap-4 cursor-pointer my-4">
+									<input
+										type="checkbox"
+										className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
+										checked={agreedToTerms}
+										onChange={(e) =>
+											setAgreedToTerms(e.target.checked)
+										}
+									/>
+									<span
+										className="text-white text-base leading-relaxed font-light"
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+										}}
+									>
+										I consent and acknowledge that a
+										parents/guardian along with my guests
+										have read and agreed to these{" "}
+										<a
+											href="#"
+											className="text-blue-400 underline"
+										>
+											photo release
+										</a>{" "}
+										and{" "}
+										<a
+											href="#"
+											className="text-blue-400 underline"
+										>
+											injury and liability forms
+										</a>
+										.
+									</span>
+								</label>
+							</div>
+							<div className="flex items-center justify-between">
+								<button
+									className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
+									// onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
+									onClick={() => setStep(step - 1)}
+								>
+									<svg
+										className="w-5 h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M15 19l-7-7 7-7"
+										/>
+									</svg>
+								</button>
+								<button
+									className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+									onClick={submitIndividualForm}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+									}}
+								>
+									SUBMIT & PAY
+								</button>
+								{/* <div className="w-16"></div> */}
+							</div>
+							{responseMessage && (
+								<p className="mt-4 text-red-400 text-center text-sm">
+									{responseMessage}
+								</p>
+							)}
+						</div>
+					)}
+				</div>
+			</div>
+		);
+	}
 
-    // TEAM REGISTRATION
-    if (currentView === 'team') {
-        const memberNumber = currentTeamMemberIndex + 1;
+	// TEAM REGISTRATION
+	if (currentView === "team") {
+		const memberNumber = currentTeamMemberIndex + 1;
 
-        if (isSubmitted && teamStep === 4) {
-            return (
-                <div className="flex items-center justify-center">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
-                        {renderStepIndicator(5, 5)}
-                        <div className="text-left flex-1 flex flex-col justify-center">
-                            <h2 className="text-white mb-[4vh] tracking-wide"
-                            style={{
-                                fontFamily: "unbounded",
-                                fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                            }}>See you in March!</h2>
-                            <p className="text-white text-base leading-relaxed mb-6 font-light"
-                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
-                                        }}>
-                                Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
-                            </p>
-                            <p className="text-white text-base leading-relaxed font-light"
-                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
-                                        }}>
-                                Please do not forget to submit your music for your routine by February 14<sup>TH</sup>, 2026 to the music submission form. We can't wait to see you in March!
-                            </p>
-                        </div>
-                        <div className="flex justify-center mt-12">
-                            <div className="w-32 h-32 rounded-full border-4 border-white flex items-center justify-center">
-                                <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
+		if (isSubmitted && teamStep === 4) {
+			return (
+				<div className="flex items-center justify-center">
+					<div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
+						{renderStepIndicator(5, 5)}
+						<div className="text-left flex-1 flex flex-col justify-center">
+							<h2
+								className="text-white mb-[4vh] tracking-wide"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "400",
+									fontSize:
+										"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+								}}
+							>
+								See you in March!
+							</h2>
+							<p
+								className="text-white text-base leading-relaxed mb-6 font-light"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "300",
+									fontSize:
+										"clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+								}}
+							>
+								Thank you for registering for the 2026 Texas
+								Diabolo Competition! Once we've received your
+								payment, you will receive an email confirmation
+								for your registration.
+							</p>
+							<p
+								className="text-white text-base leading-relaxed font-light"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "300",
+									fontSize:
+										"clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+								}}
+							>
+								Please do not forget to submit your music for
+								your routine by February 14<sup>TH</sup>, 2026
+								to the music submission form. We can't wait to
+								see you in March!
+							</p>
+						</div>
+						<div className="flex justify-center mt-12">
+							<div className="w-32 h-32 rounded-full border-4 border-white flex items-center justify-center">
+								<svg
+									className="w-16 h-16 text-white"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={3}
+										d="M5 13l4 4L19 7"
+									/>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			);
+		}
 
-        if (teamStep === 0) {
-            return (
-                <div className="flex items-center justify-center">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[40px] flex flex-col bg-black/50">
-                        {renderStepIndicator(1, 5)}
-                        
-                        <div>
-                                <h2 className="text-white mb-[2vh] tracking-wide"
-                                style={{
-                                    fontFamily: "unbounded",
-                                    fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                                }}>
-                                    TEAM <br/> INFORMATION</h2>
-                                <div className="space-y-5 md:space-y-8">
-                                    {/* <div className="grid grid-cols-2 gap-6"> */}
-                                        <input 
-                                            className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                            type="text" 
-                                            placeholder="TEAM NAME" 
-                                            value={teamName}
-                                            onChange={(e) => setTeamName(e.target.value)}
-                                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                        />
-                                    {/* </div> */}
-                                    {/* <div className="grid grid-cols-2 gap-[2vh]"> */}
-                                        <input 
-                                            className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                            type="number" 
-                                            placeholder="NUMBER OF TEAM MEMBERS" 
-                                            value={teamSizeString}
-                                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                            onChange={(e) => {setTeamSizeString(e.target.value)
-                                                setTeamSize(parseInt(e.target.value));
-                                            }}
-                                        />
-                                    {/* </div> */}
-                                </div>
-                            
-                            <div className="flex mt-8 md:w-[30%] mx-auto">
-                                {/* Back button */}
-                                <button
-                                    className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
-                                    onClick={() => {
-                                    if (currentTeamMemberIndex > 0) {
-                                        setCurrentTeamMemberIndex(currentTeamMemberIndex - 1);
-                                        setCurrentMember(teamMembers[currentTeamMemberIndex - 1]);
-                                        setResponseMessage('');
-                                    } else {
-                                        setCurrentView('home');
-                                    }
-                                    }}
-                                >
-                                    <svg className="w-3 h-3 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </button>
-                                <button 
-                                    className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer" 
-                                    onClick={() => inputTeamInfo()}>
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </button>
-                            </div>
-                                {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
-                            </div>
-                        </div>
-                    </div>
-            );
-        }
+		if (teamStep === 0) {
+			return (
+				<div className="flex items-center justify-center">
+					<div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[40px] flex flex-col bg-black/50">
+						{renderStepIndicator(1, 5)}
 
-        // Step 1: Collect team member personal info
-        if (teamStep === 1) {
-            return (
-                <div className="flex items-center justify-center">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col bg-black-50">
-                        {renderStepIndicator(2, 5)}
-                        
-                        <div className="flex-1 flex flex-col justify-between">
-                            <div>
-                                <h2 className="text-white mb-[2vh] tracking-wide"
-                                style={{
-                                    fontFamily: "unbounded",
-                                    fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                                }}>
-                                    TEAM MEMBER {memberNumber}<br/>PERSONAL INFORMATION
-                                </h2>
-                                <div className="space-y-5 md:space-y-8 mt-[2vh]">
-                                    <div className="grid grid-cols-2 gap-[2vh]">
-                                        <input 
-                                            className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                            type="text" 
-                                            placeholder="FIRST NAME" 
-                                            value={currentMember.firstName}
-                                            onChange={(e) => setCurrentMember({...currentMember, firstName: e.target.value})}
-                                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                        />
-                                        <input 
-                                            className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                            type="text" 
-                                            placeholder="LAST NAME" 
-                                            value={currentMember.lastName}
-                                            onChange={(e) => setCurrentMember({...currentMember, lastName: e.target.value})}
-                                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                        />
-                                    </div>
-                                    <input 
-                                        className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                        type="email" 
-                                        placeholder="EMAIL" 
-                                        value={currentMember.email}
-                                        onChange={(e) => setCurrentMember({...currentMember, email: e.target.value})}
-                                        style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                    />
-                                    <input 
-                                        className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                        type="tel"
-                                        placeholder="PHONE NUMBER"
-                                        value={currentMember.phoneNumber}
-                                        onChange={(e) => setCurrentMember({...currentMember, phoneNumber: e.target.value})}
-                                        style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                    />
-                                    <div className="grid grid-cols-2 gap-6 mb-[4vh]">
-                                        <div>
-                                            <label className="block text-gray-500 text-xs tracking-widest uppercase mb-2" style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}>DATE OF BIRTH</label>
-                                            <input 
-                                                className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white focus:outline-none focus:border-white transition-colors text-xs" 
-                                                type="date" 
-                                                value={currentMember.dateOfBirth}
-                                                onChange={(e) => setCurrentMember({...currentMember, dateOfBirth: e.target.value})}
-                                                style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                            />
-                                        </div>
-                                        <div className="" style={{
-                                            marginTop: `calc(var(--spacing) * 6.8)`
-                                        }}>
-                                            <select
-                                                className="w-full bg-transparent border-b border-gray-600 py-[10px] px-1 text-white focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase appearance-none"
-                                                value={currentMember.tshirtSize}
-                                                onChange={(e) => setCurrentMember({...currentMember, tshirtSize: e.target.value})}
-                                                style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                            >
-                                                <option value="" disabled>TSHIRT SIZE</option>
-                                                <option value="XS">XS</option>
-                                                <option value="S">S</option>
-                                                <option value="M">M</option>
-                                                <option value="L">L</option>
-                                                <option value="XL">XL</option>
-                                                <option value="2XL">2XL</option>
-                                                <option value="3XL">3XL</option>
-                                            </select>
-                                            {/* <svg className="absolute right-2 bottom-3 pointer-events-none text-gray-400" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+						<div>
+							<h2
+								className="text-white mb-[2vh] tracking-wide"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "400",
+									fontSize:
+										"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+								}}
+							>
+								TEAM <br /> INFORMATION
+							</h2>
+							<div className="space-y-5 md:space-y-8">
+								{/* <div className="grid grid-cols-2 gap-6"> */}
+								<input
+									className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+									type="text"
+									placeholder="TEAM NAME"
+									value={teamName}
+									onChange={(e) =>
+										setTeamName(e.target.value)
+									}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+									}}
+								/>
+								{/* </div> */}
+								{/* <div className="grid grid-cols-2 gap-[2vh]"> */}
+								<input
+									className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+									type="number"
+									placeholder="NUMBER OF TEAM MEMBERS"
+									value={teamSizeString}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+									}}
+									onChange={(e) => {
+										setTeamSizeString(e.target.value);
+										setTeamSize(parseInt(e.target.value));
+									}}
+								/>
+								{/* </div> */}
+							</div>
+
+							<div className="flex mt-8 md:w-[30%] mx-auto">
+								{/* Back button */}
+								<button
+									className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+									onClick={() => {
+										if (currentTeamMemberIndex > 0) {
+											setCurrentTeamMemberIndex(
+												currentTeamMemberIndex - 1
+											);
+											setCurrentMember(
+												teamMembers[
+													currentTeamMemberIndex - 1
+												]
+											);
+											setResponseMessage("");
+										} else {
+											setCurrentView("home");
+										}
+									}}
+								>
+									<svg
+										className="w-3 h-3 md:w-5 md:h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M15 19l-7-7 7-7"
+										/>
+									</svg>
+								</button>
+								<button
+									className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
+									onClick={() => inputTeamInfo()}
+								>
+									<svg
+										className="w-5 h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M9 5l7 7-7 7"
+										/>
+									</svg>
+								</button>
+							</div>
+							{responseMessage && (
+								<p className="mt-4 text-red-400 text-center text-sm">
+									{responseMessage}
+								</p>
+							)}
+						</div>
+					</div>
+				</div>
+			);
+		}
+
+		// Step 1: Collect team member personal info
+		if (teamStep === 1) {
+			return (
+				<div className="flex items-center justify-center">
+					<div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col bg-black-50">
+						{renderStepIndicator(2, 5)}
+
+						<div className="flex-1 flex flex-col justify-between">
+							<div>
+								<h2
+									className="text-white mb-[2vh] tracking-wide"
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "400",
+										fontSize:
+											"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+									}}
+								>
+									TEAM MEMBER {memberNumber}
+									<br />
+									PERSONAL INFORMATION
+								</h2>
+								<div className="space-y-5 md:space-y-8 mt-[2vh]">
+									<div className="grid grid-cols-2 gap-[2vh]">
+										<input
+											className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+											type="text"
+											placeholder="FIRST NAME"
+											value={currentMember.firstName}
+											onChange={(e) =>
+												setCurrentMember({
+													...currentMember,
+													firstName: e.target.value,
+												})
+											}
+											style={{
+												fontFamily: "unbounded",
+												fontWeight: "300",
+												fontSize:
+													"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+											}}
+										/>
+										<input
+											className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+											type="text"
+											placeholder="LAST NAME"
+											value={currentMember.lastName}
+											onChange={(e) =>
+												setCurrentMember({
+													...currentMember,
+													lastName: e.target.value,
+												})
+											}
+											style={{
+												fontFamily: "unbounded",
+												fontWeight: "300",
+												fontSize:
+													"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+											}}
+										/>
+									</div>
+									<input
+										className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+										type="email"
+										placeholder="EMAIL"
+										value={currentMember.email}
+										onChange={(e) =>
+											setCurrentMember({
+												...currentMember,
+												email: e.target.value,
+											})
+										}
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+										}}
+									/>
+									<input
+										className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+										type="tel"
+										placeholder="PHONE NUMBER"
+										value={currentMember.phoneNumber}
+										onChange={(e) =>
+											setCurrentMember({
+												...currentMember,
+												phoneNumber: e.target.value,
+											})
+										}
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+										}}
+									/>
+									<div className="grid grid-cols-2 gap-6 mb-[4vh]">
+										<div>
+											<label
+												className="block text-gray-500 text-xs tracking-widest uppercase mb-2"
+												style={{
+													fontFamily: "unbounded",
+													fontWeight: "300",
+													fontSize:
+														"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+												}}
+											>
+												DATE OF BIRTH
+											</label>
+											<input
+												className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white focus:outline-none focus:border-white transition-colors text-xs"
+												type="date"
+												value={
+													currentMember.dateOfBirth
+												}
+												onChange={(e) =>
+													setCurrentMember({
+														...currentMember,
+														dateOfBirth:
+															e.target.value,
+													})
+												}
+												style={{
+													fontFamily: "unbounded",
+													fontWeight: "300",
+													fontSize:
+														"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+												}}
+											/>
+										</div>
+										<div
+											className=""
+											style={{
+												marginTop: `calc(var(--spacing) * 6.8)`,
+											}}
+										>
+											<select
+												className="w-full bg-transparent border-b border-gray-600 py-[10px] px-1 text-white focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase appearance-none"
+												value={currentMember.tshirtSize}
+												onChange={(e) =>
+													setCurrentMember({
+														...currentMember,
+														tshirtSize:
+															e.target.value,
+													})
+												}
+												style={{
+													fontFamily: "unbounded",
+													fontWeight: "300",
+													fontSize:
+														"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+												}}
+											>
+												<option value="" disabled>
+													TSHIRT SIZE
+												</option>
+												<option value="XS">XS</option>
+												<option value="S">S</option>
+												<option value="M">M</option>
+												<option value="L">L</option>
+												<option value="XL">XL</option>
+												<option value="2XL">2XL</option>
+												<option value="3XL">3XL</option>
+											</select>
+											{/* <svg className="absolute right-2 bottom-3 pointer-events-none text-gray-400" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                                             </svg> */}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                            <div className="flex items-center justify-between">
-                                {/* Back button */}
-                                <button
-                                    className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
-                                    onClick={() => {
-                                    if (currentTeamMemberIndex > 0) {
-                                        setCurrentTeamMemberIndex(currentTeamMemberIndex - 1);
-                                        setCurrentMember(teamMembers[currentTeamMemberIndex - 1]);
-                                        setResponseMessage('');
-                                    } else {
-                                        setTeamStep(0);
-                                    }
-                                    }}
-                                >
-                                    <svg className="w-3 h-3 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </button>
-                                {(() => {
-                                    const hasNext = currentTeamMemberIndex < teamSize - 1;
-                                if (hasNext) {
-                                    return (
-                                        <button 
-                                        className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                                                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}
-                                        onClick={() => {
-                                        const updated = [...teamMembers];
-                                        if (!currentMember.firstName || !currentMember.lastName || !currentMember.email || !currentMember.phoneNumber || !currentMember.dateOfBirth || !currentMember.tshirtSize) {
-                                            setResponseMessage('Please fill out all fields before proceeding.');
-                                            return;
-                                        }
-                                        updated[currentTeamMemberIndex] = currentMember;
-                                        setTeamMembers(updated);
-                                        setCurrentTeamMemberIndex(currentTeamMemberIndex + 1);
-                                        if (currentTeamMemberIndex + 1 < teamMembers.length) {
-                                            setCurrentMember(teamMembers[currentTeamMemberIndex + 1]);
-                                        } else {
-                                            setCurrentMember({
-                                                firstName: '',
-                                                lastName: '',
-                                                email: '',
-                                                phoneNumber: '',
-                                                dateOfBirth: '',
-                                                tshirtSize: ''
-                                            });
-                                        }
-                                        setResponseMessage('');
-                                        }}
-                                        >
-                                    NEXT MEMBER
-                                    </button>
-                                    
-                                    );
-                                }
-                                if (teamSize > 1) {
-                                    return (
-                                        <button 
-                                        className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                        style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}
-                                        onClick={proceedWithTeam}
-                                        
-                                        >
-                                    PROCEED WITH {teamSize} MEMBERS
-                                    </button>
-                                );
-                                }
-                                })()}
-                            </div>
-                                {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-// Step 2: Waivers with minor chaperone upload
-if (teamStep === 2) {
-    const minorCount = countTeamMinors();
-    
-    // If there are minors, show the full waiver page with file upload
-    if (minorCount > 0) {
-        return (
-            <div className="flex items-center justify-center">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col bg-black-50">
-                    {renderStepIndicator(3, 5)}
-                    <div className="flex-1 flex flex-col justify-between">
-                        <div>
-                            <h2 className="text-white mb-[4vh] tracking-wide"
-                            style={{
-                                fontFamily: "unbounded",
-                                fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                            }}>WAIVERS<br/>& FORMS</h2>
-                            <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light"
-                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                For competitors under the age of 18, all competitors must have a parent/guardian sign and upload to the following{' '}
-                                <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors participating in TXDC. Custodial responsibility will remain with chaperones.
-                            </p>
-                            
-                            <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-8 text-center">
-                                <input 
-                                    type="file"
-                                    id="team-chaperone-upload"
-                                    className="hidden"
-                                    accept=".pdf,.doc,.docx"
-                                    multiple
-                                    onChange={handleFileUpload}
-                                />
-                                <label htmlFor="team-chaperone-upload" className="cursor-pointer">
-                                    <p className="text-white text-base font-light"
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}>Upload all files here</p>
-                                    <p className="text-gray-400 text-xs mt-2"
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}>
-                                        {minorCount} form(s) required | {chaperoneFiles.length} uploaded
-                                    </p>
-                                    {/* {chaperoneFiles.length > 0 && (
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div>
+								<div className="flex items-center justify-between">
+									{/* Back button */}
+									<button
+										className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+										onClick={() => {
+											if (currentTeamMemberIndex > 0) {
+												setCurrentTeamMemberIndex(
+													currentTeamMemberIndex - 1
+												);
+												setCurrentMember(
+													teamMembers[
+														currentTeamMemberIndex -
+															1
+													]
+												);
+												setResponseMessage("");
+											} else {
+												setTeamStep(0);
+											}
+										}}
+									>
+										<svg
+											className="w-3 h-3 md:w-5 md:h-5"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M15 19l-7-7 7-7"
+											/>
+										</svg>
+									</button>
+									{(() => {
+										const hasNext =
+											currentTeamMemberIndex <
+											teamSize - 1;
+										if (hasNext) {
+											return (
+												<button
+													className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+													style={{
+														fontFamily: "unbounded",
+														fontWeight: "300",
+														fontSize:
+															"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+													}}
+													onClick={() => {
+														const updated = [
+															...teamMembers,
+														];
+														if (
+															!currentMember.firstName ||
+															!currentMember.lastName ||
+															!currentMember.email ||
+															!currentMember.phoneNumber ||
+															!currentMember.dateOfBirth ||
+															!currentMember.tshirtSize
+														) {
+															setResponseMessage(
+																"Please fill out all fields before proceeding."
+															);
+															return;
+														}
+														updated[
+															currentTeamMemberIndex
+														] = currentMember;
+														setTeamMembers(updated);
+														setCurrentTeamMemberIndex(
+															currentTeamMemberIndex +
+																1
+														);
+														if (
+															currentTeamMemberIndex +
+																1 <
+															teamMembers.length
+														) {
+															setCurrentMember(
+																teamMembers[
+																	currentTeamMemberIndex +
+																		1
+																]
+															);
+														} else {
+															setCurrentMember({
+																firstName: "",
+																lastName: "",
+																email: "",
+																phoneNumber: "",
+																dateOfBirth: "",
+																tshirtSize: "",
+															});
+														}
+														setResponseMessage("");
+													}}
+												>
+													NEXT MEMBER
+												</button>
+											);
+										}
+										if (teamSize > 1) {
+											return (
+												<button
+													className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+													style={{
+														fontFamily: "unbounded",
+														fontWeight: "300",
+														fontSize:
+															"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+													}}
+													onClick={proceedWithTeam}
+												>
+													PROCEED WITH {teamSize}{" "}
+													MEMBERS
+												</button>
+											);
+										}
+									})()}
+								</div>
+								{responseMessage && (
+									<p className="mt-4 text-red-400 text-center text-sm">
+										{responseMessage}
+									</p>
+								)}
+							</div>
+						</div>
+					</div>
+				</div>
+			);
+		}
+		// Step 2: Waivers with minor chaperone upload
+		if (teamStep === 2) {
+			const minorCount = countTeamMinors();
+
+			// If there are minors, show the full waiver page with file upload
+			if (minorCount > 0) {
+				return (
+					<div className="flex items-center justify-center">
+						<div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[600px] flex flex-col bg-black-50">
+							{renderStepIndicator(3, 5)}
+							<div className="flex-1 flex flex-col justify-between">
+								<div>
+									<h2
+										className="text-white mb-[4vh] tracking-wide"
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "400",
+											fontSize:
+												"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+										}}
+									>
+										WAIVERS
+										<br />& FORMS
+									</h2>
+									<p
+										className="text-gray-400 text-sm leading-relaxed mb-8 font-light"
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+										}}
+									>
+										For competitors under the age of 18, all
+										competitors must have a parent/guardian
+										sign and upload to the following{" "}
+										<a
+											href="#"
+											className="text-blue-400 underline"
+										>
+											chaperone form
+										</a>
+										. In accordance to University policy,
+										the Texas Diabolo Association will not
+										take custodial responsibility of minors
+										participating in TXDC. Custodial
+										responsibility will remain with
+										chaperones.
+									</p>
+
+									<div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-8 text-center">
+										<input
+											type="file"
+											id="team-chaperone-upload"
+											className="hidden"
+											accept=".pdf,.doc,.docx"
+											multiple
+											onChange={handleFileUpload}
+										/>
+										<label
+											htmlFor="team-chaperone-upload"
+											className="cursor-pointer"
+										>
+											<p
+												className="text-white text-base font-light"
+												style={{
+													fontFamily: "unbounded",
+													fontWeight: "300",
+													fontSize:
+														"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+												}}
+											>
+												Upload all files here
+											</p>
+											<p
+												className="text-gray-400 text-xs mt-2"
+												style={{
+													fontFamily: "unbounded",
+													fontWeight: "300",
+													fontSize:
+														"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+												}}
+											>
+												{minorCount} form(s) required |{" "}
+												{chaperoneFiles.length} uploaded
+											</p>
+											{/* {chaperoneFiles.length > 0 && (
                                         <div className="mt-4 space-y-1">
                                             {chaperoneFiles.map((file, idx) => (
                                                 <p key={idx} className="text-blue-400 text-xs">{file.name}</p>
                                             ))}
                                         </div>
                                     )} */}
-                                    {chaperoneFiles.length > 0 && (
-                                        <div className="mt-4 space-y-2 text-left">
-                                        {chaperoneFiles.map((file, idx) => (
-                                            <div
-                                            key={idx}
-                                            className="flex items-center justify-between text-blue-400 text-xs bg-gray-800 px-3 py-1 rounded-md"
-                                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                            >
-                                            <span className="truncate">{file.name}</span>
-                                            <button
-                                                type="button"
-                                                className="text-red-400 hover:text-red-300 ml-3"
-                                                onClick={() => handleRemoveFile(idx)}
-                                            >
-                                                ✕
-                                            </button>
-                                            </div>
-                                        ))}
-                                        </div>
-                                    )}
-                                </label>
-                            </div>
+											{chaperoneFiles.length > 0 && (
+												<div className="mt-4 space-y-2 text-left">
+													{chaperoneFiles.map(
+														(file, idx) => (
+															<div
+																key={idx}
+																className="flex items-center justify-between text-blue-400 text-xs bg-gray-800 px-3 py-1 rounded-md"
+																style={{
+																	fontFamily:
+																		"unbounded",
+																	fontWeight:
+																		"300",
+																	fontSize:
+																		"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+																}}
+															>
+																<span className="truncate">
+																	{file.name}
+																</span>
+																<button
+																	type="button"
+																	className="text-red-400 hover:text-red-300 ml-3"
+																	onClick={() =>
+																		handleRemoveFile(
+																			idx
+																		)
+																	}
+																>
+																	✕
+																</button>
+															</div>
+														)
+													)}
+												</div>
+											)}
+										</label>
+									</div>
 
-                            <label className="flex items-start gap-4 cursor-pointer mb-4">
-                                <input 
-                                    type="checkbox"
-                                    className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
-                                    checked={teamAgreedToTerms}
-                                    onChange={(e) => setTeamAgreedToTerms(e.target.checked)}
-                                />
-                                <span className="text-white text-sm leading-relaxed font-light"
-                                                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                    I consent and acknowledge that a parents/guardian along with my team and guests have read and agreed to these{' '}
-                                    <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
-                                    <a href="#" className="text-blue-400 underline">injury and liability forms</a>.
-                                </span>
-                            </label>
-                        </div>
-                        <div>
-                        <div className="flex items-center justify-between">
-                            <button 
-                                className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer" 
-                                onClick={() => setTeamStep(1)}>
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </button>
-                            <button  
-                            className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                onClick={() => {
-                                    if (!teamAgreedToTerms) {
-                                        setResponseMessage('You must agree to the terms and waivers to proceed.');
-                                    }
-                                    else if (chaperoneFiles.length < minorCount) {
-                                        setResponseMessage(`Please upload all required chaperone forms for your ${minorCount} minor team member(s).`);
-                                    }
-                                    else {
-                                        setTeamStep(3);
-                                        setResponseMessage('');
-                                    }
-                                }}
-                                style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                CONTINUE
-                            </button>
-                            {/* <div className="w-16"></div> */}
-                        </div>
-                        {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-    
-    // If there are NO minors, show simplified waiver page (no file upload)
-    return (
-        <div className="flex items-center justify-center">
-            <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col bg-black-50">
-                {renderStepIndicator(3, 5)}
-                <div className="flex-1 flex flex-col justify-between">
-                    <div>
-                        <h2 className="text-white mb-[4vh] tracking-wide"
-                        style={{
-                            fontFamily: "unbounded",
-                            fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                        }}>WAIVERS<br/>& FORMS</h2>
-                        <label className="flex items-start gap-4 cursor-pointer mb-8">
-                            <input 
-                                type="checkbox"
-                                className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
-                                checked={teamAgreedToTerms}
-                                onChange={(e) => setTeamAgreedToTerms(e.target.checked)}
-                            />
-                            <span className="text-white text-base leading-relaxed font-light"
-                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                I consent and acknowledge that my team and guests have read and agreed to these{' '}
-                                <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
-                                <a href="#" className="text-blue-400 underline">injury and liability forms</a>.
-                            </span>
-                        </label>
-                    </div>
-                    <div>
-                    <div className="flex items-center justify-center">
-                        <button 
-                            className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer" 
-                            onClick={() => setTeamStep(1)}>
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
-                        <button  
-                            className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                            onClick={() => {
-                                if (!teamAgreedToTerms) {
-                                    setResponseMessage('You must agree to the terms and waivers to proceed.');
-                                }
-                                else {
-                                    setTeamStep(3);
-                                    setResponseMessage('');
-                                }
-                            }}
-                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                            CONTINUE
-                        </button>
-                        {/* <div className="w-16"></div> */}
-                    </div>
-                    {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
-                </div>
-                    </div>
-            </div>
-        </div>
-    );
-}
-        
-        // Step 3: Emergency contact (once for whole team)
-        if (teamStep === 3) {
-            return (
-                <div className="flex items-center justify-center">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col bg-black-50">
-                        {renderStepIndicator(4, 5)}
-                        <div className="flex-1 flex flex-col justify-between">
-                            <h2 className="text-white mb-[4vh] tracking-wide"
-                            style={{
-                                fontFamily: "unbounded",
-                                fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                            }}>EMERGENCY CONTACT<br/>INFORMATION</h2>
-                            <div className="space-y-5 md:space-y-8 flex-1">
-                                <input 
-                                    className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                    type="text" 
-                                    placeholder="EMERGENCY CONTACT FULL NAME" 
-                                    value={teamEmergencyContactName}
-                                    onChange={(e) => setTeamEmergencyContactName(e.target.value)}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                />
-                                <input 
-                                    className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
-                                    type="tel"
-                                    placeholder="EMERGENCY CONTACT PHONE NUMBER"
-                                    value={teamEmergencyContactPhone}
-                                    onChange={(e) => setTeamEmergencyContactPhone(e.target.value)}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                    />
-                                <input 
-                                    className="w-1/2 bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase mb-8" 
-                                    type="number" 
-                                    placeholder="NUMBER OF GUESTS" 
-                                    min="0"
-                                    value={teamNumberOfGuests}
-                                    onChange={(e) => setTeamNumberOfGuests(e.target.value)}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
-                                        }}
-                                />
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <button 
-                                    className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
-                                    // onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
-                                    onClick={() => setTeamStep(2)}>
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </button>
-                                <button  
-                            className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                    onClick={submitTeamForm}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                    SUBMIT & PAY
-                                </button>
-                                {/* <div className="w-16"></div> */}
-                            </div>
-                            {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-    }
-    else if (currentView === 'music') {
-        if (isSubmitted && step === 2) {
-            return (
-                <div className="flex items-center justify-center">
-                    <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
-                        {renderStepIndicator(2, 2)}
-                        <div className="text-left flex-1 flex flex-col justify-center">
-                            <h2 className="text-white mb-8 tracking-wide"
-                            style={{
-                                fontFamily: "unbounded",
-                                fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                            }}>See you in March!</h2>
-                            <p className="text-white text-base leading-relaxed mb-6 font-light"
-                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
-                                        }}>
-                                Thank you for submitting your music for the 2026 Texas Diabolo Competition! We will review your music submission and send you a confirmation email once it has been approved.</p>
-                            <p className="text-white text-base leading-relaxed font-light"
-                            style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
-                                        }}>
-                                We can't wait to see you in March!
-                            </p>
-                        </div>
-                        <div className="flex justify-center mt-12">
-                            <div className="w-32 h-32 rounded-full border-4 border-white flex items-center justify-center">
-                                <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-        return (
-            <div className="flex items-center justify-center">
-                <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl  flex flex-col bg-black/50">
-                    {renderStepIndicator(step, 2)}
-               <div className="flex-1 flex flex-col justify-between">
-                            <div>
-                                <h2 className="text-white mb-[4vh] tracking-wide"
-                                style={{
-                                    fontFamily: "unbounded",
-                                    fontWeight: '400', fontSize: "clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
-                                }}>MUSIC FILE<br/>SUBMISSION</h2>
-                                <p className="text-gray-400 text-sm leading-relaxed mb-2 font-bold"
-                                style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                    Please name your file "lastName_firstName_division."
-                                </p>  
-                                <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light"
-                                style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                    The maximum performance time is 4 minutes for individual divisions and 5 minutes for teams. The minimum performance time is 2 minutes. Music chosen must be suitable for an audience of all ages. 
-                                </p>
-                                <div className="mb-8 border-2 border-dashed border-gray-600 rounded-lg p-12 text-center cursor-pointer hover:border-gray-500 transition-colors">
-                                    <input 
-                                        type="file"
-                                        id="music-upload"
-                                        className="hidden"
-                                        accept="audio/*"
-                                        onChange={(e) => setMusicFile(e.target.files?.[0] ?? null)}
-                                    />
-                                    <label htmlFor="music-upload" className="cursor-pointer"
-                                    >
-                                        <p className="text-white text-base font-light"
-                                        style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
-                                        }}>Upload file here</p>
-                                        {musicFile && (
-                                            <div className="mt-4 space-y-2 text-left">
-                                            <div className="flex items-center justify-between text-blue-400 text-xs bg-gray-800 px-3 py-1 rounded-md">
-                                                <span className="truncate">{musicFile.name}</span>
-                                                <button
-                                                type="button"
-                                                className="text-red-400 hover:text-red-300 ml-3"
-                                                onClick={() => setMusicFile(null)}
-                                                >
-                                                ✕
-                                                </button>
-                                            </div>
-                                            </div>
-  )}                                    </label>
-                                     
-                                </div>
- 
-                            </div>
-                            <div>
-                            <div className="flex items-center justify-between">
-                            <button 
-                                className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer" 
-                                onClick={() => setCurrentView('home')}>
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </button>
-                            <button 
-                                    className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer" 
-                                    onClick={submitMusicFile}
-                                    style={{
-                                            fontFamily: "unbounded",
-                                            fontWeight: '300',
-                                            fontSize: "clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
-                                        }}>
-                                    SUBMIT
-                                </button>
-                            </div>
-                            {responseMessage && <p className="mt-4 text-red-400 text-center text-sm">{responseMessage}</p>}
-                            {/* <div className="w-16"></div> */}
-                        </div>
-                        </div>
-                        </div>
-            </div>
-            );
-    }
+									<label className="flex items-start gap-4 cursor-pointer mb-4">
+										<input
+											type="checkbox"
+											className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
+											checked={teamAgreedToTerms}
+											onChange={(e) =>
+												setTeamAgreedToTerms(
+													e.target.checked
+												)
+											}
+										/>
+										<span
+											className="text-white text-sm leading-relaxed font-light"
+											style={{
+												fontFamily: "unbounded",
+												fontWeight: "300",
+												fontSize:
+													"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+											}}
+										>
+											I consent and acknowledge that a
+											parents/guardian along with my team
+											and guests have read and agreed to
+											these{" "}
+											<a
+												href="#"
+												className="text-blue-400 underline"
+											>
+												photo release
+											</a>{" "}
+											and{" "}
+											<a
+												href="#"
+												className="text-blue-400 underline"
+											>
+												injury and liability forms
+											</a>
+											.
+										</span>
+									</label>
+								</div>
+								<div>
+									<div className="flex items-center justify-between">
+										<button
+											className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
+											onClick={() => setTeamStep(1)}
+										>
+											<svg
+												className="w-5 h-5"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth={2}
+													d="M15 19l-7-7 7-7"
+												/>
+											</svg>
+										</button>
+										<button
+											className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+											onClick={() => {
+												if (!teamAgreedToTerms) {
+													setResponseMessage(
+														"You must agree to the terms and waivers to proceed."
+													);
+												} else if (
+													chaperoneFiles.length <
+													minorCount
+												) {
+													setResponseMessage(
+														`Please upload all required chaperone forms for your ${minorCount} minor team member(s).`
+													);
+												} else {
+													setTeamStep(3);
+													setResponseMessage("");
+												}
+											}}
+											style={{
+												fontFamily: "unbounded",
+												fontWeight: "300",
+												fontSize:
+													"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+											}}
+										>
+											CONTINUE
+										</button>
+										{/* <div className="w-16"></div> */}
+									</div>
+									{responseMessage && (
+										<p className="mt-4 text-red-400 text-center text-sm">
+											{responseMessage}
+										</p>
+									)}
+								</div>
+							</div>
+						</div>
+					</div>
+				);
+			}
 
-    return null;
+			// If there are NO minors, show simplified waiver page (no file upload)
+			return (
+				<div className="flex items-center justify-center">
+					<div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col bg-black-50">
+						{renderStepIndicator(3, 5)}
+						<div className="flex-1 flex flex-col justify-between">
+							<div>
+								<h2
+									className="text-white mb-[4vh] tracking-wide"
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "400",
+										fontSize:
+											"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+									}}
+								>
+									WAIVERS
+									<br />& FORMS
+								</h2>
+								<label className="flex items-start gap-4 cursor-pointer mb-8">
+									<input
+										type="checkbox"
+										className="mt-1 w-6 h-6 bg-transparent border-2 border-gray-500 rounded checked:bg-white flex-shrink-0"
+										checked={teamAgreedToTerms}
+										onChange={(e) =>
+											setTeamAgreedToTerms(
+												e.target.checked
+											)
+										}
+									/>
+									<span
+										className="text-white text-base leading-relaxed font-light"
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+										}}
+									>
+										I consent and acknowledge that my team
+										and guests have read and agreed to these{" "}
+										<a
+											href="#"
+											className="text-blue-400 underline"
+										>
+											photo release
+										</a>{" "}
+										and{" "}
+										<a
+											href="#"
+											className="text-blue-400 underline"
+										>
+											injury and liability forms
+										</a>
+										.
+									</span>
+								</label>
+							</div>
+							<div>
+								<div className="flex items-center justify-center">
+									<button
+										className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
+										onClick={() => setTeamStep(1)}
+									>
+										<svg
+											className="w-5 h-5"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M15 19l-7-7 7-7"
+											/>
+										</svg>
+									</button>
+									<button
+										className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+										onClick={() => {
+											if (!teamAgreedToTerms) {
+												setResponseMessage(
+													"You must agree to the terms and waivers to proceed."
+												);
+											} else {
+												setTeamStep(3);
+												setResponseMessage("");
+											}
+										}}
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+										}}
+									>
+										CONTINUE
+									</button>
+									{/* <div className="w-16"></div> */}
+								</div>
+								{responseMessage && (
+									<p className="mt-4 text-red-400 text-center text-sm">
+										{responseMessage}
+									</p>
+								)}
+							</div>
+						</div>
+					</div>
+				</div>
+			);
+		}
+
+		// Step 3: Emergency contact (once for whole team)
+		if (teamStep === 3) {
+			return (
+				<div className="flex items-center justify-center">
+					<div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col bg-black-50">
+						{renderStepIndicator(4, 5)}
+						<div className="flex-1 flex flex-col justify-between">
+							<h2
+								className="text-white mb-[4vh] tracking-wide"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "400",
+									fontSize:
+										"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+								}}
+							>
+								EMERGENCY CONTACT
+								<br />
+								INFORMATION
+							</h2>
+							<div className="space-y-5 md:space-y-8 flex-1">
+								<input
+									className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+									type="text"
+									placeholder="EMERGENCY CONTACT FULL NAME"
+									value={teamEmergencyContactName}
+									onChange={(e) =>
+										setTeamEmergencyContactName(
+											e.target.value
+										)
+									}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+									}}
+								/>
+								<input
+									className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase"
+									type="tel"
+									placeholder="EMERGENCY CONTACT PHONE NUMBER"
+									value={teamEmergencyContactPhone}
+									onChange={(e) =>
+										setTeamEmergencyContactPhone(
+											e.target.value
+										)
+									}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+									}}
+								/>
+								<input
+									className="w-1/2 bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase mb-8"
+									type="number"
+									placeholder="NUMBER OF GUESTS"
+									min="0"
+									value={teamNumberOfGuests}
+									onChange={(e) =>
+										setTeamNumberOfGuests(e.target.value)
+									}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5rem, -0.0625rem + 1vw, 0.6875rem)",
+									}}
+								/>
+							</div>
+							<div className="flex items-center justify-between">
+								<button
+									className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
+									// onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
+									onClick={() => setTeamStep(2)}
+								>
+									<svg
+										className="w-5 h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M15 19l-7-7 7-7"
+										/>
+									</svg>
+								</button>
+								<button
+									className="flex-1 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+									onClick={submitTeamForm}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+									}}
+								>
+									SUBMIT & PAY
+								</button>
+								{/* <div className="w-16"></div> */}
+							</div>
+							{responseMessage && (
+								<p className="mt-4 text-red-400 text-center text-sm">
+									{responseMessage}
+								</p>
+							)}
+						</div>
+					</div>
+				</div>
+			);
+		}
+	} else if (currentView === "music") {
+		if (isSubmitted && step === 2) {
+			return (
+				<div className="flex items-center justify-center">
+					<div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
+						{renderStepIndicator(2, 2)}
+						<div className="text-left flex-1 flex flex-col justify-center">
+							<h2
+								className="text-white mb-8 tracking-wide"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "400",
+									fontSize:
+										"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+								}}
+							>
+								See you in March!
+							</h2>
+							<p
+								className="text-white text-base leading-relaxed mb-6 font-light"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "300",
+									fontSize:
+										"clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+								}}
+							>
+								Thank you for submitting your music for the 2026
+								Texas Diabolo Competition! We will review your
+								music submission and send you a confirmation
+								email once it has been approved.
+							</p>
+							<p
+								className="text-white text-base leading-relaxed font-light"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "300",
+									fontSize:
+										"clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+								}}
+							>
+								We can't wait to see you in March!
+							</p>
+						</div>
+						<div className="flex justify-center mt-12">
+							<div className="w-32 h-32 rounded-full border-4 border-white flex items-center justify-center">
+								<svg
+									className="w-16 h-16 text-white"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={3}
+										d="M5 13l4 4L19 7"
+									/>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			);
+		}
+		return (
+			<div className="flex items-center justify-center">
+				<div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl  flex flex-col bg-black/50">
+					{renderStepIndicator(step, 2)}
+					<div className="flex-1 flex flex-col justify-between">
+						<div>
+							<h2
+								className="text-white mb-[4vh] tracking-wide"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "400",
+									fontSize:
+										"clamp(1.25rem, 0.5rem + 1.3333vw, 1.5rem)",
+								}}
+							>
+								MUSIC FILE
+								<br />
+								SUBMISSION
+							</h2>
+							<p
+								className="text-gray-400 text-sm leading-relaxed mb-2 font-bold"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "300",
+									fontSize:
+										"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+								}}
+							>
+								Please name your file
+								"lastName_firstName_division."
+							</p>
+							<p
+								className="text-gray-400 text-sm leading-relaxed mb-8 font-light"
+								style={{
+									fontFamily: "unbounded",
+									fontWeight: "300",
+									fontSize:
+										"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+								}}
+							>
+								The maximum performance time is 4 minutes for
+								individual divisions and 5 minutes for teams.
+								The minimum performance time is 2 minutes. Music
+								chosen must be suitable for an audience of all
+								ages.
+							</p>
+							<div className="mb-8 border-2 border-dashed border-gray-600 rounded-lg p-12 text-center cursor-pointer hover:border-gray-500 transition-colors">
+								<input
+									type="file"
+									id="music-upload"
+									className="hidden"
+									accept="audio/*"
+									onChange={(e) =>
+										setMusicFile(
+											e.target.files?.[0] ?? null
+										)
+									}
+								/>
+								<label
+									htmlFor="music-upload"
+									className="cursor-pointer"
+								>
+									<p
+										className="text-white text-base font-light"
+										style={{
+											fontFamily: "unbounded",
+											fontWeight: "300",
+											fontSize:
+												"clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
+										}}
+									>
+										Upload file here
+									</p>
+									{musicFile && (
+										<div className="mt-4 space-y-2 text-left">
+											<div className="flex items-center justify-between text-blue-400 text-xs bg-gray-800 px-3 py-1 rounded-md">
+												<span className="truncate">
+													{musicFile.name}
+												</span>
+												<button
+													type="button"
+													className="text-red-400 hover:text-red-300 ml-3"
+													onClick={() =>
+														setMusicFile(null)
+													}
+												>
+													✕
+												</button>
+											</div>
+										</div>
+									)}{" "}
+								</label>
+							</div>
+						</div>
+						<div>
+							<div className="flex items-center justify-between">
+								<button
+									className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
+									onClick={() => setCurrentView("home")}
+								>
+									<svg
+										className="w-5 h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M15 19l-7-7 7-7"
+										/>
+									</svg>
+								</button>
+								<button
+									className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
+									onClick={submitMusicFile}
+									style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+									}}
+								>
+									SUBMIT
+								</button>
+							</div>
+							{responseMessage && (
+								<p className="mt-4 text-red-400 text-center text-sm">
+									{responseMessage}
+								</p>
+							)}
+							{/* <div className="w-16"></div> */}
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	return null;
 };
 
 export default RegistrationSystem;

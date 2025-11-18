@@ -2,13 +2,12 @@
 import Hero from "../components/Hero";
 // import PerformanceCards from "../components/PerformanceCards";
 
-
 const HomePage = () => {
-  return (
-    <>
-        <Hero/>
-    </>
-  )
-}
+	return (
+		<>
+			<Hero />
+		</>
+	);
+};
 
 export default HomePage;
