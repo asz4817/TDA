@@ -102,7 +102,7 @@ const Registration = () => {
             //   backgroundSize: "cover",}}
         >
 
-           <div className="absolute fixed z-[0] w-screen h-screen bg-black"
+           <div className="absolute fixed z-[0] w-screen h-screen"
                     style={{
                                             backgroundImage: `linear-gradient(180deg,rgba(0, 0, 0, 0.3) 1%, rgba(0, 0, 0, 0.5) 100%), url(${ContactBg})`,
                             backgroundColor: "transparent",
@@ -161,7 +161,10 @@ const Registration = () => {
             </div>
             </div>
         </section>
-              <div className="bg-black h-[50%] w-screen absolute z-50">
+              <div className="bg-black h-[50%] w-screen absolute z-50"
+              style={{
+                opacity: scrollTop >= scrollMax * 0.8 ? 1 : 0,
+              }}>
         </div>
       </div>
     </div>
