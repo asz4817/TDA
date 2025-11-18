@@ -206,6 +206,13 @@ const RegistrationSystem = () => {
             chaperonefilename: chaperoneFileName
         };
 
+        const stripeTab = window.open("about:blank", "_blank");
+
+            if (!stripeTab) {
+                setResponseMessage("Popup blocked — please allow popups and try again.");
+                return;
+            }
+
         try {
             const res = await fetch('/register_indiv', {
                 method: 'POST',
@@ -215,13 +222,15 @@ const RegistrationSystem = () => {
 
             const text = await res.text();
             let result = JSON.parse(text);
+            
 
             if (res.ok) {
                 setIsSubmitted(true);
                 setStep(4);
-                window.open('https://buy.stripe.com/dRm3cnbtZ9I55ob7oRaZi00', '_blank');
+                stripeTab.location.href = 'https://buy.stripe.com/dRm3cnbtZ9I55ob7oRaZi00';
             } else {
                 setResponseMessage(result.error || 'Error submitting form');
+                stripeTab.close();
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
@@ -348,6 +357,13 @@ const RegistrationSystem = () => {
             chaperonefiles: filesData
         };
 
+        const stripeTab = window.open("about:blank", "_blank");
+
+            if (!stripeTab) {
+                setResponseMessage("Popup blocked — please allow popups and try again.");
+                return;
+            }
+
         try {
             const res = await fetch('/register_team', {
                 method: 'POST',
@@ -355,11 +371,7 @@ const RegistrationSystem = () => {
                 body: JSON.stringify(registrationData),
             });
 
-            const stripeTab = window.open("", "_blank");  // allowed by gesture
-            if (!stripeTab) {
-                setResponseMessage("Popup blocked — please allow popups and try again.");
-                return;
-            }
+            
             const text = await res.text();
             let result = JSON.parse(text);
 
