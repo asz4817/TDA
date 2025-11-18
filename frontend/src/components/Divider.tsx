@@ -6,9 +6,8 @@ const Divider = () => {
     style={{
       backgroundImage: `url(${divider})`,
       // backgroundRepeat: "repeat-x",
-      backgroundSize: 'contain',
+      backgroundSize: 'cover',
       // animation: `slide 10s linear infinite`,
-      height: 'fit-content',
       animation: `scroll 20s linear infinite`,
     }}
     >

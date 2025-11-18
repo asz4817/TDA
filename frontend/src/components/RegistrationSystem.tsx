@@ -866,7 +866,7 @@ const RegistrationSystem = () => {
                                             onChange={(e) => setTeamName(e.target.value)}
                                         />
                                     {/* </div> */}
-                                    <div className="grid grid-cols-2 gap-[2vh]">
+                                    {/* <div className="grid grid-cols-2 gap-[2vh]"> */}
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                             type="number" 
@@ -876,7 +876,7 @@ const RegistrationSystem = () => {
                                                 setTeamSize(parseInt(e.target.value));
                                             }}
                                         />
-                                    </div>
+                                    {/* </div> */}
                                 </div>
                             
                             <div className="flex mt-8 md:w-[30%] mx-auto">

@@ -5,7 +5,7 @@ import SubscribeMailout from "./SubscribeMailout";
 
 const Footer = () => {
   return (
-    <>
+    <div className="relative z-100 bg-black">
     <SubscribeMailout />
     <div className="relative flex flex-col justify-end pt-10 pb-5"
     style={{
@@ -18,7 +18,7 @@ const Footer = () => {
         <div className="absolute right-[12.5%] justify-self-end"> <Socials /></div>
 
     </div>
-    </>
+    </div>
   )
 }
 
