@@ -38,7 +38,7 @@ const TXDC = () => {
                         fontFamily: "unbounded",
                         fontSize: "16px",
                         marginBottom: "6%",
-                    }}>MARCH 14-15TH</p>
+                    }}>MARCH 7-8<sup>TH</sup></p>
                     <div className="flex gap-4 items-center">
                         <NavLink
                         to="/txdc2026/register"
@@ -52,7 +52,7 @@ const TXDC = () => {
                             fontFamily: "unbounded",
                             fontSize: "11px",
                         }}>
-                        Registration deadline: December 31st 2025 11:59pm CST
+                        Registration deadline: December 31<sup>ST</sup>, 2025 11:59pm CST
                         </h1>
                     </div>
                 </div>

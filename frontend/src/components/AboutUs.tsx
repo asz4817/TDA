@@ -20,6 +20,7 @@ const AboutUs = () => {
             }}>ABOUT US</h1>
             <p style={{
                 fontFamily: "unbounded",
+                fontWeight: 300,
                 fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
                 textAlign: "center",
                 marginBottom: "4%",
@@ -28,6 +29,7 @@ const AboutUs = () => {
             </p>
             <p style={{
                 fontFamily: "unbounded",
+                fontWeight: 300,
                 fontSize: "clamp(0.625rem, -0.125rem + 1.3333vw, 0.875rem)",
                 textAlign: "center",
             }}>

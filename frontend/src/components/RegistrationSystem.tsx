@@ -24,7 +24,6 @@ const RegistrationSystem = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [teamSize, setTeamSize] = useState(2);
     const [teamSizeString, setTeamSizeString] = useState('');
-    const [teamName, setTeamName] = useState('');
 
     // Team registration states
         type TeamMember = {
@@ -39,6 +38,7 @@ const RegistrationSystem = () => {
             numberOfGuests?: string;
         };
     
+        const [teamName, setTeamName] = useState('')
         const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
         const [currentTeamMemberIndex, setCurrentTeamMemberIndex] = useState(0);
         const [teamStep, setTeamStep] = useState(0); // 1: member info, 2: waivers, 3: emergency contact
@@ -206,6 +206,13 @@ const RegistrationSystem = () => {
             chaperonefilename: chaperoneFileName
         };
 
+        const stripeTab = window.open("about:blank", "_blank");
+
+            if (!stripeTab) {
+                setResponseMessage("Popup blocked — please allow popups and try again.");
+                return;
+            }
+
         try {
             const res = await fetch('/register_indiv', {
                 method: 'POST',
@@ -215,13 +222,15 @@ const RegistrationSystem = () => {
 
             const text = await res.text();
             let result = JSON.parse(text);
+            
 
             if (res.ok) {
                 setIsSubmitted(true);
                 setStep(4);
-                window.open('https://buy.stripe.com/dRm3cnbtZ9I55ob7oRaZi00', '_blank');
+                stripeTab.location.href = 'https://buy.stripe.com/dRm3cnbtZ9I55ob7oRaZi00';
             } else {
                 setResponseMessage(result.error || 'Error submitting form');
+                stripeTab.close();
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
@@ -278,9 +287,6 @@ const RegistrationSystem = () => {
 
 
         setTeamStep(1);
-        
-
-
         
     }
 
@@ -343,12 +349,20 @@ const RegistrationSystem = () => {
 
         const registrationData = {
             type: 'team',
+            teamName: teamName,
             members: teamMembers,
             emergencycontactname: teamEmergencyContactName,
             emergencycontactphone: teamEmergencyContactPhone,
             numberofguests: teamNumberOfGuests,
             chaperonefiles: filesData
         };
+
+        const stripeTab = window.open("about:blank", "_blank");
+
+            if (!stripeTab) {
+                setResponseMessage("Popup blocked — please allow popups and try again.");
+                return;
+            }
 
         try {
             const res = await fetch('/register_team', {
@@ -357,14 +371,17 @@ const RegistrationSystem = () => {
                 body: JSON.stringify(registrationData),
             });
 
+            
             const text = await res.text();
             let result = JSON.parse(text);
 
             if (res.ok) {
                 setIsSubmitted(true);
                 setTeamStep(4);
-                window.open('https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01', '_blank');
+                stripeTab.location.href = "https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01";
+                // window.open('https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01', '_blank');
             } else {
+                stripeTab.close();
                 setResponseMessage(result.error || 'Error submitting form');
             }
         } catch (err: unknown) {
@@ -462,12 +479,17 @@ const RegistrationSystem = () => {
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(4, 4)}
                         <div className="text-left flex-1 flex flex-col justify-center">
-                            <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>See you in March!</h2>
                             <p className="text-white text-base leading-relaxed mb-6 font-light">
                                 Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
                             </p>
                             <p className="text-white text-base leading-relaxed font-light">
-                                Please do not forget to submit your music for your routine to our website by February 14th, 2026!
+                                Please do not forget to submit your music for your routine to the music submission form by February 14<sup>TH</sup>, 2026!
                             </p>
                         </div>
                         <div className="flex justify-center mt-12">
@@ -614,8 +636,13 @@ const RegistrationSystem = () => {
                     )}
 
                     {step === 2 && (
-                        <div className="flex-1 flex flex-col">
-                            <h2 className="text-3xl font-light text-white mb-6 tracking-wide">EMERGENCY CONTACT<br/>INFORMATION</h2>
+                        <div>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>EMERGENCY CONTACT<br/>INFORMATION</h2>
                             <div className="space-y-[5vh] flex-1">
                                 <input 
                                     className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -641,9 +668,9 @@ const RegistrationSystem = () => {
                                 />
                             </div>
                             
-                            <div className="flex w-[30%] mx-auto">
+                            <div className="flex mt-8 md:w-[30%] mx-auto">
                                  <button
-                                className="w-8 h-8 mt-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+                                className="w-8 h-8 mx-auto bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center disabled:opacity-50 cursor-pointer"
                                 onClick={() => {
                                 // const updated = [...teamMembers];
                                 // updated[currentTeamMemberIndex] = currentMember;
@@ -662,7 +689,7 @@ const RegistrationSystem = () => {
                                 </svg>
                             </button>
                             <button 
-                                className="w-8 h-8 mt-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer" 
+                                className="w-8 h-8 mx-auto block bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer" 
                                 onClick={handleIndividualNext}>
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -676,7 +703,12 @@ const RegistrationSystem = () => {
                     {step === 3 && !isMinor(dateOfBirth) && (
                         <div className="flex-1 flex flex-col justify-between">
                             <div>
-                                <h2 className="text-3xl font-light text-white mb-8 tracking-wide">WAIVERS<br/>& FORMS</h2>
+                                <h2 className="text-white mb-[4vh] tracking-wide"
+                                style={{
+                                    fontFamily: "unbounded",
+                                    fontWeight: '300',
+                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                }}>WAIVERS<br/>& FORMS</h2>
                                 <label className="flex items-start gap-4 cursor-pointer">
                                     <input 
                                         type="checkbox"
@@ -691,7 +723,7 @@ const RegistrationSystem = () => {
                                     </span>
                                 </label>
                             </div>
-                            <div className="flex items-center justify-between">
+                            <div className="mt-[4vh] flex items-center justify-between">
                                 <button 
                                     className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
                                     // onClick={() => setTeamStep(countTeamMinors() > 0 ? 2 : 1)}>
@@ -714,7 +746,12 @@ const RegistrationSystem = () => {
                     {step === 3 && isMinor(dateOfBirth) && (
                         <div className="flex-1 flex flex-col justify-between">
                             <div>
-                                <h2 className="text-3xl font-light text-white mb-4 tracking-wide">WAIVERS<br/>& FORMS</h2>
+                                <h2 className="text-white mb-[4vh] tracking-wide"
+                                style={{
+                                    fontFamily: "unbounded",
+                                    fontWeight: '300',
+                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                }}>WAIVERS<br/>& FORMS</h2>
                                 <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light">
                                     For competitors under the age of 18, all competitors must have a parent/guardian sign and upload to the following{' '}
                                     <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors while participating in TXDC. Custodial responsibility will remain with chaperones.
@@ -780,12 +817,17 @@ const RegistrationSystem = () => {
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(5, 5)}
                         <div className="text-left flex-1 flex flex-col justify-center">
-                            <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>See you in March!</h2>
                             <p className="text-white text-base leading-relaxed mb-6 font-light">
                                 Thank you for registering for the 2026 Texas Diabolo Competition! Once we've received your payment, you will receive an email confirmation for your registration.
                             </p>
                             <p className="text-white text-base leading-relaxed font-light">
-                                Please do not forget to send us your music for your routine by February 14th, 2026 to texasdiabolo@gmail.com. We can't wait to see you in March!
+                                Please do not forget to submit your music for your routine by February 14<sup>TH</sup>, 2026 to the music submission form. We can't wait to see you in March!
                             </p>
                         </div>
                         <div className="flex justify-center mt-12">
@@ -806,11 +848,15 @@ const RegistrationSystem = () => {
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl min-h-[40px] flex flex-col">
                         {renderStepIndicator(1, 5)}
                         
-                        <div className="flex-1 flex flex-col">
-                                <h2 className="text-3xl font-light text-white mb-4 tracking-wide">
-                                    TEAM INFORMATION
-                                </h2>
-                                <div className="space-y-8 mt-12">
+                        <div>
+                                <h2 className="text-white mb-[2vh] tracking-wide"
+                                style={{
+                                    fontFamily: "unbounded",
+                                    fontWeight: '300',
+                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                }}>
+                                    TEAM <br/> INFORMATION</h2>
+                                <div className="space-y-8">
                                     {/* <div className="grid grid-cols-2 gap-6"> */}
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -820,11 +866,11 @@ const RegistrationSystem = () => {
                                             onChange={(e) => setTeamName(e.target.value)}
                                         />
                                     {/* </div> */}
-                                    <div className="grid grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-2 gap-[2vh]">
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                             type="number" 
-                                            placeholder="TEAM SIZE" 
+                                            placeholder="NUMBER OF TEAM MEMBERS" 
                                             value={teamSizeString}
                                             onChange={(e) => {setTeamSizeString(e.target.value)
                                                 setTeamSize(parseInt(e.target.value));
@@ -875,11 +921,16 @@ const RegistrationSystem = () => {
                         
                         <div className="flex-1 flex flex-col justify-between">
                             <div>
-                                <h2 className="text-3xl font-light text-white mb-4 tracking-wide">
+                                <h2 className="text-white mb-[2vh] tracking-wide"
+                                style={{
+                                    fontFamily: "unbounded",
+                                    fontWeight: '300',
+                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                }}>
                                     TEAM MEMBER {memberNumber}<br/>PERSONAL INFORMATION
                                 </h2>
-                                <div className="space-y-8 mt-12">
-                                    <div className="grid grid-cols-2 gap-6">
+                                <div className="space-y-8 mt-[2vh]">
+                                    <div className="grid grid-cols-2 gap-[2vh]">
                                         <input 
                                             className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
                                             type="text" 
@@ -909,7 +960,7 @@ const RegistrationSystem = () => {
                                         value={currentMember.phoneNumber}
                                         onChange={(e) => setCurrentMember({...currentMember, phoneNumber: e.target.value})}
                                     />
-                                    <div className="grid grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-2 gap-6 mb-[4vh]">
                                         <div>
                                             <label className="block text-gray-500 text-xs tracking-widest uppercase mb-2">DATE OF BIRTH</label>
                                             <input 
@@ -919,7 +970,7 @@ const RegistrationSystem = () => {
                                                 onChange={(e) => setCurrentMember({...currentMember, dateOfBirth: e.target.value})}
                                             />
                                         </div>
-                                        <div className="relative mt-8 mb-4">
+                                        <div className="mt-7">
                                             <select
                                                 className="w-full bg-transparent border-b border-gray-600 py-[10px] px-1 text-white focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase appearance-none"
                                                 value={currentMember.tshirtSize}
@@ -1027,10 +1078,15 @@ if (teamStep === 2) {
                     {renderStepIndicator(3, 5)}
                     <div className="flex-1 flex flex-col justify-between">
                         <div>
-                            <h2 className="text-3xl font-light text-white mb-8 tracking-wide">WAIVERS<br/>& FORMS</h2>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>WAIVERS<br/>& FORMS</h2>
                             <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">
                                 For competitors under the age of 18, all competitors must have a parent/guardian sign and upload to the following{' '}
-                                <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors while participating in TXDC. Custodial responsibility will remain with chaperones.
+                                <a href="#" className="text-blue-400 underline">chaperone form</a>. In accordance to University policy, the Texas Diabolo Association will not take custodial responsibility of minors participating in TXDC. Custodial responsibility will remain with chaperones.
                             </p>
                             
                             <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-8 text-center">
@@ -1083,7 +1139,7 @@ if (teamStep === 2) {
                                     checked={teamAgreedToTerms}
                                     onChange={(e) => setTeamAgreedToTerms(e.target.checked)}
                                 />
-                                <span className="text-white text-base leading-relaxed font-light">
+                                <span className="text-white text-sm leading-relaxed font-light">
                                     I consent and acknowledge that a parents/guardian along with my team and guests have read and agreed to these{' '}
                                     <a href="#" className="text-blue-400 underline">photo release</a> and{' '}
                                     <a href="#" className="text-blue-400 underline">injury and liability forms</a>.
@@ -1132,7 +1188,12 @@ if (teamStep === 2) {
                 {renderStepIndicator(3, 5)}
                 <div className="flex-1 flex flex-col justify-between">
                     <div>
-                        <h2 className="text-3xl font-light text-white mb-12 tracking-wide">WAIVERS<br/>& FORMS</h2>
+                        <h2 className="text-white mb-[4vh] tracking-wide"
+                        style={{
+                            fontFamily: "unbounded",
+                            fontWeight: '300',
+                            fontSize: "clamp(22px, 2vw, 24px)",
+                        }}>WAIVERS<br/>& FORMS</h2>
                         <label className="flex items-start gap-4 cursor-pointer mb-8">
                             <input 
                                 type="checkbox"
@@ -1186,7 +1247,12 @@ if (teamStep === 2) {
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-8 shadow-2xl flex flex-col">
                         {renderStepIndicator(4, 5)}
                         <div className="flex-1 flex flex-col justify-between">
-                            <h2 className="text-3xl font-light text-white mb-12 tracking-wide">EMERGENCY CONTACT<br/>INFORMATION</h2>
+                            <h2 className="text-white mb-[4vh] tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>EMERGENCY CONTACT<br/>INFORMATION</h2>
                             <div className="space-y-8 flex-1">
                                 <input 
                                     className="w-full bg-transparent border-b border-gray-600 py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors text-xs tracking-widest uppercase" 
@@ -1241,7 +1307,12 @@ if (teamStep === 2) {
                     <div className="w-full max-w-lg backdrop-blur-xs border border-gray-500 rounded-3xl p-12 shadow-2xl min-h-[600px] flex flex-col justify-between">
                         {renderStepIndicator(2, 2)}
                         <div className="text-left flex-1 flex flex-col justify-center">
-                            <h2 className="text-4xl font-light text-white mb-8 tracking-wide">See you in March!</h2>
+                            <h2 className="text-white mb-8 tracking-wide"
+                            style={{
+                                fontFamily: "unbounded",
+                                fontWeight: '300',
+                                fontSize: "clamp(22px, 2vw, 24px)",
+                            }}>See you in March!</h2>
                             <p className="text-white text-base leading-relaxed mb-6 font-light">
                                 Thank you for submitting your music for the 2026 Texas Diabolo Competition! We will review your music submission and send you a confirmation email once it has been approved.</p>
                             <p className="text-white text-base leading-relaxed font-light">
@@ -1265,7 +1336,15 @@ if (teamStep === 2) {
                     {renderStepIndicator(step, 2)}
                <div className="flex-1 flex flex-col justify-between">
                             <div>
-                                <h2 className="text-3xl font-light text-white mb-8 tracking-wide">MUSIC FILE<br/>SUBMISSION</h2>
+                                <h2 className="text-white mb-[4vh] tracking-wide"
+                                style={{
+                                    fontFamily: "unbounded",
+                                    fontWeight: '300',
+                                    fontSize: "clamp(22px, 2vw, 24px)",
+                                }}>MUSIC FILE<br/>SUBMISSION</h2>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-2 font-bold">
+                                    Please name your file "lastName_firstName_division."
+                                </p>  
                                 <p className="text-gray-400 text-sm leading-relaxed mb-8 font-light">
                                     The maximum performance time is 4 minutes for individual divisions and 5 minutes for teams. The minimum performance time is 2 minutes. Music chosen must be suitable for an audience of all ages. 
                                 </p>

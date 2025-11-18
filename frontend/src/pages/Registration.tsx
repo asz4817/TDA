@@ -16,7 +16,7 @@ const Registration = () => {
           <div className="absolute inset-0 bg-black opacity-50"></div>
     <div className="">
         <div className="w-[80%] grid md:grid-cols-2 mx-auto">      
-            <div className="space-y-4 z-50 md:py-30 pb-10">
+            <div className="space-y-4 z-50 md:py-[10vh] pb-[2vh]">
                 <h1 className="leading-1" 
                 style={{
                   fontFamily: 'roc-grotesk-compressed, sans-serif',
@@ -29,12 +29,23 @@ const Registration = () => {
                   TXDC 2026 
                   REGISTRATION
                   </h1>
-                <p className="" style={{
+                  <p className="" style={{
                   fontFamily: "unbounded",
+                  fontSize: "clamp(8px, 2vw, 12px)",
                   fontWeight: '300'
-                }}>When: March 14-15th, 2026</p>
+                }}>When: March 7-8<sup>TH</sup>, 2026</p>
                 <p className="" style={{
                   fontFamily: "unbounded",
+                  fontSize: "clamp(8px, 2vw, 12px)",
+                  fontWeight: '300'
+                }}>Divisions:
+                <br/>• Individual Open Stage Division
+                <br/>• Individual Regional Open Division
+                <br/>• Individual Regional Junior Division
+                <br/>• Team Open Stage Division</p>
+                <p className="" style={{
+                  fontFamily: "unbounded",
+                  fontSize: "clamp(8px, 2vw, 12px)",
                   fontWeight: '300'
                 }}>For any inquiries or assistance please contact us through our email.</p>
 
@@ -44,7 +55,7 @@ const Registration = () => {
                 </a>
             </div>
 
-            <div className="my-auto">
+            <div className="my-[8vh]">
                <RegistrationSystem />
             </div>
         </div>

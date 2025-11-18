@@ -1,4 +1,4 @@
-import union from "../assets/union.svg"
+import tower from "../assets/tower.jpg"
 
 const EventSchedule = () => {
   return (
@@ -31,7 +31,7 @@ const EventSchedule = () => {
                     fontSize: 'clamp(12px, 2vw, 16px)',
                     marginBottom: '12px'
                 }}>
-                This year's competition will be held at the Texas Union's Shirley Ballroom on the University of Texas at Austin campus.
+                This year's competition will be held at the University of Texas at Austin campus.
                 </p>
             {/* Day 0 */}
             <div className="pt-8 mb-5">
@@ -103,8 +103,8 @@ const EventSchedule = () => {
                     fontSize: '12px',
                     lineHeight: '1.2'
                   }}>
-                  <p className="text-gray-400 mb-1">Location: Texas Union Shirley Ballroom</p>
-                  <p className="text-gray-400 mb-3">Address: 2308 Whitis Ave, Austin, TX 78712</p>
+                  <p className="text-gray-400 mb-1">Location: TBD</p>
+                  <p className="text-gray-400 mb-3">Address: TBD</p>
                   <p>• Individual Regional Junior Division</p>
                   <p>• Team Open Stage Division</p>
                   <p>• Showcase</p>
@@ -143,8 +143,8 @@ const EventSchedule = () => {
                     fontSize: '12px',
                     lineHeight: '1.2'
                   }}>
-                  <p className="text-gray-400 mb-1">Location: Texas Union Shirley Ballroom</p>
-                  <p className="text-gray-400 mb-3">Address: 2308 Whitis Ave, Austin, TX 78712</p>
+                  <p className="text-gray-400 mb-1">Location: TBD</p>
+                  <p className="text-gray-400 mb-3">Address: TBD</p>
                   <p>• Individual Regional Open Division</p>
                   <p>• Individual Open Stage Division</p>
                   <p>• Award Ceremony & Showcase</p>
@@ -157,10 +157,10 @@ const EventSchedule = () => {
 
           {/* Right Column - Image */}
           <div className="my-auto col-span-4 pt-10 md:pt-0">
-            <div className="w-full">
+            <div className="h-[80vh] overflow-hidden">
               <img 
-                src={union}
-                alt="Texas Union Shirley Ballroom interior showing elegant ballroom with chandeliers and wooden floor"
+                src={tower}
+                alt="University of Texas at Austin Tower"
                 className="object-cover"
               />
             </div>
