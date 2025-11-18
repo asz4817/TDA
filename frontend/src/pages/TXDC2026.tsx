@@ -9,7 +9,7 @@ import '../App.css'
 import { useEffect, useState } from "react";
 
 const TXDC = () => {
-    const [scrolling, setScrolling] = useState(true);
+    const [, setScrolling] = useState(true);
     const [scrollTop, setScrollTop] = useState(0);
 
     const [scrollMax, setScrollMax] = useState(1000);
