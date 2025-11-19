@@ -232,7 +232,9 @@ const RegistrationSystem = () => {
 			chaperonefilename: chaperoneFileName,
 		};
 
-		const stripeTab = window.open("about:blank", "_blank");
+		const stripeTab = window.open(
+			"https://buy.stripe.com/dRm3cnbtZ9I55ob7oRaZi00"
+		);
 
 		if (!stripeTab) {
 			setResponseMessage(
@@ -254,8 +256,6 @@ const RegistrationSystem = () => {
 			if (res.ok) {
 				setIsSubmitted(true);
 				setStep(4);
-				stripeTab.location.href =
-					"https://buy.stripe.com/dRm3cnbtZ9I55ob7oRaZi00";
 			} else {
 				setResponseMessage(result.error || "Error submitting form");
 				stripeTab.close();
@@ -396,7 +396,9 @@ const RegistrationSystem = () => {
 			chaperonefiles: filesData,
 		};
 
-		const stripeTab = window.open("about:blank", "_blank");
+		const stripeTab = window.open(
+			"https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01"
+		);
 
 		if (!stripeTab) {
 			setResponseMessage(
@@ -418,8 +420,8 @@ const RegistrationSystem = () => {
 			if (res.ok) {
 				setIsSubmitted(true);
 				setTeamStep(4);
-				stripeTab.location.href =
-					"https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01";
+				// stripeTab.location.href =
+				// 	"https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01";
 				// window.open('https://buy.stripe.com/00w4gr7dJbQdg2P4cFaZi01', '_blank');
 			} else {
 				stripeTab.close();
