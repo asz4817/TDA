@@ -173,24 +173,6 @@ export default function Navbar() {
 					>
 						<ul className="text-right space-y-4">
 							<li>
-								<NavLink
-									to="/contactUs"
-									className={({ isActive }) =>
-										`transition hover:text-gray-400 duration-400 ${
-											isActive
-												? "font-semibold"
-												: "text-white"
-										} `
-									}
-									style={{
-										fontFamily: "unbounded",
-										fontSize: "14px",
-									}}
-								>
-									CONTACT US
-								</NavLink>
-							</li>
-							<li>
 								{" "}
 								<NavLink
 									to="/txdc2026"
@@ -207,6 +189,24 @@ export default function Navbar() {
 									}}
 								>
 									TXDC 2026
+								</NavLink>
+							</li>
+							<li>
+								<NavLink
+									to="/contactUs"
+									className={({ isActive }) =>
+										`transition hover:text-gray-400 duration-400 ${
+											isActive
+												? "font-semibold"
+												: "text-white"
+										} `
+									}
+									style={{
+										fontFamily: "unbounded",
+										fontSize: "14px",
+									}}
+								>
+									CONTACT US
 								</NavLink>
 							</li>
 						</ul>
