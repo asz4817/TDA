@@ -98,7 +98,7 @@ def add_to_mailout():
     db.mail_list.insert_one({'email':email, 'subscribed': True})
     return jsonify({"message": "Subscribed successfully!"}), 200
 
-@app.route('/upload_newsletter', methods=['POST'])
+@app.route('/upload_newsletter', methods=['POST', 'GET'])
 def upload_newsletter():
     '''Send newsletter out to recipients'''
     subject = request.form['subject']
