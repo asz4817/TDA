@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, redirect
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from pymongo import MongoClient
@@ -42,6 +42,18 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 @app.errorhandler(404)
 def catch_all(path):
     return app.send_static_file('index.html')
+
+
+VALID_USER = "A"
+VALID_PASS = "P"
+@app.route("/handleLogin", methods=['POST', 'GET'])
+def handleLogin():
+    '''handle Login'''
+    print("HI")
+    data = request.get_json()
+    if data["user"] == VALID_USER and data["password"] == VALID_PASS:
+        return jsonify({"success": True}), 200
+    return jsonify({"success": False}), 401
 
 
 @app.route('/contact', methods=['POST', 'GET'])
