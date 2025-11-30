@@ -12,3 +12,4 @@ class Config:
     MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER')
     ALLOWED_IPS = os.environ.get('ALLOWED_IPS', '127.0.0.1').split(',')
     MONGO_URI = os.environ.get('MONGO_URI')
+    MAILTRAP_API_TOKEN = os.environ.get('MAILTRAP_API_TOKEN')
