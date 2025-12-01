@@ -1,5 +1,6 @@
 from datetime import datetime
-from flask import Flask, jsonify, request, send_file, redirect
+from flask import Flask, jsonify, request, send_file
+import mailtrap as mt
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from pymongo import MongoClient
@@ -44,18 +45,6 @@ def catch_all(path):
     return app.send_static_file('index.html')
 
 
-VALID_USER = "A"
-VALID_PASS = "P"
-@app.route("/handleLogin", methods=['POST', 'GET'])
-def handleLogin():
-    '''handle Login'''
-    print("HI")
-    data = request.get_json()
-    if data["user"] == VALID_USER and data["password"] == VALID_PASS:
-        return jsonify({"success": True}), 200
-    return jsonify({"success": False}), 401
-
-
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
     '''backend for contact page'''
@@ -73,16 +62,19 @@ def contact():
             'Message': message
         })
 
-        msg = Message(f"Contact Us Page: Message from {name}",
-                       recipients=['texasdiabolo@gmail.com'])
-        msg.body = f"Name:  {name} \
-            \nEmail:  {email} \
-            \n\nMessage:\n{message}"
-        mail.send(msg)
 
+        mail = mt.Mail(
+        sender=mt.Address(email="hello@demomailtrap.co", name="Mailtrap Test"),
+        to=[mt.Address(email="texasdiabolo@gmail.com")],
+        subject=f"Contact Us Page: Message from {name}",
+        text=f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}",
+        category="Contact Form"
+        )
+        mt.MailtrapClient(token=app.config['MAILTRAP_API_TOKEN']).send(mail)
+       
     except Exception as e:
-        print(f"Failed: {str(e)}")
-        return jsonify({"message":  f"Failed: {str(e)}"}), 409
+        print(f"Failed to send email via Mailtrap: {e}")
+        return jsonify({"message": f"Failed to send email: {e}"}), 500
 
     return jsonify({"Message": "Message received!"}), 200
 
@@ -98,7 +90,7 @@ def add_to_mailout():
     db.mail_list.insert_one({'email':email, 'subscribed': True})
     return jsonify({"message": "Subscribed successfully!"}), 200
 
-@app.route('/upload_newsletter', methods=['POST', 'GET'])
+@app.route('/upload_newsletter', methods=['POST'])
 def upload_newsletter():
     '''Send newsletter out to recipients'''
     subject = request.form['subject']
@@ -309,3 +301,5 @@ def download_all_audios():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+

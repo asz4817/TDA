@@ -209,3 +209,5 @@ __marimo__/
 
 
 backend/winged-journey-477922-g3-e75aaa6657fb.json
+.vercel
+.env*.local
