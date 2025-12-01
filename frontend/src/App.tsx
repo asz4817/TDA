@@ -10,6 +10,8 @@ import ContactUs from "./pages/ContactUs";
 import TXDC from "./pages/TXDC2026";
 import Registration from "./pages/Registration";
 import DownloadForms from "./components/DownloadForms";
+import Login from "./pages/Login";
+import Mailout from "./pages/Mailout";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -19,6 +21,9 @@ const router = createBrowserRouter(
 			<Route path="/contactUs" element={<ContactUs />} />
 			<Route path="/txdc2026" element={<TXDC />} />
 			<Route path="/txdc2026/register" element={<Registration />} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/mailout" element={<Mailout />} />
+
 		</Route>
 	)
 );

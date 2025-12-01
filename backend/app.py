@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import Flask, jsonify, request, send_file
 import mailtrap as mt
 from flask_cors import CORS
-from flask_mail import Mail, Message
+from flask_mail import Mail
 from pymongo import MongoClient
 from config import Config
 import json
@@ -63,14 +63,14 @@ def contact():
         })
 
 
-        mail = mt.Mail(
-        sender=mt.Address(email="hello@demomailtrap.co", name="Mailtrap Test"),
+        email = mt.Mail(
+        sender=mt.Address(email="hello@texasdiaboloassociation.org", name="Contact Us TDA Form"),
         to=[mt.Address(email="texasdiabolo@gmail.com")],
         subject=f"Contact Us Page: Message from {name}",
         text=f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}",
         category="Contact Form"
         )
-        mt.MailtrapClient(token=app.config['MAILTRAP_API_TOKEN']).send(mail)
+        mt.MailtrapClient(token=app.config['MAILTRAP_API_TOKEN']).send(email)
        
     except Exception as e:
         print(f"Failed to send email via Mailtrap: {e}")
@@ -99,15 +99,35 @@ def upload_newsletter():
     recipients = [subscriber['email'] for subscriber in subscribers]
 
     try:
-        msg = Message(subject, recipients=recipients)
-        msg.body = body + "\n"
+        email = mt.Mail(
+            sender=mt.Address(email="hello@texasdiaboloassociation.org", name="Texas Diabolo Association"),
+            to=[mt.Address(email=email, name=email) for email in recipients],
+            # to=[Recipient(email=r) for r in recipients],
+            # to=[mt.Address(email="texasdiabolo@gmail.com")],
+            subject=subject,
+            text=body,
+            category="Newsletter"
+        )
+        # email = mt.Mail(
+        # sender=mt.Address(email="hello@demomailtrap.co", name="T Test"),
+        # to=[mt.Address(email="texasdiabolo@gmail.com")],
+        # subject=f"Contact Us Page: Message from {name}",
+        # text=f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}",
+        # category="Contact Form"
+        # )
 
         files = request.files.getlist('file')
-
         for file in files:
             if file:
-                msg.attach(file.filename, 'application/pdf', file.read(), disposition='inline')
-        mail.send(msg)
+                email.attachments.append({
+                    "filename": file.filename,
+                    "content": file.read(),
+                    "type": "application/pdf",
+                    "disposition": "inline"
+                })
+                # msg.attach(file.filename, 'application/pdf', file.read(), disposition='inline')
+
+        mt.MailtrapClient(token=app.config['NEWSLETTER_API']).send(email)
 
         db.delivered_newsletters.insert_one({
             'subject': subject,
@@ -301,6 +321,5 @@ def download_all_audios():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 
