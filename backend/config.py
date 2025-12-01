@@ -13,3 +13,4 @@ class Config:
     ALLOWED_IPS = os.environ.get('ALLOWED_IPS', '127.0.0.1').split(',')
     MONGO_URI = os.environ.get('MONGO_URI')
     MAILTRAP_API_TOKEN = os.environ.get('MAILTRAP_API_TOKEN')
+    NEWSLETTER_API = os.environ.get('NEWSLETTER_API')
