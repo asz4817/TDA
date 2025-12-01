@@ -99,6 +99,7 @@ def upload_newsletter():
     recipients = [subscriber['email'] for subscriber in subscribers]
 
     try:
+<<<<<<< HEAD
         files = request.files.getlist('file')
         attachments = []
         for file in files:
@@ -125,6 +126,36 @@ def upload_newsletter():
             attachments = attachments
         )
         
+=======
+        email = mt.Mail(
+            sender=mt.Address(email="hello@texasdiaboloassociation.org", name="Texas Diabolo Association"),
+            to=[mt.Address(email=email, name=email) for email in recipients],
+            # to=[Recipient(email=r) for r in recipients],
+            # to=[mt.Address(email="texasdiabolo@gmail.com")],
+            subject=subject,
+            text=body,
+            category="Newsletter"
+        )
+        # email = mt.Mail(
+        # sender=mt.Address(email="hello@demomailtrap.co", name="T Test"),
+        # to=[mt.Address(email="texasdiabolo@gmail.com")],
+        # subject=f"Contact Us Page: Message from {name}",
+        # text=f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}",
+        # category="Contact Form"
+        # )
+
+        files = request.files.getlist('file')
+        for file in files:
+            if file:
+                email.attachments.append({
+                    "filename": file.filename,
+                    "content": file.read(),
+                    "type": "application/pdf",
+                    "disposition": "inline"
+                })
+                # msg.attach(file.filename, 'application/pdf', file.read(), disposition='inline')
+
+>>>>>>> bd775bbcd4918eb8f239273bd8ec092f03a43c34
         mt.MailtrapClient(token=app.config['NEWSLETTER_API']).send(email)
 
         db.delivered_newsletters.insert_one({

@@ -129,12 +129,11 @@ export default function Navbar() {
 						alt="Line"
 						className="h-[50%] md:h-[3vw] mr-[-4px] md:mr-[0]"
 					/>
-					<img
-						className="hidden md:block"
+					<a href="/" className="hidden md:block"><img
 						src={profile}
 						alt="profile"
-						width={"11%"}
-					/>
+						width={"100%"}
+					/></a>
 					<Lottie
 						className="cursor-pointer w-[30px] md:hidden"
 						animationData={Menu}
