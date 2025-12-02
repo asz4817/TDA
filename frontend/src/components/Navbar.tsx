@@ -81,7 +81,7 @@ export default function Navbar() {
             className={({ isActive }) =>
               `transition hover:text-gray-300 ${
                 isActive ? "font-semibold" : "text-white"
-              }`
+              } hidden md:block`
             }
             style={{fontFamily: "unbounded",
               fontSize: "clamp(4px, 1vw, 12px)",             
