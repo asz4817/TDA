@@ -73,7 +73,7 @@ const TXDC = () => {
 										marginBottom: "6%",
 									}}
 								>
-									MARCH 7-8<sup>TH</sup>
+									MARCH 6-8<sup>TH</sup>
 								</p>
 								<div className="flex gap-4 items-center">
 									<NavLink

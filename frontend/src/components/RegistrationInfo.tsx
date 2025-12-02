@@ -1,3 +1,5 @@
+import Handbook from "../assets/Handbook.pdf"
+
 const Registration = () => {
 	return (
 		<div className="bg-black text-white py-10 md:py-20">
@@ -26,11 +28,14 @@ const Registration = () => {
 					For more information on competition rules, scoring criteria,
 					and additional information, please read our{" "}
 					<a
-						href="#"
+						href={Handbook}
+						target="_blank"
+						rel="noreferrer"
 						className="text-cyan-400 hover:text-cyan-300 transition-colors"
 					>
 						competition handbook
 					</a>
+
 					.
 				</p>
 

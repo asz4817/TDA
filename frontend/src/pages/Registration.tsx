@@ -73,7 +73,7 @@ const Registration = () => {
 										fontWeight: "300",
 									}}
 								>
-									When: March 7-8<sup>TH</sup>, 2026
+									When: March 6-8<sup>TH</sup>, 2026
 								</p>
 								<p
 									className=""
@@ -171,7 +171,7 @@ const Registration = () => {
 										fontWeight: "300",
 									}}
 								>
-									When: March 7-8<sup>TH</sup>, 2026
+									When: March 6-8<sup>TH</sup>, 2026
 								</p>
 								<p
 									className=""

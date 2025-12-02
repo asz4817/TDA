@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
+import PhotoRelease from "../assets/2026 TDA Photo Release Form.pdf";
+import InjuryRelease from "../assets/2026 TDA Injury and Liability Release Form.pdf";
+import Chaperone from "../assets/Chaperone-Permission-Form-Final.pdf";
 
 const RegistrationSystem = () => {
 	// Navigation state
@@ -1008,14 +1011,18 @@ const RegistrationSystem = () => {
 										I consent and acknowledge that me and my
 										guests have read and agree to these{" "}
 										<a
-											href="#"
+											href={PhotoRelease}
+											target="_blank"
+											rel="noreferrer"
 											className="text-blue-400 underline"
 										>
 											photo release
 										</a>{" "}
 										and{" "}
 										<a
-											href="#"
+											href={InjuryRelease}
+											target="_blank"
+											rel="noreferrer"
 											className="text-blue-400 underline"
 										>
 											injury and liability forms
@@ -1094,7 +1101,9 @@ const RegistrationSystem = () => {
 									competitors must have a parent/guardian sign
 									and upload to the following{" "}
 									<a
-										href="#"
+										href={Chaperone}
+										target="_blank"
+										rel="noreferrer"
 										className="text-blue-400 underline"
 									>
 										chaperone form
@@ -1169,14 +1178,18 @@ const RegistrationSystem = () => {
 										parents/guardian along with my guests
 										have read and agreed to these{" "}
 										<a
-											href="#"
+											href={PhotoRelease}
+											target="_blank"
+											rel="noreferrer"
 											className="text-blue-400 underline"
 										>
 											photo release
 										</a>{" "}
 										and{" "}
 										<a
-											href="#"
+											href={InjuryRelease}
+											target="_blank"
+											rel="noreferrer"
 											className="text-blue-400 underline"
 										>
 											injury and liability forms
@@ -1766,7 +1779,9 @@ const RegistrationSystem = () => {
 										competitors must have a parent/guardian
 										sign and upload to the following{" "}
 										<a
-											href="#"
+											href={Chaperone}
+											target="_blank"
+											rel="noreferrer"
 											className="text-blue-400 underline"
 										>
 											chaperone form
@@ -1885,14 +1900,18 @@ const RegistrationSystem = () => {
 											and guests have read and agreed to
 											these{" "}
 											<a
-												href="#"
+												href={PhotoRelease}
+												target="_blank"
+												rel="noreferrer"
 												className="text-blue-400 underline"
 											>
 												photo release
 											</a>{" "}
 											and{" "}
 											<a
-												href="#"
+												href={InjuryRelease}
+												target="_blank"
+												rel="noreferrer"
 												className="text-blue-400 underline"
 											>
 												injury and liability forms
@@ -2005,14 +2024,18 @@ const RegistrationSystem = () => {
 										I consent and acknowledge that my team
 										and guests have read and agreed to these{" "}
 										<a
-											href="#"
+											href={PhotoRelease}
+											target="_blank"
+											rel="noreferrer"
 											className="text-blue-400 underline"
 										>
 											photo release
 										</a>{" "}
 										and{" "}
 										<a
-											href="#"
+											href={InjuryRelease}
+											target="_blank"
+											rel="noreferrer"
 											className="text-blue-400 underline"
 										>
 											injury and liability forms
