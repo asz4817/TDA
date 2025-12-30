@@ -97,7 +97,7 @@ const TXDC = () => {
 											fontSize: "11px",
 										}}
 									>
-										Registration deadline: December 31
+										Registration deadline: January 31
 										<sup>ST</sup>, 2025 11:59pm CST
 									</h1>
 								</div>
@@ -201,7 +201,7 @@ const TXDC = () => {
 											fontSize: "8px",
 										}}
 									>
-										Registration deadline: December 31
+										Registration deadline: January 31
 										<sup>ST</sup>, 2025 11:59pm CST
 									</h1>
 								</div>

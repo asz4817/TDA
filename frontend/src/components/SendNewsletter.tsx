@@ -1,13 +1,48 @@
 import { useState, useEffect, useRef} from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const SendNewsletter = () => {
-
     const [subject, setSubject] = useState('');
     const [body, setBody] = useState('');
     const [files, setFiles] = useState<FileList | null>(null);
     const [responseMessage, setResponseMessage] = useState('');
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [isAuthed, setIsAuthed] = useState<boolean | null>(null);
+
+
+    const navigate = useNavigate();
+
+  // 1) Auth check – always runs
+  useEffect(() => {
+
+    const checkAuth = async () => {
+      try {
+        const res = await fetch("/protected_data", {
+  method: "GET",
+  credentials: "include",  
+});
+
+        console.log("protected_data status:", res.status);
+
+        if (res.status === 401) {
+          setIsAuthed(false);
+          navigate("/login");
+        } else if (res.ok) {
+          setIsAuthed(true);
+        } else {
+          setIsAuthed(false);
+          navigate("/login");
+        }
+      } catch (err) {
+        console.error("protected_data error", err);
+        setIsAuthed(false);
+        navigate("/login");
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
 
 
      useEffect(() => {
@@ -35,6 +70,7 @@ const SendNewsletter = () => {
         try {
             const res = await fetch('/upload_newsletter', {
             method: 'POST',
+            credentials: "include",
             body: formData,
             });
 
@@ -53,6 +89,14 @@ const SendNewsletter = () => {
             setResponseMessage(`Error Submitting form: ${err}`);
         }
     }
+          if (isAuthed === null) {
+    return <div className="text-center mt-8">Checking authorization...</div>;
+  }
+
+  if (!isAuthed) {
+    // navigate() already ran; you can also show a message here
+    return null;
+  }
 
 
   return (
@@ -98,11 +142,7 @@ const SendNewsletter = () => {
         </form>
     </div>
     <div id="response"></div>
-
-
-
-      
-    </>
+  </>
   )
 }
 

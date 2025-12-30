@@ -64,7 +64,7 @@ const Registration = () => {
 							}}
 						>
 							<p className="text-sm">
-								• Registration Due: 11:59 PM CST on December 31
+								• Registration Due: 11:59 PM CST on January 31
 								<sup>ST</sup>, 2025
 							</p>
 							<p className="text-sm">

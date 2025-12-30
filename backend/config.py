@@ -14,3 +14,4 @@ class Config:
     MONGO_URI = os.environ.get('MONGO_URI')
     MAILTRAP_API_TOKEN = os.environ.get('MAILTRAP_API_TOKEN')
     NEWSLETTER_API = os.environ.get('NEWSLETTER_API')
+    PASSWORD = os.environ.get('PASSWORD')

@@ -129,7 +129,7 @@ export default function Navbar() {
 						alt="Line"
 						className="h-[50%] md:h-[3vw] mr-[-4px] md:mr-[0]"
 					/>
-					<a href="/" className="hidden md:block"><img
+					<a href="/login" className="hidden md:block"><img
 						src={profile}
 						alt="profile"
 						width={"100%"}

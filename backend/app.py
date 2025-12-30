@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, session
 import mailtrap as mt
 from flask_cors import CORS
 from flask_mail import Mail
@@ -16,34 +16,49 @@ import io
 
 app = Flask(__name__, static_folder="../frontend/dist", static_url_path="/")
 app.config.from_object(Config)
-cors = CORS(app, origins='*')
+cors = CORS(app, origins=["http://localhost:5173", "https://texasdiaboloassociation.org/"], supports_credentials=True)
 
 client = MongoClient(app.config['MONGO_URI'])
 db = client.get_database('TDA')
 mail = Mail(app)
 
+# Configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
 CHAPERONE_FOLDER = os.path.join(BASE_DIR, "chaperone_forms")
 MUSIC_FOLDER = os.path.join(BASE_DIR, "music_files")
-
 os.makedirs(CHAPERONE_FOLDER, exist_ok=True)
 os.makedirs(MUSIC_FOLDER, exist_ok=True)
-
 app.config["CHAPERONE_FOLDER"] = CHAPERONE_FOLDER
 app.config["MUSIC_FOLDER"] = MUSIC_FOLDER
-
-# Configuration
 REGISTRATIONS_FILE = 'registrations.json'
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx'}
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-@app.errorhandler(404)
-def catch_all(path):
-    return app.send_static_file('index.html')
+#Sessions
+app.secret_key = "dev-secret-key"
 
+@app.route("/logout", methods=["POST"])
+def logout():
+    session.clear()
+    return jsonify({"success": True})
+
+VALID_USER = "TDA"
+VALID_PASS = app.config['PASSWORD']
+@app.route("/handleLogin", methods=['POST'])
+def handleLogin():
+    '''handle Login'''
+    data = request.get_json()
+    if data["user"] == VALID_USER and data["password"] == VALID_PASS:
+        session["logged_in"] = True
+        return jsonify({"success": True}), 200
+    return jsonify({"success": False}), 401
+
+
+@app.route("/protected_data", methods= ["POST", "GET"])
+def protected_data():
+    if not session.get("logged_in"):
+        return jsonify({"ok": False}), 401
+    return jsonify({"ok": True}), 200
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
@@ -141,7 +156,7 @@ def upload_newsletter():
 
 
 
-@app.route('/download/all_chaperones')
+@app.route('/download_all_chaperones')
 def download_all_chaperones():
     folder = app.config['CHAPERONE_FOLDER']
     
@@ -316,6 +331,12 @@ def download_all_audios():
                 zf.write(file_path, arcname=filename)
     memory_file.seek(0)
     return send_file(memory_file, as_attachment=True, download_name="all_audios.zip")
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+@app.errorhandler(404)
+def catch_all(path):
+    return app.send_static_file('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
