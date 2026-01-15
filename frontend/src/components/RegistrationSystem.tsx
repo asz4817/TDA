@@ -1089,7 +1089,7 @@ const RegistrationSystem = () => {
 									<br />& FORMS
 								</h2>
 								<p
-									className="text-gray-400 text-sm leading-relaxed mb-6 font-light"
+									className="text-gray-400 text-sm leading-relaxed font-light"
 									style={{
 										fontFamily: "unbounded",
 										fontWeight: "300",
@@ -1114,6 +1114,19 @@ const RegistrationSystem = () => {
 									participating in TXDC. Custodial
 									responsibility will remain with chaperones.
 								</p>
+								<ul className="list-disc pl-6 text-gray-400 mb-2"
+								style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+									}}>
+										<li>Only minors accompanied by a parent, guardian, or adult chaperone will be allowed to participate.</li>
+										<li>A parent, guardian, or adult chaperone must remain on-site for the whole duration of the event.</li>
+										<li>Dropping off minors without an accompanying adult is not permitted.</li>
+										<li>Minors who arrive unaccompanied will not be allowed to participate.</li>
+										<li>18-year-old high school students are still considered minors under this policy and must also be accompanied.</li>
+									</ul>
 								<div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-6 text-center cursor-pointer hover:border-gray-500 transition-colors">
 									<input
 										type="file"
@@ -1793,6 +1806,19 @@ const RegistrationSystem = () => {
 										responsibility will remain with
 										chaperones.
 									</p>
+									<ul className="list-disc pl-6 text-gray-400 mb-2"
+								style={{
+										fontFamily: "unbounded",
+										fontWeight: "300",
+										fontSize:
+											"clamp(0.5625rem, 0rem + 1vw, 0.75rem)",
+									}}>
+										<li>Only minors accompanied by a parent, guardian, or adult chaperone will be allowed to participate.</li>
+										<li>A parent, guardian, or adult chaperone must remain on-site for the whole duration of the event.</li>
+										<li>Dropping off minors without an accompanying adult is not permitted.</li>
+										<li>Minors who arrive unaccompanied will not be allowed to participate.</li>
+										<li>18-year-old high school students are still considered minors under this policy and must also be accompanied.</li>
+									</ul>
 
 									<div className="border-2 border-dashed border-gray-600 rounded-lg p-12 mb-8 text-center">
 										<input
