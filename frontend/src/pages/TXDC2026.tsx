@@ -84,7 +84,7 @@ const TXDC = () => {
 											fontSize: "11px",
 										}}
 									>
-										REGISTER NOW{" "}
+										SUBMIT MUSIC HERE{" "}
 										<img
 											src={arrow}
 											className="w-5 h-5"
@@ -97,8 +97,7 @@ const TXDC = () => {
 											fontSize: "11px",
 										}}
 									>
-										Registration deadline: January 31
-										<sup>ST</sup>, 2025 11:59pm CST
+										Registration has closed.
 									</h1>
 								</div>
 							</div>
@@ -188,7 +187,7 @@ const TXDC = () => {
 											fontSize: "11px",
 										}}
 									>
-										REGISTER NOW{" "}
+										SUBMIT MUSIC HERE{" "}
 										<img
 											src={arrow}
 											className="w-5 h-5"
@@ -201,8 +200,7 @@ const TXDC = () => {
 											fontSize: "8px",
 										}}
 									>
-										Registration deadline: January 31
-										<sup>ST</sup>, 2025 11:59pm CST
+										Registration has closed.
 									</h1>
 								</div>
 							</div>
