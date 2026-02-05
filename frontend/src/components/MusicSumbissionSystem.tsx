@@ -267,24 +267,6 @@ const MusicSubmissionSystem = () => {
 						<div>
 							<div className="flex items-center justify-between">
 								<button
-									className="w-8 h-8 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-400 flex items-center justify-center cursor-pointer"
-									onClick={() => setCurrentView("home")}
-								>
-									<svg
-										className="w-5 h-5"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M15 19l-7-7 7-7"
-										/>
-									</svg>
-								</button>
-								<button
 									className="flex-1 ml-6 mx-4 bg-transparent border-2 border-white text-white py-4 hover:bg-white hover:text-black transition-all duration-400 font-normal tracking-widest text-sm cursor-pointer"
 									onClick={submitMusicFile}
 									style={{
