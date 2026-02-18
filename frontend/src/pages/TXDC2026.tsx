@@ -8,6 +8,7 @@ import arrow from "../assets/arrow-up-right.svg";
 import "../App.css";
 import { useEffect, useState } from "react";
 import Competitors from "../components/Competitors";
+import Travel from "../components/Travel";
 
 const TXDC = () => {
     const [, setScrolling] = useState(true);
@@ -111,6 +112,7 @@ const TXDC = () => {
 					<RegistrationInfo />
 					<EventSchedule />
 					<Competitors/> 
+					<Travel/>
 				</div>
 			</div>
 			<div className="block md:hidden">
@@ -215,6 +217,7 @@ const TXDC = () => {
 						<RegistrationInfo />
 						<EventSchedule />
 						<Competitors/> 
+						<Travel/>
 					</div>
 				</div>
 			</div>
