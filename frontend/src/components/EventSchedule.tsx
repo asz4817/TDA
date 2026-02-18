@@ -78,8 +78,12 @@ const EventSchedule = () => {
 									<p className="text-gray-400 mb-3">
 										Address: 2101 Speedway, Austin, TX 78712
 									</p>
-									<p>• Workshop</p>
-									<p>• Minigames</p>
+									<p> 1:00 - 4:00PM: Workshops</p>
+									<p>   • 1D, 2D, 3D, Team Tricks, & K-Pop Dance!</p>
+									<p>4:00 - 6:00 PM: Minigames</p>
+									<p>6:00 - 8:00 PM: Night Flow Session </p>
+									<p>  • Bring your own lights or borrow some that we’ll have!</p>
+									<b>8:00 PM: TDA Team Showcase</b>
 								</div>
 							</div>
 						</div>
@@ -122,14 +126,17 @@ const EventSchedule = () => {
 									}}
 								>
 									<p className="text-gray-400 mb-1">
-										Location: TBD
+										Location: 12:00 - 6:00 Greg Plaza | 6:00 - 9:00 W.C.P. Ballroom
 									</p>
 									<p className="text-gray-400 mb-3">
-										Address: TBD
+										Address: 2101 Speedway, Austin, TX 78712 [Greg Plaza], 2201 Speedway, Austin, TX 78712 [W.C.P. Ballroom]
 									</p>
-									<p>• Individual Regional Junior Division</p>
+									<p>12:00 - 2:00 PM: Check In & Mini-Games</p>
+									<p>2:00 - 4:00 PM: Battle</p>
+									<p>4:00 - 6:00 PM: Break and Move to W.C.P Ballroom</p>
+									<p>6:00 - 9:00 PM: Competition  </p>
+									<p>• Under 18 Regional Division</p>
 									<p>• Team Open Stage Division</p>
-									<p>• Showcase</p>
 								</div>
 							</div>
 						</div>
@@ -172,14 +179,16 @@ const EventSchedule = () => {
 									}}
 								>
 									<p className="text-gray-400 mb-1">
-										Location: TBD
+										Location: WCP Ballroom
 									</p>
 									<p className="text-gray-400 mb-3">
-										Address: TBD
+										Address: 2201 Speedway, Austin, TX 78712
 									</p>
-									<p>• Individual Regional Open Division</p>
-									<p>• Individual Open Stage Division</p>
-									<p>• Award Ceremony & Showcase</p>
+									<p>12:30 - 4:30 PM: Competition</p>
+									<p> • Regional Open Division</p>
+									<p> • National Open Stage Division</p>
+									<p>4:30 - 5:00 PM: Award Ceremony</p>
+									<p>6:00 - 7:00 PM: Judge Showcase  </p>
 								</div>
 							</div>
 						</div>

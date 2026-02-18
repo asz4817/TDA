@@ -7,6 +7,7 @@ import HomeBg from "../assets/testtxdcbanner3.png";
 import arrow from "../assets/arrow-up-right.svg";
 import "../App.css";
 import { useEffect, useState } from "react";
+import Competitors from "../components/Competitors";
 
 const TXDC = () => {
     const [, setScrolling] = useState(true);
@@ -109,6 +110,7 @@ const TXDC = () => {
 				<div className="mx-auto w-[75vw]">
 					<RegistrationInfo />
 					<EventSchedule />
+					<Competitors/> 
 				</div>
 			</div>
 			<div className="block md:hidden">
@@ -212,6 +214,7 @@ const TXDC = () => {
 					<div className="mx-auto w-[75vw]">
 						<RegistrationInfo />
 						<EventSchedule />
+						<Competitors/> 
 					</div>
 				</div>
 			</div>
