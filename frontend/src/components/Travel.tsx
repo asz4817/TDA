@@ -21,7 +21,7 @@ const Travel = () => {
 						fontSize: "clamp(60px, 10vw, 80px)",
 					}}
 				>
-								TRAVEL & TXDC 2026
+								TRAVEL @ TXDC 2026
 							</h1>
 
 							
