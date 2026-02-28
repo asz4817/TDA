@@ -43,10 +43,10 @@ const Competitors = () => {
 							}}
 						>
 							<li>• Evelyn Chen</li>
+							<li>• Calvin B</li>
 							<li>• Jocelyn Yu</li>
 							<li>• Christian Nguyen</li>
 							<li>• Justin Lai</li>
-							<li>• Calvin B</li>
 							<li>• Eric Chen</li>
 							<li>• Charles Tang</li>
 							<li>• Elston Su</li>
@@ -161,7 +161,7 @@ const Competitors = () => {
 								fontWeight: 300,
 							}}
 						>
-							<li>• GT_Dragonflyers</li>
+							<li>• String Ops</li>
 							<li>• GBCCA Diabolo</li>
 							<li>• Strawberry Matcha</li>
 							<li>• Who Won TXDC Last Year?</li>
