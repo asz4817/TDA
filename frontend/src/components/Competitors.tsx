@@ -75,7 +75,6 @@ const Competitors = () => {
 								fontWeight: 300,
 							}}
 						>
-							<li>• Luke Chandler</li>
 							<li>• Kate Sur</li>
 							<li>• Jeremy Sheng</li>
 							<li>• Maximus Chen</li>
