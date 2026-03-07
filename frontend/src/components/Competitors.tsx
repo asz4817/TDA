@@ -165,7 +165,6 @@ const Competitors = () => {
 							<li>• Strawberry Matcha</li>
 							<li>• Who Won TXDC Last Year?</li>
 							<li>• Rice Spice</li>
-							<li>• Golden Girls</li>
 							<li>• 2 Brain Cells</li>
 							<li>• Apex Nova</li>
 						</ul>
